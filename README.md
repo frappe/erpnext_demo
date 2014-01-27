@@ -1,7 +1,6 @@
-
     webnotes {site} --reinstall
     webnotes {site} --install_app erpnext
-    webnotes {site} --install_app erpnext-demo
+    webnotes {site} --install_app erpnext-demo --verbose
 
 - Creates a fresh db
 - Installs erpnext
