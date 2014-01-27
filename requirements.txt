@@ -1,1 +1,3 @@
 webnotes
+erpnext
+shopping-cart
