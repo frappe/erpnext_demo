@@ -96,6 +96,7 @@ def run_accounts(current_date):
 		for so in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Sales Invoice")]:
 			si = webnotes.bean(make_sales_invoice(so))
 			si.doc.posting_date = current_date
+			si.doc.fiscal_year = cstr(current_date.year)
 			for d in si.doclist.get({"parentfield": "entries"}):
 				if not d.income_account:
 					d.income_account = "Sales - {}".format(company_abbr)
@@ -109,6 +110,7 @@ def run_accounts(current_date):
 		for pr in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Purchase Invoice")]:
 			pi = webnotes.bean(make_purchase_invoice(pr))
 			pi.doc.posting_date = current_date
+			pi.doc.fiscal_year = cstr(current_date.year)
 			pi.doc.bill_no = random_string(6)
 			pi.insert()
 			pi.submit()
@@ -122,6 +124,7 @@ def run_accounts(current_date):
 			jv.doc.posting_date = current_date
 			jv.doc.cheque_no = random_string(6)
 			jv.doc.cheque_date = current_date
+			jv.doc.fiscal_year = cstr(current_date.year)
 			jv.insert()
 			jv.submit()
 			webnotes.conn.commit()
@@ -134,6 +137,7 @@ def run_accounts(current_date):
 			jv.doc.posting_date = current_date
 			jv.doc.cheque_no = random_string(6)
 			jv.doc.cheque_date = current_date
+			jv.doc.fiscal_year = cstr(current_date.year)
 			jv.insert()
 			jv.submit()
 			webnotes.conn.commit()
@@ -324,6 +328,7 @@ def make_sales_order(current_date):
 		so = webnotes.bean(make_sales_order(q))
 		so.doc.transaction_date = current_date
 		so.doc.delivery_date = webnotes.utils.add_days(current_date, 10)
+		so.doc.fiscal_year = cstr(current_date.year)
 		so.insert()
 		webnotes.conn.commit()
 		so.submit()
