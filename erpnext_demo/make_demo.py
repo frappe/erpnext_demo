@@ -38,6 +38,7 @@ def make():
 def setup():
 	complete_setup()
 	make_customers_suppliers_contacts()
+	show_item_groups_in_website()
 	make_items()
 	make_price_lists()
 	make_users_and_employees()
@@ -394,6 +395,13 @@ def complete_setup():
 	})
 
 	import_data("Fiscal_Year")
+	
+def show_item_groups_in_website():
+	"""set show_in_website=1 for Item Groups"""
+	for name in webnotes.conn.sql_list("""select name from `tabItem Group` order by lft"""):
+		item_group = webnotes.bean("Item Group", name)
+		item_group.doc.show_in_website = 1
+		item_group.save()
 	
 def make_items():
 	import_data("Item")
