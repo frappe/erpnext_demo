@@ -1,10 +1,8 @@
-$(document).ready(function() {
-    $(".navbar, footer, .banner, #user-tools").toggle(false);
-    
+$(document).ready(function() {    
     $("#login_btn").click(function() {
         var me = this;
         $(this).html("Logging In...").prop("disabled", true);
-        wn.call({
+        frappe.call({
             "method": "login",
             args: {
                 usr: "demo@erpnext.com",

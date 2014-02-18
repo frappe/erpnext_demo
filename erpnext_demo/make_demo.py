@@ -1,14 +1,14 @@
 # Copyright (c) 2013, Web Notes Technologies Pvt. Ltd. and Contributors
 # License: GNU General Public License v3. See license.txt
 
-import webnotes, os, datetime
-import webnotes.utils
-from webnotes.utils import random_string, cstr
-from webnotes.widgets import query_report
+import frappe, os, datetime
+import frappe.utils
+from frappe.utils import random_string, cstr
+from frappe.widgets import query_report
 import random
 import json
 
-from webnotes.core.page.data_import_tool.data_import_tool import upload
+from frappe.core.page.data_import_tool.data_import_tool import upload
 
 # fix price list
 # fix fiscal year
@@ -29,15 +29,16 @@ prob = {
 }
 
 def make():
-	#webnotes.flags.print_messages = True
-	webnotes.flags.mute_emails = True
-	webnotes.flags.rollback_on_exception = True	
+	#frappe.flags.print_messages = True
+	frappe.flags.mute_emails = True
+	frappe.flags.rollback_on_exception = True	
 	setup()
 	_simulate()
 		
 def setup():
 	complete_setup()
 	make_customers_suppliers_contacts()
+	show_item_groups_in_website()
 	make_items()
 	make_price_lists()
 	make_users_and_employees()
@@ -50,26 +51,26 @@ def _simulate():
 
 	if not start_date:
 		# start date = 100 days back
-		start_date = webnotes.utils.add_days(webnotes.utils.nowdate(), -1 * (runs_for or 100))
+		start_date = frappe.utils.add_days(frappe.utils.nowdate(), -1 * (runs_for or 100))
 		
-	current_date = webnotes.utils.getdate(start_date)
+	current_date = frappe.utils.getdate(start_date)
 	
 	# continue?
-	last_posting = webnotes.conn.sql("""select max(posting_date) from `tabStock Ledger Entry`""")
+	last_posting = frappe.conn.sql("""select max(posting_date) from `tabStock Ledger Entry`""")
 	if last_posting[0][0]:
-		current_date = webnotes.utils.add_days(last_posting[0][0], 1)
+		current_date = frappe.utils.add_days(last_posting[0][0], 1)
 
 	# run till today
 	if not runs_for:
-		runs_for = webnotes.utils.date_diff(webnotes.utils.nowdate(), current_date)
+		runs_for = frappe.utils.date_diff(frappe.utils.nowdate(), current_date)
 		# runs_for = 100
 	
 	for i in xrange(runs_for):		
 		print current_date.strftime("%Y-%m-%d")
-		webnotes.local.current_date = current_date
+		frappe.local.current_date = current_date
 		
 		if current_date.weekday() in (5, 6):
-			current_date = webnotes.utils.add_days(current_date, 1)
+			current_date = frappe.utils.add_days(current_date, 1)
 			continue
 
 		run_sales(current_date)
@@ -78,7 +79,7 @@ def _simulate():
 		run_stock(current_date)
 		run_accounts(current_date)
 
-		current_date = webnotes.utils.add_days(current_date, 1)
+		current_date = frappe.utils.add_days(current_date, 1)
 		
 def run_sales(current_date):
 	if can_make("Quotation"):
@@ -94,49 +95,53 @@ def run_accounts(current_date):
 		from erpnext.selling.doctype.sales_order.sales_order import make_sales_invoice
 		report = "Ordered Items to be Billed"
 		for so in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Sales Invoice")]:
-			si = webnotes.bean(make_sales_invoice(so))
+			si = frappe.bean(make_sales_invoice(so))
 			si.doc.posting_date = current_date
+			si.doc.fiscal_year = cstr(current_date.year)
 			for d in si.doclist.get({"parentfield": "entries"}):
 				if not d.income_account:
 					d.income_account = "Sales - {}".format(company_abbr)
 			si.insert()
 			si.submit()
-			webnotes.conn.commit()
+			frappe.conn.commit()
 
 	if can_make("Purchase Invoice"):
 		from erpnext.stock.doctype.purchase_receipt.purchase_receipt import make_purchase_invoice
 		report = "Received Items to be Billed"
 		for pr in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Purchase Invoice")]:
-			pi = webnotes.bean(make_purchase_invoice(pr))
+			pi = frappe.bean(make_purchase_invoice(pr))
 			pi.doc.posting_date = current_date
+			pi.doc.fiscal_year = cstr(current_date.year)
 			pi.doc.bill_no = random_string(6)
 			pi.insert()
 			pi.submit()
-			webnotes.conn.commit()
+			frappe.conn.commit()
 			
 	if can_make("Payment Received"):
 		from erpnext.accounts.doctype.journal_voucher.journal_voucher import get_payment_entry_from_sales_invoice
 		report = "Accounts Receivable"
 		for si in list(set([r[4] for r in query_report.run(report, {"report_date": current_date })["result"] if r[3]=="Sales Invoice"]))[:how_many("Payment Received")]:
-			jv = webnotes.bean(get_payment_entry_from_sales_invoice(si))
+			jv = frappe.bean(get_payment_entry_from_sales_invoice(si))
 			jv.doc.posting_date = current_date
 			jv.doc.cheque_no = random_string(6)
 			jv.doc.cheque_date = current_date
+			jv.doc.fiscal_year = cstr(current_date.year)
 			jv.insert()
 			jv.submit()
-			webnotes.conn.commit()
+			frappe.conn.commit()
 			
 	if can_make("Payment Made"):
 		from erpnext.accounts.doctype.journal_voucher.journal_voucher import get_payment_entry_from_purchase_invoice
 		report = "Accounts Payable"
 		for pi in list(set([r[4] for r in query_report.run(report, {"report_date": current_date })["result"] if r[3]=="Purchase Invoice"]))[:how_many("Payment Made")]:
-			jv = webnotes.bean(get_payment_entry_from_purchase_invoice(pi))
+			jv = frappe.bean(get_payment_entry_from_purchase_invoice(pi))
 			jv.doc.posting_date = current_date
 			jv.doc.cheque_no = random_string(6)
 			jv.doc.cheque_date = current_date
+			jv.doc.fiscal_year = cstr(current_date.year)
 			jv.insert()
 			jv.submit()
-			webnotes.conn.commit()
+			frappe.conn.commit()
 
 def run_stock(current_date):
 	# make purchase requests
@@ -145,13 +150,13 @@ def run_stock(current_date):
 		from erpnext.stock.stock_ledger import NegativeStockError
 		report = "Purchase Order Items To Be Received"
 		for po in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Purchase Receipt")]:
-			pr = webnotes.bean(make_purchase_receipt(po))
+			pr = frappe.bean(make_purchase_receipt(po))
 			pr.doc.posting_date = current_date
 			pr.doc.fiscal_year = cstr(current_date.year)
 			pr.insert()
 			try:
 				pr.submit()
-				webnotes.conn.commit()
+				frappe.conn.commit()
 			except NegativeStockError: pass
 	
 	# make delivery notes (if possible)
@@ -161,7 +166,7 @@ def run_stock(current_date):
 		from erpnext.stock.doctype.serial_no.serial_no import SerialNoRequiredError, SerialNoQtyError
 		report = "Ordered Items To Be Delivered"
 		for so in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Delivery Note")]:
-			dn = webnotes.bean(make_delivery_note(so))
+			dn = frappe.bean(make_delivery_note(so))
 			dn.doc.posting_date = current_date
 			dn.doc.fiscal_year = cstr(current_date.year)
 			for d in dn.doclist.get({"parentfield": "delivery_note_details"}):
@@ -171,30 +176,30 @@ def run_stock(current_date):
 			dn.insert()
 			try:
 				dn.submit()
-				webnotes.conn.commit()
+				frappe.conn.commit()
 			except NegativeStockError: pass
 			except SerialNoRequiredError: pass
 			except SerialNoQtyError: pass
 	
 	# try submitting existing
-	for dn in webnotes.conn.get_values("Delivery Note", {"docstatus": 0}, "name"):
-		b = webnotes.bean("Delivery Note", dn[0])
+	for dn in frappe.conn.get_values("Delivery Note", {"docstatus": 0}, "name"):
+		b = frappe.bean("Delivery Note", dn[0])
 		b.submit()
-		webnotes.conn.commit()
+		frappe.conn.commit()
 	
 def run_purchase(current_date):
 	# make material requests for purchase items that have negative projected qtys
 	if can_make("Material Request"):
 		report = "Items To Be Requested"
 		for row in query_report.run(report)["result"][:how_many("Material Request")]:
-			mr = webnotes.new_bean("Material Request")
+			mr = frappe.new_bean("Material Request")
 			mr.doc.material_request_type = "Purchase"
 			mr.doc.transaction_date = current_date
 			mr.doc.fiscal_year = cstr(current_date.year)
 			mr.doclist.append({
 				"doctype": "Material Request Item",
 				"parentfield": "indent_details",
-				"schedule_date": webnotes.utils.add_days(current_date, 7),
+				"schedule_date": frappe.utils.add_days(current_date, 7),
 				"item_code": row[0],
 				"qty": -row[-1]
 			})
@@ -207,12 +212,12 @@ def run_purchase(current_date):
 		report = "Material Requests for which Supplier Quotations are not created"
 		for row in query_report.run(report)["result"][:how_many("Supplier Quotation")]:
 			if row[0] != "Total":
-				sq = webnotes.bean(make_supplier_quotation(row[0]))
+				sq = frappe.bean(make_supplier_quotation(row[0]))
 				sq.doc.transaction_date = current_date
 				sq.doc.fiscal_year = cstr(current_date.year)
 				sq.insert()
 				sq.submit()
-				webnotes.conn.commit()
+				frappe.conn.commit()
 		
 	# make purchase orders
 	if can_make("Purchase Order"):
@@ -220,18 +225,18 @@ def run_purchase(current_date):
 		report = "Requested Items To Be Ordered"
 		for row in query_report.run(report)["result"][:how_many("Purchase Order")]:
 			if row[0] != "Total":
-				po = webnotes.bean(make_purchase_order(row[0]))
+				po = frappe.bean(make_purchase_order(row[0]))
 				po.doc.transaction_date = current_date
 				po.doc.fiscal_year = cstr(current_date.year)
 				po.insert()
 				po.submit()
-				webnotes.conn.commit()
+				frappe.conn.commit()
 			
 def run_manufacturing(current_date):
 	from erpnext.stock.stock_ledger import NegativeStockError
 	from erpnext.stock.doctype.stock_entry.stock_entry import IncorrectValuationRateError, DuplicateEntryForProductionOrderError
 
-	ppt = webnotes.bean("Production Planning Tool", "Production Planning Tool")
+	ppt = frappe.bean("Production Planning Tool", "Production Planning Tool")
 	ppt.doc.company = company
 	ppt.doc.use_multi_level_bom = 1
 	ppt.doc.purchase_request_for_warehouse = "Stores - {}".format(company_abbr)
@@ -239,20 +244,20 @@ def run_manufacturing(current_date):
 	ppt.run_method("get_items_from_so")
 	ppt.run_method("raise_production_order")
 	ppt.run_method("raise_purchase_request")
-	webnotes.conn.commit()
+	frappe.conn.commit()
 	
 	# submit production orders
-	for pro in webnotes.conn.get_values("Production Order", {"docstatus": 0}, "name"):
-		b = webnotes.bean("Production Order", pro[0])
+	for pro in frappe.conn.get_values("Production Order", {"docstatus": 0}, "name"):
+		b = frappe.bean("Production Order", pro[0])
 		b.doc.wip_warehouse = "Work in Progress - WP"
 		b.submit()
-		webnotes.conn.commit()
+		frappe.conn.commit()
 		
 	# submit material requests
-	for pro in webnotes.conn.get_values("Material Request", {"docstatus": 0}, "name"):
-		b = webnotes.bean("Material Request", pro[0])
+	for pro in frappe.conn.get_values("Material Request", {"docstatus": 0}, "name"):
+		b = frappe.bean("Material Request", pro[0])
 		b.submit()
-		webnotes.conn.commit()
+		frappe.conn.commit()
 	
 	# stores -> wip
 	if can_make("Stock Entry for WIP"):		
@@ -265,10 +270,10 @@ def run_manufacturing(current_date):
 			make_stock_entry_from_pro(pro[0], "Manufacture/Repack", current_date)
 
 	# try posting older drafts (if exists)
-	for st in webnotes.conn.get_values("Stock Entry", {"docstatus":0}, "name"):
+	for st in frappe.conn.get_values("Stock Entry", {"docstatus":0}, "name"):
 		try:
-			webnotes.bean("Stock Entry", st[0]).submit()
-			webnotes.conn.commit()
+			frappe.bean("Stock Entry", st[0]).submit()
+			frappe.conn.commit()
 		except NegativeStockError: pass
 		except IncorrectValuationRateError: pass
 		except DuplicateEntryForProductionOrderError: pass
@@ -279,22 +284,22 @@ def make_stock_entry_from_pro(pro_id, purpose, current_date):
 	from erpnext.stock.doctype.stock_entry.stock_entry import IncorrectValuationRateError, DuplicateEntryForProductionOrderError
 
 	try:
-		st = webnotes.bean(make_stock_entry(pro_id, purpose))
+		st = frappe.bean(make_stock_entry(pro_id, purpose))
 		st.doc.posting_date = current_date
 		st.doc.fiscal_year = cstr(current_date.year)
 		for d in st.doclist.get({"parentfield": "mtn_details"}):
 			d.expense_account = "Stock Adjustment - " + company_abbr
 			d.cost_center = "Main - " + company_abbr
 		st.insert()
-		webnotes.conn.commit()
+		frappe.conn.commit()
 		st.submit()
-		webnotes.conn.commit()
+		frappe.conn.commit()
 	except NegativeStockError: pass
 	except IncorrectValuationRateError: pass
 	except DuplicateEntryForProductionOrderError: pass
 	
 def make_quotation(current_date):
-	b = webnotes.bean([{
+	b = frappe.bean([{
 		"creation": current_date,
 		"doctype": "Quotation",
 		"quotation_to": "Customer",
@@ -313,21 +318,22 @@ def make_quotation(current_date):
 	}, unique="item_code")
 	
 	b.insert()
-	webnotes.conn.commit()
+	frappe.conn.commit()
 	b.submit()
-	webnotes.conn.commit()
+	frappe.conn.commit()
 	
 def make_sales_order(current_date):
 	q = get_random("Quotation", {"status": "Submitted"})
 	if q:
 		from erpnext.selling.doctype.quotation.quotation import make_sales_order
-		so = webnotes.bean(make_sales_order(q))
+		so = frappe.bean(make_sales_order(q))
 		so.doc.transaction_date = current_date
-		so.doc.delivery_date = webnotes.utils.add_days(current_date, 10)
+		so.doc.delivery_date = frappe.utils.add_days(current_date, 10)
+		so.doc.fiscal_year = cstr(current_date.year)
 		so.insert()
-		webnotes.conn.commit()
+		frappe.conn.commit()
 		so.submit()
-		webnotes.conn.commit()
+		frappe.conn.commit()
 	
 def add_random_children(bean, template, rows, randomize, unique=None):
 	for i in xrange(random.randrange(1, rows)):
@@ -354,7 +360,7 @@ def get_random(doctype, filters=None):
 	else:
 		condition = ""
 		
-	out = webnotes.conn.sql("""select name from `tab%s` %s
+	out = frappe.conn.sql("""select name from `tab%s` %s
 		order by RAND() limit 0,1""" % (doctype, condition))
 
 	return out and out[0][0] or None
@@ -367,8 +373,8 @@ def how_many(doctype):
 
 def install():
 	print "Creating Fresh Database..."
-	from webnotes.install_lib.install import Installer
-	from webnotes import conf
+	from frappe.install_lib.install import Installer
+	from frappe import conf
 	inst = Installer('root')
 	inst.install(conf.demo_db_name, verbose=1, force=1)
 
@@ -390,6 +396,13 @@ def complete_setup():
 
 	import_data("Fiscal_Year")
 	
+def show_item_groups_in_website():
+	"""set show_in_website=1 for Item Groups"""
+	for name in frappe.conn.sql_list("""select name from `tabItem Group` order by lft"""):
+		item_group = frappe.bean("Item Group", name)
+		item_group.doc.show_in_website = 1
+		item_group.save()
+	
 def make_items():
 	import_data("Item")
 	import_data("BOM", submit=True)
@@ -401,13 +414,13 @@ def make_customers_suppliers_contacts():
 	import_data(["Customer", "Supplier", "Contact", "Address", "Lead"])
 
 def make_users_and_employees():
-	webnotes.conn.set_value("HR Settings", None, "emp_created_by", "Naming Series")
-	webnotes.conn.commit()
+	frappe.conn.set_value("HR Settings", None, "emp_created_by", "Naming Series")
+	frappe.conn.commit()
 	
 	import_data(["Profile", "Employee", "Salary_Structure"])
 
 def make_bank_account():
-	ba = webnotes.bean({
+	ba = frappe.bean({
 		"doctype": "Account",
 		"account_name": bank_name,
 		"account_type": "Bank or Cash",
@@ -416,8 +429,8 @@ def make_bank_account():
 		"company": company
 	}).insert()
 	
-	webnotes.set_value("Company", company, "default_bank_account", ba.doc.name)
-	webnotes.conn.commit()
+	frappe.set_value("Company", company, "default_bank_account", ba.doc.name)
+	frappe.conn.commit()
 
 def import_data(dt, submit=False, overwrite=False):
 	if not isinstance(dt, (tuple, list)):
@@ -425,8 +438,8 @@ def import_data(dt, submit=False, overwrite=False):
 	
 	for doctype in dt:
 		print "Importing", doctype.replace("_", " "), "..."
-		webnotes.local.form_dict = webnotes._dict()
+		frappe.local.form_dict = frappe._dict()
 		if submit:
-			webnotes.form_dict["params"] = json.dumps({"_submit": 1})
-		webnotes.uploaded_file = os.path.join(os.path.dirname(__file__), "demo_docs", doctype+".csv")
+			frappe.form_dict["params"] = json.dumps({"_submit": 1})
+		frappe.uploaded_file = os.path.join(os.path.dirname(__file__), "demo_docs", doctype+".csv")
 		upload(overwrite=overwrite)

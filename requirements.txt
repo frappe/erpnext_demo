@@ -1,3 +1,3 @@
-webnotes
+frappe
 erpnext
 shopping-cart
