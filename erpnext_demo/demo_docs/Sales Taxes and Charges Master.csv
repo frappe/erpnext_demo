@@ -18,4 +18,4 @@
 "Type:","Data (text)","Data","Link","Check","","Data","Select","Small Text","Link","Float","Data","Link","Currency","Currency","Check","","Data","Link"
 "Info:","","","Valid Company","0 or 1","","Leave blank for new records","One of: Actual, On Net Total, On Previous Row Amount, On Previous Row Total","","Valid Account","","","Valid Cost Center","","","0 or 1","","Leave blank for new records","Valid Territory"
 "Start entering data below this line"
-"","""Demo Tax Master""","Demo Tax Master","Wind Power LLC",1,"","""INVTD000001""","On Net Total","VAT @ 4%","Input VAT - WP",4.0,"","Main - WP","","","","","""000000501""","All Territories"
+"","""Demo Tax Master""","Demo Tax Master","Wind Power LLC",0,"","""INVTD000001""","On Net Total","VAT @ 4%","Input VAT - WP",4.0,"","Main - WP","","","","","""000000501""","All Territories"
