@@ -13,7 +13,7 @@ You can only upload upto 5000 records in one go. (may be less in some cases),,,,
 ,,,,,,,,
 DocType:,Item Price,,,,,,,
 Column Labels:,ID,Price List,Item Code,Rate,Buying,Selling,Item Name,Item Description
-Column Name:,name,price_list,item_code,ref_rate,buying,selling,item_name,item_description
+Column Name:,name,price_list,item_code,price_list_rate,buying,selling,item_name,item_description
 Mandatory:,Yes,Yes,Yes,Yes,No,No,No,No
 Type:,Data (text),Link,Link,Currency,Check,Check,Data,Text
 Info:,,Valid Price List,Valid Item,,0 or 1,0 or 1,,

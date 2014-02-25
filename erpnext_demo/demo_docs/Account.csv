@@ -1,0 +1,22 @@
+Data Import Template,,,,,,,,,,,,,
+Table:,Account,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+Notes:,,,,,,,,,,,,,
+Please do not change the template headings.,,,,,,,,,,,,,
+First data column must be blank.,,,,,,,,,,,,,
+"If you are uploading new records, leave the ""name"""" (ID) column blank.""",,,,,,,,,,,,,
+"If you are uploading new records, ""Naming Series"""" becomes mandatory"," if present.""",,,,,,,,,,,,
+Only mandatory fields are necessary for new records. You can delete non-mandatory columns if you wish.,,,,,,,,,,,,,
+"For updating, you can update only selective columns.",,,,,,,,,,,,,
+You can only upload upto 5000 records in one go. (may be less in some cases),,,,,,,,,,,,,
+,,,,,,,,,,,,,
+DocType:,Account,,,,,,,,,,,,
+Column Labels:,ID,Account Name,Group or Ledger,Company,Debit or Credit,Is PL Account,Parent Account,Account Type,Rate,Frozen,Master Type,Master Name,Allow Negative Balance
+Column Name:,name,account_name,group_or_ledger,company,debit_or_credit,is_pl_account,parent_account,account_type,tax_rate,freeze_account,master_type,master_name,allow_negative_balance
+Mandatory:,Yes,Yes,Yes,Yes,No,No,No,No,No,No,No,No,No
+Type:,Data (text),Data,Select,Link,Data,Select,Link,Select,Float,Select,Select,Link,Check
+Info:,,,"One of: Ledger, Group",Valid Company,,"One of: Yes, No",Valid Account,"One of: Fixed Asset Account, Bank or Cash, Expense Account, Tax, Income Account, Chargeable, Warehouse",,"One of: No, Yes","One of: Supplier, Customer, Employee",Valid [Select],0 or 1
+Start entering data below this line,,,,,,,,,,,,,
+,"""Shipping Charges - WP""""""",Shipping Charges,Ledger,Wind Power LLC,Debit,Yes,Stock Expenses - WP,Tax,,No,,,1
+,"""Input VAT - WP""""""",Input VAT,Ledger,Wind Power LLC,Debit,No,Tax Assets - WP,Tax,4,No,,,1

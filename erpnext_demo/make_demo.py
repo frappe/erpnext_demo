@@ -8,7 +8,7 @@ from frappe.widgets import query_report
 import random
 import json
 
-from frappe.core.page.data_import_tool.data_import_tool import upload
+from frappe.core.page.data_import_tool.data_import_tool import upload, import_doclist
 
 # fix price list
 # fix fiscal year
@@ -45,6 +45,12 @@ def setup():
 	make_bank_account()
 	# make_opening_stock()
 	# make_opening_accounts()
+	
+	make_tax_accounts()
+	make_tax_masters()
+	make_shipping_rules()
+	if "shopping_cart" in frappe.get_installed_apps():
+		enable_shopping_cart()
 
 def _simulate():
 	global runs_for, start_date
@@ -431,6 +437,25 @@ def make_bank_account():
 	
 	frappe.set_value("Company", company, "default_bank_account", ba.doc.name)
 	frappe.conn.commit()
+	
+def make_tax_accounts():
+	import_data("Account")
+	
+def make_tax_masters():
+	import_data("Sales Taxes and Charges Master")
+	
+def make_shipping_rules():
+	import_data("Shipping Rule")
+	
+def enable_shopping_cart():
+	# import
+	path = os.path.join(os.path.dirname(__file__), "demo_docs", "Shopping Cart Settings.json")
+	import_doclist(path)
+	
+	# enable
+	settings = frappe.bean("Shopping Cart Settings")
+	settings.doc.enabled = 1
+	settings.save()
 
 def import_data(dt, submit=False, overwrite=False):
 	if not isinstance(dt, (tuple, list)):
@@ -443,3 +468,4 @@ def import_data(dt, submit=False, overwrite=False):
 			frappe.form_dict["params"] = json.dumps({"_submit": 1})
 		frappe.uploaded_file = os.path.join(os.path.dirname(__file__), "demo_docs", doctype+".csv")
 		upload(overwrite=overwrite)
+		
