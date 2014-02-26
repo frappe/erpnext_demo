@@ -62,7 +62,7 @@ def _simulate():
 	current_date = frappe.utils.getdate(start_date)
 	
 	# continue?
-	last_posting = frappe.conn.sql("""select max(posting_date) from `tabStock Ledger Entry`""")
+	last_posting = frappe.db.sql("""select max(posting_date) from `tabStock Ledger Entry`""")
 	if last_posting[0][0]:
 		current_date = frappe.utils.add_days(last_posting[0][0], 1)
 
@@ -109,7 +109,7 @@ def run_accounts(current_date):
 					d.income_account = "Sales - {}".format(company_abbr)
 			si.insert()
 			si.submit()
-			frappe.conn.commit()
+			frappe.db.commit()
 
 	if can_make("Purchase Invoice"):
 		from erpnext.stock.doctype.purchase_receipt.purchase_receipt import make_purchase_invoice
@@ -121,7 +121,7 @@ def run_accounts(current_date):
 			pi.doc.bill_no = random_string(6)
 			pi.insert()
 			pi.submit()
-			frappe.conn.commit()
+			frappe.db.commit()
 			
 	if can_make("Payment Received"):
 		from erpnext.accounts.doctype.journal_voucher.journal_voucher import get_payment_entry_from_sales_invoice
@@ -134,7 +134,7 @@ def run_accounts(current_date):
 			jv.doc.fiscal_year = cstr(current_date.year)
 			jv.insert()
 			jv.submit()
-			frappe.conn.commit()
+			frappe.db.commit()
 			
 	if can_make("Payment Made"):
 		from erpnext.accounts.doctype.journal_voucher.journal_voucher import get_payment_entry_from_purchase_invoice
@@ -147,7 +147,7 @@ def run_accounts(current_date):
 			jv.doc.fiscal_year = cstr(current_date.year)
 			jv.insert()
 			jv.submit()
-			frappe.conn.commit()
+			frappe.db.commit()
 
 def run_stock(current_date):
 	# make purchase requests
@@ -162,7 +162,7 @@ def run_stock(current_date):
 			pr.insert()
 			try:
 				pr.submit()
-				frappe.conn.commit()
+				frappe.db.commit()
 			except NegativeStockError: pass
 	
 	# make delivery notes (if possible)
@@ -182,16 +182,16 @@ def run_stock(current_date):
 			dn.insert()
 			try:
 				dn.submit()
-				frappe.conn.commit()
+				frappe.db.commit()
 			except NegativeStockError: pass
 			except SerialNoRequiredError: pass
 			except SerialNoQtyError: pass
 	
 	# try submitting existing
-	for dn in frappe.conn.get_values("Delivery Note", {"docstatus": 0}, "name"):
+	for dn in frappe.db.get_values("Delivery Note", {"docstatus": 0}, "name"):
 		b = frappe.bean("Delivery Note", dn[0])
 		b.submit()
-		frappe.conn.commit()
+		frappe.db.commit()
 	
 def run_purchase(current_date):
 	# make material requests for purchase items that have negative projected qtys
@@ -223,7 +223,7 @@ def run_purchase(current_date):
 				sq.doc.fiscal_year = cstr(current_date.year)
 				sq.insert()
 				sq.submit()
-				frappe.conn.commit()
+				frappe.db.commit()
 		
 	# make purchase orders
 	if can_make("Purchase Order"):
@@ -236,7 +236,7 @@ def run_purchase(current_date):
 				po.doc.fiscal_year = cstr(current_date.year)
 				po.insert()
 				po.submit()
-				frappe.conn.commit()
+				frappe.db.commit()
 			
 def run_manufacturing(current_date):
 	from erpnext.stock.stock_ledger import NegativeStockError
@@ -250,20 +250,20 @@ def run_manufacturing(current_date):
 	ppt.run_method("get_items_from_so")
 	ppt.run_method("raise_production_order")
 	ppt.run_method("raise_purchase_request")
-	frappe.conn.commit()
+	frappe.db.commit()
 	
 	# submit production orders
-	for pro in frappe.conn.get_values("Production Order", {"docstatus": 0}, "name"):
+	for pro in frappe.db.get_values("Production Order", {"docstatus": 0}, "name"):
 		b = frappe.bean("Production Order", pro[0])
 		b.doc.wip_warehouse = "Work in Progress - WP"
 		b.submit()
-		frappe.conn.commit()
+		frappe.db.commit()
 		
 	# submit material requests
-	for pro in frappe.conn.get_values("Material Request", {"docstatus": 0}, "name"):
+	for pro in frappe.db.get_values("Material Request", {"docstatus": 0}, "name"):
 		b = frappe.bean("Material Request", pro[0])
 		b.submit()
-		frappe.conn.commit()
+		frappe.db.commit()
 	
 	# stores -> wip
 	if can_make("Stock Entry for WIP"):		
@@ -276,10 +276,10 @@ def run_manufacturing(current_date):
 			make_stock_entry_from_pro(pro[0], "Manufacture/Repack", current_date)
 
 	# try posting older drafts (if exists)
-	for st in frappe.conn.get_values("Stock Entry", {"docstatus":0}, "name"):
+	for st in frappe.db.get_values("Stock Entry", {"docstatus":0}, "name"):
 		try:
 			frappe.bean("Stock Entry", st[0]).submit()
-			frappe.conn.commit()
+			frappe.db.commit()
 		except NegativeStockError: pass
 		except IncorrectValuationRateError: pass
 		except DuplicateEntryForProductionOrderError: pass
@@ -297,9 +297,9 @@ def make_stock_entry_from_pro(pro_id, purpose, current_date):
 			d.expense_account = "Stock Adjustment - " + company_abbr
 			d.cost_center = "Main - " + company_abbr
 		st.insert()
-		frappe.conn.commit()
+		frappe.db.commit()
 		st.submit()
-		frappe.conn.commit()
+		frappe.db.commit()
 	except NegativeStockError: pass
 	except IncorrectValuationRateError: pass
 	except DuplicateEntryForProductionOrderError: pass
@@ -324,9 +324,9 @@ def make_quotation(current_date):
 	}, unique="item_code")
 	
 	b.insert()
-	frappe.conn.commit()
+	frappe.db.commit()
 	b.submit()
-	frappe.conn.commit()
+	frappe.db.commit()
 	
 def make_sales_order(current_date):
 	q = get_random("Quotation", {"status": "Submitted"})
@@ -337,9 +337,9 @@ def make_sales_order(current_date):
 		so.doc.delivery_date = frappe.utils.add_days(current_date, 10)
 		so.doc.fiscal_year = cstr(current_date.year)
 		so.insert()
-		frappe.conn.commit()
+		frappe.db.commit()
 		so.submit()
-		frappe.conn.commit()
+		frappe.db.commit()
 	
 def add_random_children(bean, template, rows, randomize, unique=None):
 	for i in xrange(random.randrange(1, rows)):
@@ -366,7 +366,7 @@ def get_random(doctype, filters=None):
 	else:
 		condition = ""
 		
-	out = frappe.conn.sql("""select name from `tab%s` %s
+	out = frappe.db.sql("""select name from `tab%s` %s
 		order by RAND() limit 0,1""" % (doctype, condition))
 
 	return out and out[0][0] or None
@@ -404,7 +404,7 @@ def complete_setup():
 	
 def show_item_groups_in_website():
 	"""set show_in_website=1 for Item Groups"""
-	for name in frappe.conn.sql_list("""select name from `tabItem Group` order by lft"""):
+	for name in frappe.db.sql_list("""select name from `tabItem Group` order by lft"""):
 		item_group = frappe.bean("Item Group", name)
 		item_group.doc.show_in_website = 1
 		item_group.save()
@@ -420,8 +420,8 @@ def make_customers_suppliers_contacts():
 	import_data(["Customer", "Supplier", "Contact", "Address", "Lead"])
 
 def make_users_and_employees():
-	frappe.conn.set_value("HR Settings", None, "emp_created_by", "Naming Series")
-	frappe.conn.commit()
+	frappe.db.set_value("HR Settings", None, "emp_created_by", "Naming Series")
+	frappe.db.commit()
 	
 	import_data(["Profile", "Employee", "Salary_Structure"])
 
@@ -436,7 +436,7 @@ def make_bank_account():
 	}).insert()
 	
 	frappe.set_value("Company", company, "default_bank_account", ba.doc.name)
-	frappe.conn.commit()
+	frappe.db.commit()
 	
 def make_tax_accounts():
 	import_data("Account")

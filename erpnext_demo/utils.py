@@ -23,7 +23,7 @@ def get_startup_js():
 		+'target="_blank">click here</a>');"""
 
 def check_if_not_setup():
-	if frappe.conn.sql("""select name from tabCompany"""):
+	if frappe.db.sql("""select name from tabCompany"""):
 		raise Exception("Demo App must only be installed on a blank database!")
 
 def make_demo():
@@ -52,7 +52,7 @@ def make_demo_user():
 			})
 	
 	# make demo user
-	if frappe.conn.exists("Profile", "demo@erpnext.com"):
+	if frappe.db.exists("Profile", "demo@erpnext.com"):
 		frappe.delete_doc("Profile", "demo@erpnext.com")
 
 	p = frappe.new_bean("Profile")
@@ -67,7 +67,7 @@ def make_demo_user():
 	_update_password("demo@erpnext.com", "demo")
 	
 	# make system manager user
-	if frappe.conn.exists("Profile", "admin@erpnext.com"):
+	if frappe.db.exists("Profile", "admin@erpnext.com"):
 		frappe.delete_doc("Profile", "admin@erpnext.com")
 	
 	p = frappe.new_bean("Profile")
@@ -83,12 +83,12 @@ def make_demo_user():
 	_update_password("admin@erpnext.com", "admin010123")
 	
 	# only read for newsletter
-	frappe.conn.sql("""update `tabDocPerm` set `write`=0, `create`=0, `cancel`=0
+	frappe.db.sql("""update `tabDocPerm` set `write`=0, `create`=0, `cancel`=0
 		where parent='Newsletter'""")
-	frappe.conn.sql("""update `tabDocPerm` set `write`=0, `create`=0, `cancel`=0
+	frappe.db.sql("""update `tabDocPerm` set `write`=0, `create`=0, `cancel`=0
 		where parent='Profile' and role='All'""")
 	
-	frappe.conn.commit()
+	frappe.db.commit()
 
 def make_demo_login_page():
 	import frappe.installer
@@ -99,4 +99,4 @@ def make_demo_login_page():
 	website_settings.doc.home_page = "start"
 	website_settings.doc.disable_signup = 1
 	website_settings.save()
-	frappe.conn.commit()
+	frappe.db.commit()
