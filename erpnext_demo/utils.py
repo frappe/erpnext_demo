@@ -10,11 +10,13 @@ def on_login(login_manager):
 	if "demo_notify_url" in frappe.conf:
 		if frappe.form_dict.lead_email and validate_email_add(frappe.form_dict.lead_email):
 			import requests
-			response = requests.post(frappe.conf.demo_notify_url, data={
-				"cmd":"erpnext.templates.utils.send_message",
+			url = frappe.conf.demo_notify_url
+			cmd = frappe.conf.demo_notify_cmd or "erpnext.templates.utils.send_message"
+			response = requests.post(url, data={
+				"cmd": cmd,
 				"subject":"Logged into Demo",
 				"sender": frappe.form_dict.lead_email,
-				"message": "via demo.erpnext.com"
+				"message": "via demo.frappecloud.com"
 			})
 
 def get_startup_js():
