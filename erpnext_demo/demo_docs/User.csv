@@ -1,5 +1,5 @@
 Data Import Template,,,,,,,,,,,,,,,,,,,,
-Table:,Profile,,,,,,,,,,,,,,,,,,,
+Table:,User,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,
 Notes:,,,,,,,,,,,,,,,,,,,,
@@ -11,7 +11,7 @@ Only mandatory fields are necessary for new records. You can delete non-mandator
 "For updating, you can update only selective columns.",,,,,,,,,,,,,,,,,,,,
 You can only upload upto 5000 records in one go. (may be less in some cases),,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,
-DocType:,Profile,,,,,,,,,,,,,,,,,,,
+DocType:,User,,,,,,,,,,,,,,,,,,,
 Column Labels:,ID,Email,First Name,User Type,Enabled,Middle Name (Optional),Last Name,Language,Birth Date,Gender,New Password,User Image,Background Image,Bio,Email Signature,Login After,Login Before,Restrict IP,Last Login,Last IP
 Column Name:,name,email,first_name,user_type,enabled,middle_name,last_name,language,birth_date,gender,new_password,user_image,background_image,bio,email_signature,login_after,login_before,restrict_ip,last_login,last_ip
 Mandatory:,Yes,Yes,Yes,Yes,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No
