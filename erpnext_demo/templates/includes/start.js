@@ -15,7 +15,7 @@ $(document).ready(function() {
                     alert("Error, please contact support@erpnext.com");
                 } else {
                     console.log("Logged In");
-                    window.location.href = "app.html";
+                    window.location.href = "/desk";
                 }
             }
         })
