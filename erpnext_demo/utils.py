@@ -54,7 +54,7 @@ def make_demo_user():
 			})
 	
 	# make demo user
-	if frappe.conn.exists("User", "demo@erpnext.com"):
+	if frappe.db.exists("User", "demo@erpnext.com"):
 		frappe.delete_doc("User", "demo@erpnext.com")
 
 	p = frappe.new_bean("User")
@@ -69,7 +69,7 @@ def make_demo_user():
 	_update_password("demo@erpnext.com", "demo")
 	
 	# make system manager user
-	if frappe.conn.exists("User", "admin@erpnext.com"):
+	if frappe.db.exists("User", "admin@erpnext.com"):
 		frappe.delete_doc("User", "admin@erpnext.com")
 	
 	p = frappe.new_bean("User")
@@ -87,7 +87,7 @@ def make_demo_user():
 	# only read for newsletter
 	frappe.db.sql("""update `tabDocPerm` set `write`=0, `create`=0, `cancel`=0
 		where parent='Newsletter'""")
-	frappe.conn.sql("""update `tabDocPerm` set `write`=0, `create`=0, `cancel`=0
+	frappe.db.sql("""update `tabDocPerm` set `write`=0, `create`=0, `cancel`=0
 		where parent='User' and role='All'""")
 	
 	frappe.db.commit()
