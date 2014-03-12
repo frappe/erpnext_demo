@@ -68,22 +68,6 @@ def make_demo_user():
 	p.save()
 	_update_password("demo@erpnext.com", "demo")
 	
-	# make system manager user
-	if frappe.db.exists("User", "admin@erpnext.com"):
-		frappe.delete_doc("User", "admin@erpnext.com")
-	
-	p = frappe.new_bean("User")
-	p.doc.email = "admin@erpnext.com"
-	p.doc.first_name = "Admin"
-	p.doc.last_name = "User"
-	p.doc.enabled = 1
-	p.doc.user_type = "System User"
-	p.insert()
-	roles.append("System Manager")
-	add_roles(p)
-	p.save()
-	_update_password("admin@erpnext.com", "admin010123")
-	
 	# only read for newsletter
 	frappe.db.sql("""update `tabDocPerm` set `write`=0, `create`=0, `cancel`=0
 		where parent='Newsletter'""")
