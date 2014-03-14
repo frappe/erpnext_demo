@@ -1,3 +1,3 @@
 frappe
 erpnext
-shopping-cart
+shopping_cart
