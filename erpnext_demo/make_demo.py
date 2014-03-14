@@ -423,7 +423,7 @@ def make_users_and_employees():
 	frappe.db.set_value("HR Settings", None, "emp_created_by", "Naming Series")
 	frappe.db.commit()
 	
-	import_data(["Profile", "Employee", "Salary_Structure"])
+	import_data(["tabUser", "Employee", "Salary_Structure"])
 
 def make_bank_account():
 	ba = frappe.bean({

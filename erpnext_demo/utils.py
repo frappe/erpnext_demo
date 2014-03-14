@@ -54,10 +54,10 @@ def make_demo_user():
 			})
 	
 	# make demo user
-	if frappe.db.exists("Profile", "demo@erpnext.com"):
-		frappe.delete_doc("Profile", "demo@erpnext.com")
+	if frappe.db.exists("User", "demo@erpnext.com"):
+		frappe.delete_doc("User", "demo@erpnext.com")
 
-	p = frappe.new_bean("Profile")
+	p = frappe.new_bean("User")
 	p.doc.email = "demo@erpnext.com"
 	p.doc.first_name = "Demo"
 	p.doc.last_name = "User"
@@ -68,27 +68,11 @@ def make_demo_user():
 	p.save()
 	_update_password("demo@erpnext.com", "demo")
 	
-	# make system manager user
-	if frappe.db.exists("Profile", "admin@erpnext.com"):
-		frappe.delete_doc("Profile", "admin@erpnext.com")
-	
-	p = frappe.new_bean("Profile")
-	p.doc.email = "admin@erpnext.com"
-	p.doc.first_name = "Admin"
-	p.doc.last_name = "User"
-	p.doc.enabled = 1
-	p.doc.user_type = "System User"
-	p.insert()
-	roles.append("System Manager")
-	add_roles(p)
-	p.save()
-	_update_password("admin@erpnext.com", "admin010123")
-	
 	# only read for newsletter
 	frappe.db.sql("""update `tabDocPerm` set `write`=0, `create`=0, `cancel`=0
 		where parent='Newsletter'""")
 	frappe.db.sql("""update `tabDocPerm` set `write`=0, `create`=0, `cancel`=0
-		where parent='Profile' and role='All'""")
+		where parent='User' and role='All'""")
 	
 	frappe.db.commit()
 
