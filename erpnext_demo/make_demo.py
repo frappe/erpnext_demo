@@ -429,7 +429,7 @@ def make_bank_account():
 	ba = frappe.bean({
 		"doctype": "Account",
 		"account_name": bank_name,
-		"account_type": "Bank or Cash",
+		"account_type": "Bank",
 		"group_or_ledger": "Ledger",
 		"parent_account": "Bank Accounts - " + company_abbr,
 		"company": company
