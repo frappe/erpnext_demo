@@ -47,9 +47,8 @@ def make_demo_user():
 		
 	def add_roles(bean):
 		for role in roles:
-			p.doclist.append({
+			p.append("user_roles", {
 				"doctype": "UserRole",
-				"parentfield": "user_roles",
 				"role": role
 			})
 	

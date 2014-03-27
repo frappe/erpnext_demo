@@ -104,7 +104,7 @@ def run_accounts(current_date):
 			si = frappe.bean(make_sales_invoice(so))
 			si.doc.posting_date = current_date
 			si.doc.fiscal_year = cstr(current_date.year)
-			for d in si.doclist.get({"parentfield": "entries"}):
+			for d in si.get("entries"):
 				if not d.income_account:
 					d.income_account = "Sales - {}".format(company_abbr)
 			si.insert()
@@ -175,7 +175,7 @@ def run_stock(current_date):
 			dn = frappe.bean(make_delivery_note(so))
 			dn.doc.posting_date = current_date
 			dn.doc.fiscal_year = cstr(current_date.year)
-			for d in dn.doclist.get({"parentfield": "delivery_note_details"}):
+			for d in dn.get("delivery_note_details"):
 				if not d.expense_account:
 					d.expense_account = "Cost of Goods Sold - {}".format(company_abbr)
 				
@@ -202,9 +202,8 @@ def run_purchase(current_date):
 			mr.doc.material_request_type = "Purchase"
 			mr.doc.transaction_date = current_date
 			mr.doc.fiscal_year = cstr(current_date.year)
-			mr.doclist.append({
+			mr.append("indent_details", {
 				"doctype": "Material Request Item",
-				"parentfield": "indent_details",
 				"schedule_date": frappe.utils.add_days(current_date, 7),
 				"item_code": row[0],
 				"qty": -row[-1]
@@ -293,7 +292,7 @@ def make_stock_entry_from_pro(pro_id, purpose, current_date):
 		st = frappe.bean(make_stock_entry(pro_id, purpose))
 		st.doc.posting_date = current_date
 		st.doc.fiscal_year = cstr(current_date.year)
-		for d in st.doclist.get({"parentfield": "mtn_details"}):
+		for d in st.get("mtn_details"):
 			d.expense_account = "Stock Adjustment - " + company_abbr
 			d.cost_center = "Main - " + company_abbr
 		st.insert()
@@ -351,10 +350,10 @@ def add_random_children(bean, template, rows, randomize, unique=None):
 				d[key] = random.randrange(*val)
 		
 		if unique:
-			if not bean.doclist.get({"doctype": d["doctype"], unique:d[unique]}):
-				bean.doclist.append(d)
+			if not bean.get(d["parentfield"], {unique:d[unique]}):
+				bean.append(d)
 		else:
-			bean.doclist.append(d)
+			bean.append(d)
 
 def get_random(doctype, filters=None):
 	condition = []
