@@ -102,8 +102,8 @@ def run_accounts(current_date):
 		report = "Ordered Items to be Billed"
 		for so in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Sales Invoice")]:
 			si = frappe.bean(make_sales_invoice(so))
-			si.doc.posting_date = current_date
-			si.doc.fiscal_year = cstr(current_date.year)
+			si.posting_date = current_date
+			si.fiscal_year = cstr(current_date.year)
 			for d in si.get("entries"):
 				if not d.income_account:
 					d.income_account = "Sales - {}".format(company_abbr)
@@ -116,9 +116,9 @@ def run_accounts(current_date):
 		report = "Received Items to be Billed"
 		for pr in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Purchase Invoice")]:
 			pi = frappe.bean(make_purchase_invoice(pr))
-			pi.doc.posting_date = current_date
-			pi.doc.fiscal_year = cstr(current_date.year)
-			pi.doc.bill_no = random_string(6)
+			pi.posting_date = current_date
+			pi.fiscal_year = cstr(current_date.year)
+			pi.bill_no = random_string(6)
 			pi.insert()
 			pi.submit()
 			frappe.db.commit()
@@ -128,10 +128,10 @@ def run_accounts(current_date):
 		report = "Accounts Receivable"
 		for si in list(set([r[4] for r in query_report.run(report, {"report_date": current_date })["result"] if r[3]=="Sales Invoice"]))[:how_many("Payment Received")]:
 			jv = frappe.bean(get_payment_entry_from_sales_invoice(si))
-			jv.doc.posting_date = current_date
-			jv.doc.cheque_no = random_string(6)
-			jv.doc.cheque_date = current_date
-			jv.doc.fiscal_year = cstr(current_date.year)
+			jv.posting_date = current_date
+			jv.cheque_no = random_string(6)
+			jv.cheque_date = current_date
+			jv.fiscal_year = cstr(current_date.year)
 			jv.insert()
 			jv.submit()
 			frappe.db.commit()
@@ -141,10 +141,10 @@ def run_accounts(current_date):
 		report = "Accounts Payable"
 		for pi in list(set([r[4] for r in query_report.run(report, {"report_date": current_date })["result"] if r[3]=="Purchase Invoice"]))[:how_many("Payment Made")]:
 			jv = frappe.bean(get_payment_entry_from_purchase_invoice(pi))
-			jv.doc.posting_date = current_date
-			jv.doc.cheque_no = random_string(6)
-			jv.doc.cheque_date = current_date
-			jv.doc.fiscal_year = cstr(current_date.year)
+			jv.posting_date = current_date
+			jv.cheque_no = random_string(6)
+			jv.cheque_date = current_date
+			jv.fiscal_year = cstr(current_date.year)
 			jv.insert()
 			jv.submit()
 			frappe.db.commit()
@@ -157,8 +157,8 @@ def run_stock(current_date):
 		report = "Purchase Order Items To Be Received"
 		for po in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Purchase Receipt")]:
 			pr = frappe.bean(make_purchase_receipt(po))
-			pr.doc.posting_date = current_date
-			pr.doc.fiscal_year = cstr(current_date.year)
+			pr.posting_date = current_date
+			pr.fiscal_year = cstr(current_date.year)
 			pr.insert()
 			try:
 				pr.submit()
@@ -173,8 +173,8 @@ def run_stock(current_date):
 		report = "Ordered Items To Be Delivered"
 		for so in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Delivery Note")]:
 			dn = frappe.bean(make_delivery_note(so))
-			dn.doc.posting_date = current_date
-			dn.doc.fiscal_year = cstr(current_date.year)
+			dn.posting_date = current_date
+			dn.fiscal_year = cstr(current_date.year)
 			for d in dn.get("delivery_note_details"):
 				if not d.expense_account:
 					d.expense_account = "Cost of Goods Sold - {}".format(company_abbr)
@@ -199,9 +199,9 @@ def run_purchase(current_date):
 		report = "Items To Be Requested"
 		for row in query_report.run(report)["result"][:how_many("Material Request")]:
 			mr = frappe.new_bean("Material Request")
-			mr.doc.material_request_type = "Purchase"
-			mr.doc.transaction_date = current_date
-			mr.doc.fiscal_year = cstr(current_date.year)
+			mr.material_request_type = "Purchase"
+			mr.transaction_date = current_date
+			mr.fiscal_year = cstr(current_date.year)
 			mr.append("indent_details", {
 				"doctype": "Material Request Item",
 				"schedule_date": frappe.utils.add_days(current_date, 7),
@@ -218,8 +218,8 @@ def run_purchase(current_date):
 		for row in query_report.run(report)["result"][:how_many("Supplier Quotation")]:
 			if row[0] != "Total":
 				sq = frappe.bean(make_supplier_quotation(row[0]))
-				sq.doc.transaction_date = current_date
-				sq.doc.fiscal_year = cstr(current_date.year)
+				sq.transaction_date = current_date
+				sq.fiscal_year = cstr(current_date.year)
 				sq.insert()
 				sq.submit()
 				frappe.db.commit()
@@ -231,8 +231,8 @@ def run_purchase(current_date):
 		for row in query_report.run(report)["result"][:how_many("Purchase Order")]:
 			if row[0] != "Total":
 				po = frappe.bean(make_purchase_order(row[0]))
-				po.doc.transaction_date = current_date
-				po.doc.fiscal_year = cstr(current_date.year)
+				po.transaction_date = current_date
+				po.fiscal_year = cstr(current_date.year)
 				po.insert()
 				po.submit()
 				frappe.db.commit()
@@ -242,9 +242,9 @@ def run_manufacturing(current_date):
 	from erpnext.stock.doctype.stock_entry.stock_entry import IncorrectValuationRateError, DuplicateEntryForProductionOrderError
 
 	ppt = frappe.bean("Production Planning Tool", "Production Planning Tool")
-	ppt.doc.company = company
-	ppt.doc.use_multi_level_bom = 1
-	ppt.doc.purchase_request_for_warehouse = "Stores - {}".format(company_abbr)
+	ppt.company = company
+	ppt.use_multi_level_bom = 1
+	ppt.purchase_request_for_warehouse = "Stores - {}".format(company_abbr)
 	ppt.run_method("get_open_sales_orders")
 	ppt.run_method("get_items_from_so")
 	ppt.run_method("raise_production_order")
@@ -254,7 +254,7 @@ def run_manufacturing(current_date):
 	# submit production orders
 	for pro in frappe.db.get_values("Production Order", {"docstatus": 0}, "name"):
 		b = frappe.bean("Production Order", pro[0])
-		b.doc.wip_warehouse = "Work in Progress - WP"
+		b.wip_warehouse = "Work in Progress - WP"
 		b.submit()
 		frappe.db.commit()
 		
@@ -290,8 +290,8 @@ def make_stock_entry_from_pro(pro_id, purpose, current_date):
 
 	try:
 		st = frappe.bean(make_stock_entry(pro_id, purpose))
-		st.doc.posting_date = current_date
-		st.doc.fiscal_year = cstr(current_date.year)
+		st.posting_date = current_date
+		st.fiscal_year = cstr(current_date.year)
 		for d in st.get("mtn_details"):
 			d.expense_account = "Stock Adjustment - " + company_abbr
 			d.cost_center = "Main - " + company_abbr
@@ -332,9 +332,9 @@ def make_sales_order(current_date):
 	if q:
 		from erpnext.selling.doctype.quotation.quotation import make_sales_order
 		so = frappe.bean(make_sales_order(q))
-		so.doc.transaction_date = current_date
-		so.doc.delivery_date = frappe.utils.add_days(current_date, 10)
-		so.doc.fiscal_year = cstr(current_date.year)
+		so.transaction_date = current_date
+		so.delivery_date = frappe.utils.add_days(current_date, 10)
+		so.fiscal_year = cstr(current_date.year)
 		so.insert()
 		frappe.db.commit()
 		so.submit()
@@ -405,7 +405,7 @@ def show_item_groups_in_website():
 	"""set show_in_website=1 for Item Groups"""
 	for name in frappe.db.sql_list("""select name from `tabItem Group` order by lft"""):
 		item_group = frappe.bean("Item Group", name)
-		item_group.doc.show_in_website = 1
+		item_group.show_in_website = 1
 		item_group.save()
 	
 def make_items():
@@ -434,7 +434,7 @@ def make_bank_account():
 		"company": company
 	}).insert()
 	
-	frappe.set_value("Company", company, "default_bank_account", ba.doc.name)
+	frappe.set_value("Company", company, "default_bank_account", ba.name)
 	frappe.db.commit()
 	
 def make_tax_accounts():
@@ -453,7 +453,7 @@ def enable_shopping_cart():
 	
 	# enable
 	settings = frappe.bean("Shopping Cart Settings")
-	settings.doc.enabled = 1
+	settings.enabled = 1
 	settings.save()
 
 def import_data(dt, submit=False, overwrite=False):

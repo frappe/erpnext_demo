@@ -57,11 +57,11 @@ def make_demo_user():
 		frappe.delete_doc("User", "demo@erpnext.com")
 
 	p = frappe.new_bean("User")
-	p.doc.email = "demo@erpnext.com"
-	p.doc.first_name = "Demo"
-	p.doc.last_name = "User"
-	p.doc.enabled = 1
-	p.doc.user_type = "ERPNext Demo"
+	p.email = "demo@erpnext.com"
+	p.first_name = "Demo"
+	p.last_name = "User"
+	p.enabled = 1
+	p.user_type = "ERPNext Demo"
 	p.insert()
 	add_roles(p)
 	p.save()
@@ -81,7 +81,7 @@ def make_demo_login_page():
 	frappe.installer.add_to_installed_apps("erpnext_demo")
 	
 	website_settings = frappe.bean("Website Settings", "Website Settings")
-	website_settings.doc.home_page = "start"
-	website_settings.doc.disable_signup = 1
+	website_settings.home_page = "start"
+	website_settings.disable_signup = 1
 	website_settings.save()
 	frappe.db.commit()
