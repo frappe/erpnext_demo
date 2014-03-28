@@ -80,7 +80,7 @@ def make_demo_login_page():
 	
 	frappe.installer.add_to_installed_apps("erpnext_demo")
 	
-	website_settings = frappe.bean("Website Settings", "Website Settings")
+	website_settings = frappe.get_doc("Website Settings", "Website Settings")
 	website_settings.home_page = "start"
 	website_settings.disable_signup = 1
 	website_settings.save()

@@ -101,7 +101,7 @@ def run_accounts(current_date):
 		from erpnext.selling.doctype.sales_order.sales_order import make_sales_invoice
 		report = "Ordered Items to be Billed"
 		for so in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Sales Invoice")]:
-			si = frappe.bean(make_sales_invoice(so))
+			si = frappe.get_doc(make_sales_invoice(so))
 			si.posting_date = current_date
 			si.fiscal_year = cstr(current_date.year)
 			for d in si.get("entries"):
@@ -115,7 +115,7 @@ def run_accounts(current_date):
 		from erpnext.stock.doctype.purchase_receipt.purchase_receipt import make_purchase_invoice
 		report = "Received Items to be Billed"
 		for pr in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Purchase Invoice")]:
-			pi = frappe.bean(make_purchase_invoice(pr))
+			pi = frappe.get_doc(make_purchase_invoice(pr))
 			pi.posting_date = current_date
 			pi.fiscal_year = cstr(current_date.year)
 			pi.bill_no = random_string(6)
@@ -127,7 +127,7 @@ def run_accounts(current_date):
 		from erpnext.accounts.doctype.journal_voucher.journal_voucher import get_payment_entry_from_sales_invoice
 		report = "Accounts Receivable"
 		for si in list(set([r[4] for r in query_report.run(report, {"report_date": current_date })["result"] if r[3]=="Sales Invoice"]))[:how_many("Payment Received")]:
-			jv = frappe.bean(get_payment_entry_from_sales_invoice(si))
+			jv = frappe.get_doc(get_payment_entry_from_sales_invoice(si))
 			jv.posting_date = current_date
 			jv.cheque_no = random_string(6)
 			jv.cheque_date = current_date
@@ -140,7 +140,7 @@ def run_accounts(current_date):
 		from erpnext.accounts.doctype.journal_voucher.journal_voucher import get_payment_entry_from_purchase_invoice
 		report = "Accounts Payable"
 		for pi in list(set([r[4] for r in query_report.run(report, {"report_date": current_date })["result"] if r[3]=="Purchase Invoice"]))[:how_many("Payment Made")]:
-			jv = frappe.bean(get_payment_entry_from_purchase_invoice(pi))
+			jv = frappe.get_doc(get_payment_entry_from_purchase_invoice(pi))
 			jv.posting_date = current_date
 			jv.cheque_no = random_string(6)
 			jv.cheque_date = current_date
@@ -156,7 +156,7 @@ def run_stock(current_date):
 		from erpnext.stock.stock_ledger import NegativeStockError
 		report = "Purchase Order Items To Be Received"
 		for po in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Purchase Receipt")]:
-			pr = frappe.bean(make_purchase_receipt(po))
+			pr = frappe.get_doc(make_purchase_receipt(po))
 			pr.posting_date = current_date
 			pr.fiscal_year = cstr(current_date.year)
 			pr.insert()
@@ -172,7 +172,7 @@ def run_stock(current_date):
 		from erpnext.stock.doctype.serial_no.serial_no import SerialNoRequiredError, SerialNoQtyError
 		report = "Ordered Items To Be Delivered"
 		for so in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Delivery Note")]:
-			dn = frappe.bean(make_delivery_note(so))
+			dn = frappe.get_doc(make_delivery_note(so))
 			dn.posting_date = current_date
 			dn.fiscal_year = cstr(current_date.year)
 			for d in dn.get("delivery_note_details"):
@@ -189,7 +189,7 @@ def run_stock(current_date):
 	
 	# try submitting existing
 	for dn in frappe.db.get_values("Delivery Note", {"docstatus": 0}, "name"):
-		b = frappe.bean("Delivery Note", dn[0])
+		b = frappe.get_doc("Delivery Note", dn[0])
 		b.submit()
 		frappe.db.commit()
 	
@@ -217,7 +217,7 @@ def run_purchase(current_date):
 		report = "Material Requests for which Supplier Quotations are not created"
 		for row in query_report.run(report)["result"][:how_many("Supplier Quotation")]:
 			if row[0] != "Total":
-				sq = frappe.bean(make_supplier_quotation(row[0]))
+				sq = frappe.get_doc(make_supplier_quotation(row[0]))
 				sq.transaction_date = current_date
 				sq.fiscal_year = cstr(current_date.year)
 				sq.insert()
@@ -230,7 +230,7 @@ def run_purchase(current_date):
 		report = "Requested Items To Be Ordered"
 		for row in query_report.run(report)["result"][:how_many("Purchase Order")]:
 			if row[0] != "Total":
-				po = frappe.bean(make_purchase_order(row[0]))
+				po = frappe.get_doc(make_purchase_order(row[0]))
 				po.transaction_date = current_date
 				po.fiscal_year = cstr(current_date.year)
 				po.insert()
@@ -241,7 +241,7 @@ def run_manufacturing(current_date):
 	from erpnext.stock.stock_ledger import NegativeStockError
 	from erpnext.stock.doctype.stock_entry.stock_entry import IncorrectValuationRateError, DuplicateEntryForProductionOrderError
 
-	ppt = frappe.bean("Production Planning Tool", "Production Planning Tool")
+	ppt = frappe.get_doc("Production Planning Tool", "Production Planning Tool")
 	ppt.company = company
 	ppt.use_multi_level_bom = 1
 	ppt.purchase_request_for_warehouse = "Stores - {}".format(company_abbr)
@@ -253,14 +253,14 @@ def run_manufacturing(current_date):
 	
 	# submit production orders
 	for pro in frappe.db.get_values("Production Order", {"docstatus": 0}, "name"):
-		b = frappe.bean("Production Order", pro[0])
+		b = frappe.get_doc("Production Order", pro[0])
 		b.wip_warehouse = "Work in Progress - WP"
 		b.submit()
 		frappe.db.commit()
 		
 	# submit material requests
 	for pro in frappe.db.get_values("Material Request", {"docstatus": 0}, "name"):
-		b = frappe.bean("Material Request", pro[0])
+		b = frappe.get_doc("Material Request", pro[0])
 		b.submit()
 		frappe.db.commit()
 	
@@ -277,7 +277,7 @@ def run_manufacturing(current_date):
 	# try posting older drafts (if exists)
 	for st in frappe.db.get_values("Stock Entry", {"docstatus":0}, "name"):
 		try:
-			frappe.bean("Stock Entry", st[0]).submit()
+			frappe.get_doc("Stock Entry", st[0]).submit()
 			frappe.db.commit()
 		except NegativeStockError: pass
 		except IncorrectValuationRateError: pass
@@ -289,7 +289,7 @@ def make_stock_entry_from_pro(pro_id, purpose, current_date):
 	from erpnext.stock.doctype.stock_entry.stock_entry import IncorrectValuationRateError, DuplicateEntryForProductionOrderError
 
 	try:
-		st = frappe.bean(make_stock_entry(pro_id, purpose))
+		st = frappe.get_doc(make_stock_entry(pro_id, purpose))
 		st.posting_date = current_date
 		st.fiscal_year = cstr(current_date.year)
 		for d in st.get("mtn_details"):
@@ -304,7 +304,7 @@ def make_stock_entry_from_pro(pro_id, purpose, current_date):
 	except DuplicateEntryForProductionOrderError: pass
 	
 def make_quotation(current_date):
-	b = frappe.bean([{
+	b = frappe.get_doc([{
 		"creation": current_date,
 		"doctype": "Quotation",
 		"quotation_to": "Customer",
@@ -331,7 +331,7 @@ def make_sales_order(current_date):
 	q = get_random("Quotation", {"status": "Submitted"})
 	if q:
 		from erpnext.selling.doctype.quotation.quotation import make_sales_order
-		so = frappe.bean(make_sales_order(q))
+		so = frappe.get_doc(make_sales_order(q))
 		so.transaction_date = current_date
 		so.delivery_date = frappe.utils.add_days(current_date, 10)
 		so.fiscal_year = cstr(current_date.year)
@@ -404,7 +404,7 @@ def complete_setup():
 def show_item_groups_in_website():
 	"""set show_in_website=1 for Item Groups"""
 	for name in frappe.db.sql_list("""select name from `tabItem Group` order by lft"""):
-		item_group = frappe.bean("Item Group", name)
+		item_group = frappe.get_doc("Item Group", name)
 		item_group.show_in_website = 1
 		item_group.save()
 	
@@ -425,7 +425,7 @@ def make_users_and_employees():
 	import_data(["tabUser", "Employee", "Salary_Structure"])
 
 def make_bank_account():
-	ba = frappe.bean({
+	ba = frappe.get_doc({
 		"doctype": "Account",
 		"account_name": bank_name,
 		"account_type": "Bank",
@@ -452,7 +452,7 @@ def enable_shopping_cart():
 	import_doclist(path)
 	
 	# enable
-	settings = frappe.bean("Shopping Cart Settings")
+	settings = frappe.get_doc("Shopping Cart Settings")
 	settings.enabled = 1
 	settings.save()
 
