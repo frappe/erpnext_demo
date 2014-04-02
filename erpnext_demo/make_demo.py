@@ -8,8 +8,7 @@ from frappe.widgets import query_report
 import random
 import json
 
-from frappe.core.page.data_import_tool.data_import_tool import upload, import_doclist
-
+from frappe.core.page.data_import_tool.data_import_tool import import_doc
 # fix price list
 # fix fiscal year
 
@@ -449,7 +448,7 @@ def make_shipping_rules():
 def enable_shopping_cart():
 	# import
 	path = os.path.join(os.path.dirname(__file__), "demo_docs", "Shopping Cart Settings.json")
-	import_doclist(path)
+	import_doc(path)
 	
 	# enable
 	settings = frappe.get_doc("Shopping Cart Settings")
@@ -462,9 +461,5 @@ def import_data(dt, submit=False, overwrite=False):
 	
 	for doctype in dt:
 		print "Importing", doctype.replace("_", " "), "..."
-		frappe.local.form_dict = frappe._dict()
-		if submit:
-			frappe.form_dict["params"] = json.dumps({"_submit": 1})
-		frappe.uploaded_file = os.path.join(os.path.dirname(__file__), "demo_docs", doctype+".csv")
-		upload(overwrite=overwrite)
+		import_doc(os.path.join(os.path.dirname(__file__), "demo_docs", doctype+".csv"), submit=submit, overwrite=overwrite)
 		
