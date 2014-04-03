@@ -197,7 +197,7 @@ def run_purchase(current_date):
 	if can_make("Material Request"):
 		report = "Items To Be Requested"
 		for row in query_report.run(report)["result"][:how_many("Material Request")]:
-			mr = frappe.new_bean("Material Request")
+			mr = frappe.new_doc("Material Request")
 			mr.material_request_type = "Purchase"
 			mr.transaction_date = current_date
 			mr.fiscal_year = cstr(current_date.year)
@@ -339,7 +339,7 @@ def make_sales_order(current_date):
 		so.submit()
 		frappe.db.commit()
 	
-def add_random_children(bean, template, rows, randomize, unique=None):
+def add_random_children(doc, template, rows, randomize, unique=None):
 	for i in xrange(random.randrange(1, rows)):
 		d = template.copy()
 		for key, val in randomize.items():
@@ -349,10 +349,10 @@ def add_random_children(bean, template, rows, randomize, unique=None):
 				d[key] = random.randrange(*val)
 		
 		if unique:
-			if not bean.get(d["parentfield"], {unique:d[unique]}):
-				bean.append(d)
+			if not doc.get(d["parentfield"], {unique:d[unique]}):
+				doc.append(d)
 		else:
-			bean.append(d)
+			doc.append(d)
 
 def get_random(doctype, filters=None):
 	condition = []

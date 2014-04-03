@@ -45,7 +45,7 @@ def make_demo_user():
 		"Purchase User", "Quality Manager", "Report Manager", "Sales Master Manager", 
 		"Sales User", "Supplier", "Support Team"]
 		
-	def add_roles(bean):
+	def add_roles(doc):
 		for role in roles:
 			p.append("user_roles", {
 				"doctype": "UserRole",
@@ -56,7 +56,7 @@ def make_demo_user():
 	if frappe.db.exists("User", "demo@erpnext.com"):
 		frappe.delete_doc("User", "demo@erpnext.com")
 
-	p = frappe.new_bean("User")
+	p = frappe.new_doc("User")
 	p.email = "demo@erpnext.com"
 	p.first_name = "Demo"
 	p.last_name = "User"
