@@ -303,7 +303,7 @@ def make_stock_entry_from_pro(pro_id, purpose, current_date):
 	except DuplicateEntryForProductionOrderError: pass
 	
 def make_quotation(current_date):
-	b = frappe.get_doc([{
+	b = frappe.get_doc({
 		"creation": current_date,
 		"doctype": "Quotation",
 		"quotation_to": "Customer",
@@ -311,7 +311,7 @@ def make_quotation(current_date):
 		"order_type": "Sales",
 		"transaction_date": current_date,
 		"fiscal_year": cstr(current_date.year)
-	}])
+	})
 	
 	add_random_children(b, {
 		"doctype": "Quotation Item", 
