@@ -30,10 +30,10 @@ prob = {
 def make():
 	#frappe.flags.print_messages = True
 	frappe.flags.mute_emails = True
-	frappe.flags.rollback_on_exception = True	
+	frappe.flags.rollback_on_exception = True
 	setup()
 	_simulate()
-		
+
 def setup():
 	complete_setup()
 	make_customers_suppliers_contacts()
@@ -44,7 +44,7 @@ def setup():
 	make_bank_account()
 	# make_opening_stock()
 	# make_opening_accounts()
-	
+
 	make_tax_accounts()
 	make_tax_masters()
 	make_shipping_rules()
@@ -57,9 +57,9 @@ def _simulate():
 	if not start_date:
 		# start date = 100 days back
 		start_date = frappe.utils.add_days(frappe.utils.nowdate(), -1 * (runs_for or 100))
-		
+
 	current_date = frappe.utils.getdate(start_date)
-	
+
 	# continue?
 	last_posting = frappe.db.sql("""select max(posting_date) from `tabStock Ledger Entry`""")
 	if last_posting[0][0]:
@@ -69,11 +69,11 @@ def _simulate():
 	if not runs_for:
 		runs_for = frappe.utils.date_diff(frappe.utils.nowdate(), current_date)
 		# runs_for = 100
-	
-	for i in xrange(runs_for):		
+
+	for i in xrange(runs_for):
 		print current_date.strftime("%Y-%m-%d")
 		frappe.local.current_date = current_date
-		
+
 		if current_date.weekday() in (5, 6):
 			current_date = frappe.utils.add_days(current_date, 1)
 			continue
@@ -85,12 +85,12 @@ def _simulate():
 		run_accounts(current_date)
 
 		current_date = frappe.utils.add_days(current_date, 1)
-		
+
 def run_sales(current_date):
 	if can_make("Quotation"):
 		for i in xrange(how_many("Quotation")):
 			make_quotation(current_date)
-					
+
 	if can_make("Sales Order"):
 		for i in xrange(how_many("Sales Order")):
 			make_sales_order(current_date)
@@ -121,7 +121,7 @@ def run_accounts(current_date):
 			pi.insert()
 			pi.submit()
 			frappe.db.commit()
-			
+
 	if can_make("Payment Received"):
 		from erpnext.accounts.doctype.journal_voucher.journal_voucher import get_payment_entry_from_sales_invoice
 		report = "Accounts Receivable"
@@ -134,7 +134,7 @@ def run_accounts(current_date):
 			jv.insert()
 			jv.submit()
 			frappe.db.commit()
-			
+
 	if can_make("Payment Made"):
 		from erpnext.accounts.doctype.journal_voucher.journal_voucher import get_payment_entry_from_purchase_invoice
 		report = "Accounts Payable"
@@ -163,7 +163,7 @@ def run_stock(current_date):
 				pr.submit()
 				frappe.db.commit()
 			except NegativeStockError: pass
-	
+
 	# make delivery notes (if possible)
 	if can_make("Delivery Note"):
 		from erpnext.selling.doctype.sales_order.sales_order import make_delivery_note
@@ -177,7 +177,7 @@ def run_stock(current_date):
 			for d in dn.get("delivery_note_details"):
 				if not d.expense_account:
 					d.expense_account = "Cost of Goods Sold - {}".format(company_abbr)
-				
+
 			dn.insert()
 			try:
 				dn.submit()
@@ -185,13 +185,13 @@ def run_stock(current_date):
 			except NegativeStockError: pass
 			except SerialNoRequiredError: pass
 			except SerialNoQtyError: pass
-	
+
 	# try submitting existing
 	for dn in frappe.db.get_values("Delivery Note", {"docstatus": 0}, "name"):
 		b = frappe.get_doc("Delivery Note", dn[0])
 		b.submit()
 		frappe.db.commit()
-	
+
 def run_purchase(current_date):
 	# make material requests for purchase items that have negative projected qtys
 	if can_make("Material Request"):
@@ -209,7 +209,7 @@ def run_purchase(current_date):
 			})
 			mr.insert()
 			mr.submit()
-	
+
 	# make supplier quotations
 	if can_make("Supplier Quotation"):
 		from erpnext.stock.doctype.material_request.material_request import make_supplier_quotation
@@ -222,7 +222,7 @@ def run_purchase(current_date):
 				sq.insert()
 				sq.submit()
 				frappe.db.commit()
-		
+
 	# make purchase orders
 	if can_make("Purchase Order"):
 		from erpnext.stock.doctype.material_request.material_request import make_purchase_order
@@ -235,7 +235,7 @@ def run_purchase(current_date):
 				po.insert()
 				po.submit()
 				frappe.db.commit()
-			
+
 def run_manufacturing(current_date):
 	from erpnext.stock.stock_ledger import NegativeStockError
 	from erpnext.stock.doctype.stock_entry.stock_entry import IncorrectValuationRateError, DuplicateEntryForProductionOrderError
@@ -249,27 +249,27 @@ def run_manufacturing(current_date):
 	ppt.run_method("raise_production_order")
 	ppt.run_method("raise_purchase_request")
 	frappe.db.commit()
-	
+
 	# submit production orders
 	for pro in frappe.db.get_values("Production Order", {"docstatus": 0}, "name"):
 		b = frappe.get_doc("Production Order", pro[0])
 		b.wip_warehouse = "Work in Progress - WP"
 		b.submit()
 		frappe.db.commit()
-		
+
 	# submit material requests
 	for pro in frappe.db.get_values("Material Request", {"docstatus": 0}, "name"):
 		b = frappe.get_doc("Material Request", pro[0])
 		b.submit()
 		frappe.db.commit()
-	
+
 	# stores -> wip
-	if can_make("Stock Entry for WIP"):		
+	if can_make("Stock Entry for WIP"):
 		for pro in query_report.run("Open Production Orders")["result"][:how_many("Stock Entry for WIP")]:
 			make_stock_entry_from_pro(pro[0], "Material Transfer", current_date)
-		
+
 	# wip -> fg
-	if can_make("Stock Entry for FG"):		
+	if can_make("Stock Entry for FG"):
 		for pro in query_report.run("Production Orders in Progress")["result"][:how_many("Stock Entry for FG")]:
 			make_stock_entry_from_pro(pro[0], "Manufacture/Repack", current_date)
 
@@ -301,7 +301,7 @@ def make_stock_entry_from_pro(pro_id, purpose, current_date):
 	except NegativeStockError: pass
 	except IncorrectValuationRateError: pass
 	except DuplicateEntryForProductionOrderError: pass
-	
+
 def make_quotation(current_date):
 	b = frappe.get_doc({
 		"creation": current_date,
@@ -312,20 +312,20 @@ def make_quotation(current_date):
 		"transaction_date": current_date,
 		"fiscal_year": cstr(current_date.year)
 	})
-	
+
 	add_random_children(b, {
-		"doctype": "Quotation Item", 
-		"parentfield": "quotation_details", 
+		"doctype": "Quotation Item",
+		"parentfield": "quotation_details",
 	}, rows=3, randomize = {
 		"qty": (1, 5),
 		"item_code": ("Item", {"is_sales_item": "Yes"})
 	}, unique="item_code")
-	
+
 	b.insert()
 	frappe.db.commit()
 	b.submit()
 	frappe.db.commit()
-	
+
 def make_sales_order(current_date):
 	q = get_random("Quotation", {"status": "Submitted"})
 	if q:
@@ -338,7 +338,7 @@ def make_sales_order(current_date):
 		frappe.db.commit()
 		so.submit()
 		frappe.db.commit()
-	
+
 def add_random_children(doc, template, rows, randomize, unique=None):
 	for i in xrange(random.randrange(1, rows)):
 		d = template.copy()
@@ -347,12 +347,12 @@ def add_random_children(doc, template, rows, randomize, unique=None):
 				d[key] = get_random(*val)
 			else:
 				d[key] = random.randrange(*val)
-		
+
 		if unique:
 			if not doc.get(d["parentfield"], {unique:d[unique]}):
-				doc.append(d)
+				doc.append(d["parentfield"], d)
 		else:
-			doc.append(d)
+			doc.append(d["parentfield"], d)
 
 def get_random(doctype, filters=None):
 	condition = []
@@ -363,7 +363,7 @@ def get_random(doctype, filters=None):
 		condition = " where " + " and ".join(condition)
 	else:
 		condition = ""
-		
+
 	out = frappe.db.sql("""select name from `tab%s` %s
 		order by RAND() limit 0,1""" % (doctype, condition))
 
@@ -399,29 +399,29 @@ def complete_setup():
 	})
 
 	import_data("Fiscal_Year")
-	
+
 def show_item_groups_in_website():
 	"""set show_in_website=1 for Item Groups"""
 	for name in frappe.db.sql_list("""select name from `tabItem Group` order by lft"""):
 		item_group = frappe.get_doc("Item Group", name)
 		item_group.show_in_website = 1
 		item_group.save()
-	
+
 def make_items():
 	import_data("Item")
 	import_data("BOM", submit=True)
 
 def make_price_lists():
 	import_data("Item_Price", overwrite=True)
-	
+
 def make_customers_suppliers_contacts():
 	import_data(["Customer", "Supplier", "Contact", "Address", "Lead"])
 
 def make_users_and_employees():
 	frappe.db.set_value("HR Settings", None, "emp_created_by", "Naming Series")
 	frappe.db.commit()
-	
-	import_data(["tabUser", "Employee", "Salary_Structure"])
+
+	import_data(["User", "Employee", "Salary_Structure"])
 
 def make_bank_account():
 	ba = frappe.get_doc({
@@ -432,24 +432,24 @@ def make_bank_account():
 		"parent_account": "Bank Accounts - " + company_abbr,
 		"company": company
 	}).insert()
-	
+
 	frappe.set_value("Company", company, "default_bank_account", ba.name)
 	frappe.db.commit()
-	
+
 def make_tax_accounts():
 	import_data("Account")
-	
+
 def make_tax_masters():
 	import_data("Sales Taxes and Charges Master")
-	
+
 def make_shipping_rules():
 	import_data("Shipping Rule")
-	
+
 def enable_shopping_cart():
 	# import
 	path = os.path.join(os.path.dirname(__file__), "demo_docs", "Shopping Cart Settings.json")
 	import_doc(path)
-	
+
 	# enable
 	settings = frappe.get_doc("Shopping Cart Settings")
 	settings.enabled = 1
@@ -458,8 +458,11 @@ def enable_shopping_cart():
 def import_data(dt, submit=False, overwrite=False):
 	if not isinstance(dt, (tuple, list)):
 		dt = [dt]
-	
+
 	for doctype in dt:
 		print "Importing", doctype.replace("_", " "), "..."
 		import_doc(os.path.join(os.path.dirname(__file__), "demo_docs", doctype+".csv"), submit=submit, overwrite=overwrite)
-		
+
+		# doctype = doctype.replace("_", " ").title()
+		# print "\n".join(frappe.db.sql_list('select name from `tab{}`'.format(doctype))).encode("utf-8")
+		# print

@@ -1,62 +1,66 @@
 [
- [
-  {
-   "__islocal": 1, 
-   "_comments": null, 
-   "_user_tags": null, 
-   "company": "Wind Power LLC", 
-   "default_customer_group": "Individual", 
-   "default_territory": "Rest Of The World", 
-   "docstatus": 0, 
-   "doctype": "Shopping Cart Settings", 
-   "enabled": 0, 
-   "idx": null, 
-   "modified_by": "Administrator", 
-   "name": "Shopping Cart Settings", 
-   "owner": "", 
-   "parent": null, 
-   "parentfield": null, 
-   "parenttype": null, 
-   "quotation_series": "QTN"
-  }, 
-  {
-   "__islocal": 1, 
-   "creation": "2014-02-25 11:54:48", 
-   "docstatus": 0, 
-   "doctype": "Shopping Cart Price List", 
-   "idx": 1, 
-   "modified": "2014-02-25 11:54:52", 
-   "modified_by": "Administrator", 
-   "owner": "Administrator", 
-   "parentfield": "price_lists", 
-   "parenttype": "Shopping Cart Settings", 
-   "selling_price_list": "Standard Selling"
-  }, 
-  {
-   "__islocal": 1, 
-   "creation": "2014-02-25 11:54:48", 
-   "docstatus": 0, 
-   "doctype": "Shopping Cart Shipping Rule", 
-   "idx": 1, 
-   "modified": "2014-02-25 11:54:52", 
-   "modified_by": "Administrator", 
-   "owner": "Administrator", 
-   "parentfield": "shipping_rules", 
-   "parenttype": "Shopping Cart Settings", 
-   "shipping_rule": "Worldwide Shipping"
-  }, 
-  {
-   "__islocal": 1, 
-   "creation": "2014-02-25 11:54:48", 
-   "docstatus": 0, 
-   "doctype": "Shopping Cart Taxes and Charges Master", 
-   "idx": 1, 
-   "modified": "2014-02-25 11:54:52", 
-   "modified_by": "Administrator", 
-   "owner": "Administrator", 
-   "parentfield": "sales_taxes_and_charges_masters", 
-   "parenttype": "Shopping Cart Settings", 
-   "sales_taxes_and_charges_master": "Demo Tax Master"
-  }
- ]
+ {
+  "__islocal": 1,
+  "_comments": null,
+  "_user_tags": null,
+  "company": "Wind Power LLC",
+  "default_customer_group": "Individual",
+  "default_territory": "United States",
+  "docstatus": 0,
+  "doctype": "Shopping Cart Settings",
+  "enabled": 0,
+  "idx": null,
+  "modified_by": "Administrator",
+  "name": "Shopping Cart Settings",
+  "owner": "",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "price_lists": [
+   {
+    "__islocal": 1,
+    "creation": "2014-02-25 11:54:48",
+    "docstatus": 0,
+    "doctype": "Shopping Cart Price List",
+    "idx": 1,
+    "modified": "2014-02-25 11:54:52",
+    "modified_by": "Administrator",
+    "owner": "Administrator",
+    "parentfield": "price_lists",
+    "parenttype": "Shopping Cart Settings",
+    "selling_price_list": "Standard Selling"
+   }
+  ],
+  "quotation_series": "QTN",
+  "sales_taxes_and_charges_masters": [
+   {
+    "__islocal": 1,
+    "creation": "2014-02-25 11:54:48",
+    "docstatus": 0,
+    "doctype": "Shopping Cart Taxes and Charges Master",
+    "idx": 1,
+    "modified": "2014-02-25 11:54:52",
+    "modified_by": "Administrator",
+    "owner": "Administrator",
+    "parentfield": "sales_taxes_and_charges_masters",
+    "parenttype": "Shopping Cart Settings",
+    "sales_taxes_and_charges_master": "Demo Tax Master"
+   }
+  ],
+  "shipping_rules": [
+   {
+    "__islocal": 1,
+    "creation": "2014-02-25 11:54:48",
+    "docstatus": 0,
+    "doctype": "Shopping Cart Shipping Rule",
+    "idx": 1,
+    "modified": "2014-02-25 11:54:52",
+    "modified_by": "Administrator",
+    "owner": "Administrator",
+    "parentfield": "shipping_rules",
+    "parenttype": "Shopping Cart Settings",
+    "shipping_rule": "Worldwide Shipping"
+   }
+  ]
+ }
 ]
