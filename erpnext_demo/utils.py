@@ -21,7 +21,7 @@ def on_login(login_manager):
 
 def get_startup_js():
 	return """frappe.ui.toolbar.show_banner('You are using ERPNext Demo. '
-		+'To start your own ERPNext Trial, <a href="https://erpnext.com/pricing-and-signup" '
+		+'To start your own ERPNext Trial, <a href="https://frappecloud.com/plans" '
 		+'target="_blank">click here</a>');"""
 
 def check_if_not_setup():
@@ -36,28 +36,28 @@ def make_demo():
 
 def make_demo_user():
 	from frappe.auth import _update_password
-	
-	roles = ["Accounts Manager", "Analytics", "Expense Approver", "Accounts User", 
-		"Leave Approver", "Blogger", "Customer", "Sales Manager", "Employee", "Support Manager", 
-		"HR Manager", "HR User", "Maintenance Manager", "Maintenance User", "Material Manager", 
-		"Material Master Manager", "Material User", "Manufacturing Manager", 
-		"Manufacturing User", "Projects User", "Purchase Manager", "Purchase Master Manager", 
-		"Purchase User", "Quality Manager", "Report Manager", "Sales Master Manager", 
+
+	roles = ["Accounts Manager", "Analytics", "Expense Approver", "Accounts User",
+		"Leave Approver", "Blogger", "Customer", "Sales Manager", "Employee", "Support Manager",
+		"HR Manager", "HR User", "Maintenance Manager", "Maintenance User", "Material Manager",
+		"Material Master Manager", "Material User", "Manufacturing Manager",
+		"Manufacturing User", "Projects User", "Purchase Manager", "Purchase Master Manager",
+		"Purchase User", "Quality Manager", "Report Manager", "Sales Master Manager",
 		"Sales User", "Supplier", "Support Team"]
-		
+
 	def add_roles(doc):
 		for role in roles:
 			p.append("user_roles", {
 				"doctype": "UserRole",
 				"role": role
 			})
-	
+
 	# make demo user
-	if frappe.db.exists("User", "demo@erpnext.com"):
-		frappe.delete_doc("User", "demo@erpnext.com")
+	if frappe.db.exists("User", "demo@frappecloud.com"):
+		frappe.delete_doc("User", "demo@frappecloud.com")
 
 	p = frappe.new_doc("User")
-	p.email = "demo@erpnext.com"
+	p.email = "demo@frappecloud.com"
 	p.first_name = "Demo"
 	p.last_name = "User"
 	p.enabled = 1
@@ -65,21 +65,21 @@ def make_demo_user():
 	p.insert()
 	add_roles(p)
 	p.save()
-	_update_password("demo@erpnext.com", "demo")
-	
+	_update_password("demo@frappecloud.com", "demo")
+
 	# only read for newsletter
 	frappe.db.sql("""update `tabDocPerm` set `write`=0, `create`=0, `cancel`=0
 		where parent='Newsletter'""")
 	frappe.db.sql("""update `tabDocPerm` set `write`=0, `create`=0, `cancel`=0
 		where parent='User' and role='All'""")
-	
+
 	frappe.db.commit()
 
 def make_demo_login_page():
 	import frappe.installer
-	
+
 	frappe.installer.add_to_installed_apps("erpnext_demo")
-	
+
 	website_settings = frappe.get_doc("Website Settings", "Website Settings")
 	website_settings.home_page = "start"
 	website_settings.disable_signup = 1
