@@ -61,7 +61,7 @@ def _simulate():
 	current_date = frappe.utils.getdate(start_date)
 
 	# continue?
-	last_posting = frappe.db.sql("""select max(posting_date) from `tabStock Ledger Entry`""")
+	last_posting = frappe.db.sql("""select max(posting_date) from `tabStock Ledger Entry` where posting_date < curdate()""")
 	if last_posting[0][0]:
 		current_date = frappe.utils.add_days(last_posting[0][0], 1)
 
