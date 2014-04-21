@@ -3,6 +3,7 @@
 
 from __future__ import unicode_literals
 import frappe
+from frappe import _, throw
 import erpnext_demo.make_demo
 
 def on_login(login_manager):
@@ -12,7 +13,7 @@ def on_login(login_manager):
 			import requests
 			url = frappe.conf.demo_notify_url
 			cmd = frappe.conf.demo_notify_cmd or "erpnext.templates.utils.send_message"
-			response = requests.post(url, data={
+			requests.post(url, data={
 				"cmd": cmd,
 				"subject":"Logged into Demo",
 				"sender": frappe.form_dict.lead_email,
@@ -85,3 +86,7 @@ def make_demo_login_page():
 	website_settings.disable_signup = 1
 	website_settings.save()
 	frappe.db.commit()
+
+def validate_reset_password(doc, method):
+	if doc.name == "demo@frappecloud.com":
+		throw(_("You cannot reset the password of {0}").format(doc.first_name + " " + doc.last_name))
