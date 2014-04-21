@@ -1,12 +1,11 @@
 # Copyright (c) 2013, Web Notes Technologies Pvt. Ltd. and Contributors
 # License: GNU General Public License v3. See license.txt
 
-import frappe, os, datetime
+import frappe, os
 import frappe.utils
 from frappe.utils import random_string, cstr
 from frappe.widgets import query_report
 import random
-import json
 
 from frappe.core.page.data_import_tool.data_import_tool import import_doc
 # fix price list
@@ -388,6 +387,9 @@ def complete_setup():
 	setup_account({
 		"first_name": "Test",
 		"last_name": "User",
+		"email": "test_demo@frappecloud.com",
+		"company_tagline": "Wind Mills for a Better Tomorrow",
+		"password": "test",
 		"fy_start_date": "2014-01-01",
 		"fy_end_date": "2014-12-31",
 		"industry": "Manufacturing",
@@ -395,7 +397,8 @@ def complete_setup():
 		"company_abbr": company_abbr,
 		"currency": currency,
 		"timezone": time_zone,
-		"country": country
+		"country": country,
+		"language": "english"
 	})
 
 	import_data("Fiscal_Year")
