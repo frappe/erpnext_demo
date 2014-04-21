@@ -405,10 +405,9 @@ def complete_setup():
 
 def show_item_groups_in_website():
 	"""set show_in_website=1 for Item Groups"""
-	for name in frappe.db.sql_list("""select name from `tabItem Group` order by lft"""):
-		item_group = frappe.get_doc("Item Group", name)
-		item_group.show_in_website = 1
-		item_group.save()
+	products = frappe.get_doc("Item Group", "Products")
+	products.show_in_website = 1
+	products.save()
 
 def make_items():
 	import_data("Item")
