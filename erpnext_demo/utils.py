@@ -48,7 +48,7 @@ def make_demo_user():
 
 	def add_roles(doc):
 		for role in roles:
-			p.append("user_roles", {
+			doc.append("user_roles", {
 				"doctype": "UserRole",
 				"role": role
 			})
