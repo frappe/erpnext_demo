@@ -15,3 +15,20 @@ on_session_creation = erpnext_demo.utils.on_login
 startup_js = erpnext_demo.utils.get_startup_js
 
 doc_event:User:validate_reset_password = erpnext_demo.utils.validate_reset_password
+
+# fixture = Account
+# fixture = Address
+# fixture = BOM
+# fixture = Contact
+# fixture = Customer
+# fixture = Employee
+# fixture = Fiscal Year
+# fixture = Item
+# fixture = Item Price
+# fixture = Lead
+# fixture = Salary Structure
+# fixture = Sales Taxes and Charges Master
+# fixture = Shipping Rule
+# fixture = Shopping Cart Settings
+# fixture = Supplier
+# fixture = User
