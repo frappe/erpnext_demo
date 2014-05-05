@@ -7,6 +7,7 @@ app_color = "#d6cec3"
 app_email = "info@erpnext.com"
 app_url = "http://erpnext.org"
 app_version = "0.0.1"
+hide_in_installer = True
 
 before_install = "erpnext_demo.utils.check_if_not_setup"
 after_install = "erpnext_demo.utils.make_demo"
