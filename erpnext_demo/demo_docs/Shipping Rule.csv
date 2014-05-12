@@ -1,23 +1,23 @@
-"Data Import Template"
-"Table:","Shipping Rule"
-""
-""
-"Notes:"
-"Please do not change the template headings."
-"First data column must be blank."
-"If you are uploading new records, leave the ""name"" (ID) column blank."
-"If you are uploading new records, ""Naming Series"" becomes mandatory, if present."
-"Only mandatory fields are necessary for new records. You can delete non-mandatory columns if you wish."
-"For updating, you can update only selective columns."
-"You can only upload upto 5000 records in one go. (may be less in some cases)"
-""
-"DocType:","Shipping Rule","","","","","~","Shipping Rule Condition","shipping_rule_conditions","","","~","Applicable Territory","valid_for_territories"
-"Column Labels:","ID","Shipping Rule Label","Company","Shipping Account","Cost Center","","ID","From Value","Shipping Amount","To Value","","ID","Territory"
-"Column Name:","name","label","company","account","cost_center","~","name","from_value","shipping_amount","to_value","~","name","territory"
-"Mandatory:","Yes","Yes","Yes","Yes","Yes","","Yes","Yes","Yes","No","","Yes","Yes"
-"Type:","Data (text)","Data","Link","Link","Link","","Data","Float","Currency","Float","","Data","Link"
-"Info:","","","Valid Company","Valid Account","Valid Cost Center","","Leave blank for new records","","","","","Leave blank for new records","Valid Territory"
-"Start entering data below this line"
-"","""Worldwide Shipping""","Worldwide Shipping","Wind Power LLC","Shipping Charges - WP","Main - WP","","""000000502""",0.0,10.0,500.0,"","""000000505""","All Territories"
-"","","","","","","","""000000503""",500.0,15.0,1000.0,"","",""
-"","","","","","","","""000000504""",1000.0,20.0,0.0,"","",""
+Data Import Template,,,,,,,,,,,,,
+Table:,Shipping Rule,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+Notes:,,,,,,,,,,,,,
+Please do not change the template headings.,,,,,,,,,,,,,
+First data column must be blank.,,,,,,,,,,,,,
+"If you are uploading new records, leave the ""name"" (ID) column blank.",,,,,,,,,,,,,
+"If you are uploading new records, ""Naming Series"" becomes mandatory, if present.",,,,,,,,,,,,,
+Only mandatory fields are necessary for new records. You can delete non-mandatory columns if you wish.,,,,,,,,,,,,,
+"For updating, you can update only selective columns.",,,,,,,,,,,,,
+You can only upload upto 5000 records in one go. (may be less in some cases),,,,,,,,,,,,,
+,,,,,,,,,,,,,
+DocType:,Shipping Rule,,,,,~,Shipping Rule Condition,shipping_rule_conditions,,,~,Applicable Territory,valid_for_territories
+Column Labels:,ID,Shipping Rule Label,Company,Shipping Account,Cost Center,,ID,From Value,Shipping Amount,To Value,,ID,Territory
+Column Name:,name,label,company,account,cost_center,~,name,from_value,shipping_amount,to_value,~,name,territory
+Mandatory:,Yes,Yes,Yes,Yes,Yes,,Yes,Yes,Yes,No,,Yes,Yes
+Type:,Data (text),Data,Link,Link,Link,,Data,Float,Currency,Float,,Data,Link
+Info:,,,Valid Company,Valid Account,Valid Cost Center,,Leave blank for new records,,,,,Leave blank for new records,Valid Territory
+Start entering data below this line,,,,,,,,,,,,,
+,"""Worldwide Shipping""",Worldwide Shipping,Wind Power LLC,Shipping Charges - WP,Main - WP,,,0,10,500,,,All Territories
+,,,,,,,,500,15,"1,000",,,
+,,,,,,,,"1,000",20,0,,,

@@ -1,21 +1,21 @@
-"Data Import Template"
-"Table:","Sales Taxes and Charges Master"
-""
-""
-"Notes:"
-"Please do not change the template headings."
-"First data column must be blank."
-"If you are uploading new records, leave the ""name"" (ID) column blank."
-"If you are uploading new records, ""Naming Series"" becomes mandatory, if present."
-"Only mandatory fields are necessary for new records. You can delete non-mandatory columns if you wish."
-"For updating, you can update only selective columns."
-"You can only upload upto 5000 records in one go. (may be less in some cases)"
-""
-"DocType:","Sales Taxes and Charges Master","","","","~","Sales Taxes and Charges","other_charges","","","","","","","","","~","Applicable Territory","valid_for_territories"
-"Column Labels:","ID","Title","Company","Default","","ID","Type","Description","Account Head","Rate","Enter Row","Cost Center","Amount","Total","Is this Tax included in Basic Rate?","","ID","Territory"
-"Column Name:","name","title","company","is_default","~","name","charge_type","description","account_head","rate","row_id","cost_center","tax_amount","total","included_in_print_rate","~","name","territory"
-"Mandatory:","Yes","Yes","Yes","No","","Yes","Yes","Yes","Yes","Yes","No","No","No","No","No","","Yes","Yes"
-"Type:","Data (text)","Data","Link","Check","","Data","Select","Small Text","Link","Float","Data","Link","Currency","Currency","Check","","Data","Link"
-"Info:","","","Valid Company","0 or 1","","Leave blank for new records","One of: Actual, On Net Total, On Previous Row Amount, On Previous Row Total","","Valid Account","","","Valid Cost Center","","","0 or 1","","Leave blank for new records","Valid Territory"
-"Start entering data below this line"
-"","""Demo Tax Master""","Demo Tax Master","Wind Power LLC",0,"","""INVTD000001""","On Net Total","VAT @ 4%","Input VAT - WP",4.0,"","Main - WP","","","","","""000000501""","All Territories"
+Data Import Template,,,,,,,,,,,,,,,,,,
+Table:,Sales Taxes and Charges Master,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+Notes:,,,,,,,,,,,,,,,,,,
+Please do not change the template headings.,,,,,,,,,,,,,,,,,,
+First data column must be blank.,,,,,,,,,,,,,,,,,,
+"If you are uploading new records, leave the ""name"" (ID) column blank.",,,,,,,,,,,,,,,,,,
+"If you are uploading new records, ""Naming Series"" becomes mandatory, if present.",,,,,,,,,,,,,,,,,,
+Only mandatory fields are necessary for new records. You can delete non-mandatory columns if you wish.,,,,,,,,,,,,,,,,,,
+"For updating, you can update only selective columns.",,,,,,,,,,,,,,,,,,
+You can only upload upto 5000 records in one go. (may be less in some cases),,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+DocType:,Sales Taxes and Charges Master,,,,~,Sales Taxes and Charges,other_charges,,,,,,,,,~,Applicable Territory,valid_for_territories
+Column Labels:,ID,Title,Company,Default,,ID,Type,Description,Account Head,Rate,Enter Row,Cost Center,Amount,Total,Is this Tax included in Basic Rate?,,ID,Territory
+Column Name:,name,title,company,is_default,~,name,charge_type,description,account_head,rate,row_id,cost_center,tax_amount,total,included_in_print_rate,~,name,territory
+Mandatory:,Yes,Yes,Yes,No,,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,,Yes,Yes
+Type:,Data (text),Data,Link,Check,,Data,Select,Small Text,Link,Float,Data,Link,Currency,Currency,Check,,Data,Link
+Info:,,,Valid Company,0 or 1,,Leave blank for new records,"One of: Actual, On Net Total, On Previous Row Amount, On Previous Row Total",,Valid Account,,,Valid Cost Center,,,0 or 1,,Leave blank for new records,Valid Territory
+Start entering data below this line,,,,,,,,,,,,,,,,,,
+,"""Demo Tax Master""",Demo Tax Master,Wind Power LLC,0,,,On Net Total,VAT @ 4%,Input VAT - WP,4,,Main - WP,,,,,,All Territories
