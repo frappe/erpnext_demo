@@ -131,6 +131,7 @@ No Report Loaded. Please use query-report/[Report Name] to run a report.,No Segn
 No Results,Nessun risultato
 No document selected,Nessun documento selezionato
 No one,Nessuno
+No permission to '{0}' {1},Nessuna autorizzazione per ' {0} ' {1}
 No permission to edit,Non hai il permesso di modificare
 No records tagged.,Nessun record marcati.
 None,Nessuno
@@ -177,6 +178,7 @@ Reload Page,Ricarica la Pagina
 Remove Bookmark,Rimuovere Bookmark
 Rename...,Rinomina ...
 Report,Segnala
+Report an Issue,Segnala un problema
 Report was not saved (there were errors),Relazione non è stato salvato (ci sono stati errori)
 Save,salvare
 Search,Cerca
@@ -235,11 +237,11 @@ Workflow will start after saving.,Flusso di lavoro avrà inizio dopo il salvatag
 Yes,Sì
 Yesterday,Ieri
 You are not allowed to create / edit reports,Non hai il permesso di creare / modificare i rapporti
-You are not allowed to create {0},Non ti è consentito creare {0}
 You are not allowed to export this report,Non sei autorizzato a esportare questo rapporto
 You are not allowed to print this document,Non sei autorizzato a stampare questo documento
 You are not allowed to send emails related to this document,Non hai i permessi per inviare e-mail relative a questo documento
 You cannot reset the password of {0},Non è possibile reimpostare la password di {0}
+You have unsaved changes in this form. Please save before you continue.,Hai modifiche non salvate in questa forma .
 "Your download is being built, this may take a few moments...","Il download è in costruzione, l&#39;operazione potrebbe richiedere alcuni minuti ..."
 and,e
 comment,commento

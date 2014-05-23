@@ -131,6 +131,7 @@ No Report Loaded. Please use query-report/[Report Name] to run a report.,Non Sig
 No Results,Vous ne pouvez pas ouvrir par exemple lorsque son {0} est ouvert
 No document selected,"Statut du document de transition {0} {1}, n'est pas autorisé"
 No one,Personne
+No permission to '{0}' {1},Pas de permission pour '{0} ' {1}
 No permission to edit,Pas de permission pour modifier
 No records tagged.,Aucun dossier étiqueté.
 None,Aucun
@@ -177,6 +178,7 @@ Reload Page,Inconnu Format d'impression : {0}
 Remove Bookmark,Supprimer le signet
 Rename...,Renommer ...
 Report,Rapport
+Report an Issue,Signaler un problème
 Report was not saved (there were errors),Rapport n&#39;a pas été sauvé (il y avait des erreurs)
 Save,sauver
 Search,Rechercher
@@ -235,11 +237,11 @@ Workflow will start after saving.,Workflow démarre après la sauvegarde.
 Yes,Oui
 Yesterday,Hier
 You are not allowed to create / edit reports,enregistrement précédent
-You are not allowed to create {0},Aucun document sélectionné
 You are not allowed to export this report,S'il vous plaît entrez la date et l'heure de l'événement !
 You are not allowed to print this document,"Pour signaler un problème, passez à"
 You are not allowed to send emails related to this document,Mettez sur le site Web
 You cannot reset the password of {0},Vous n'êtes pas autorisé à exporter ce rapport
+You have unsaved changes in this form. Please save before you continue.,Vous avez des modifications non enregistrées dans ce formulaire .
 "Your download is being built, this may take a few moments...","Votre téléchargement est en cours de construction, ce qui peut prendre quelques instants ..."
 and,et
 comment,commenter

@@ -131,6 +131,7 @@ No Report Loaded. Please use query-report/[Report Name] to run a report.,Δεν 
 No Results,Δεν υπάρχουν αποτελέσματα
 No document selected,Δεν επιλεγμένο έγγραφο
 No one,Κανένας
+No permission to '{0}' {1},Δεν έχετε άδεια για '{0} ' {1}
 No permission to edit,Δεν έχετε άδεια για να επεξεργαστείτε
 No records tagged.,Δεν υπάρχουν αρχεία ετικέτα.
 None,Κανένας
@@ -177,6 +178,7 @@ Reload Page,Ανανέωση της σελίδας
 Remove Bookmark,Κατάργηση Bookmark
 Rename...,Μετονομασία ...
 Report,Αναφορά
+Report an Issue,Αναφορά προβλήματος
 Report was not saved (there were errors),Έκθεση δεν αποθηκεύτηκε (υπήρχαν σφάλματα)
 Save,εκτός
 Search,Αναζήτηση
@@ -235,11 +237,11 @@ Workflow will start after saving.,Workflow θα ξεκινήσει μετά τη
 Yes,Ναί
 Yesterday,Χτες
 You are not allowed to create / edit reports,Δεν επιτρέπεται να δημιουργήσετε / επεξεργαστείτε εκθέσεις
-You are not allowed to create {0},Δεν επιτρέπεται να δημιουργήσετε {0}
 You are not allowed to export this report,Δεν επιτρέπεται να εξάγουν αυτή την έκθεση
 You are not allowed to print this document,Δεν επιτρέπεται να εκτυπώσετε το έγγραφο
 You are not allowed to send emails related to this document,Δεν επιτρέπεται να στείλετε μηνύματα ηλεκτρονικού ταχυδρομείου που σχετίζονται με αυτό το έγγραφο
 You cannot reset the password of {0},Δεν μπορείτε να επαναφέρετε τον κωδικό πρόσβασης του {0}
+You have unsaved changes in this form. Please save before you continue.,Έχετε μη αποθηκευμένες αλλαγές σε αυτή τη μορφή .
 "Your download is being built, this may take a few moments...","Η λήψη σας χτίζεται, αυτό μπορεί να διαρκέσει λίγα λεπτά ..."
 and,και
 comment,σχόλιο

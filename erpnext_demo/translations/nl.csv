@@ -131,6 +131,7 @@ No Report Loaded. Please use query-report/[Report Name] to run a report.,Geen ra
 No Results,geen resultaten
 No document selected,Geen document geselecteerd
 No one,Niemand
+No permission to '{0}' {1},Geen toestemming om ' {0} ' {1}
 No permission to edit,Geen toestemming te bewerken
 No records tagged.,Geen records gelabeld.
 None,Niemand
@@ -177,6 +178,7 @@ Reload Page,Reload Pagina
 Remove Bookmark,Bladwijzer verwijderen
 Rename...,Hernoemen ...
 Report,Verslag
+Report an Issue,Een probleem rapporteren?
 Report was not saved (there were errors),Rapport werd niet opgeslagen (er waren fouten)
 Save,besparen
 Search,Zoek
@@ -235,11 +237,11 @@ Workflow will start after saving.,Workflow begint na het opslaan.
 Yes,Ja
 Yesterday,Gisteren
 You are not allowed to create / edit reports,U bent niet toegestaan ​​om / bewerken van rapporten
-You are not allowed to create {0},U bent niet toegestaan ​​om {0}
 You are not allowed to export this report,U bent niet bevoegd om dit rapport te exporteren
 You are not allowed to print this document,U bent niet gemachtigd om dit document af te drukken
 You are not allowed to send emails related to this document,Het is niet toegestaan ​​om e-mails met betrekking tot dit document te versturen
 You cannot reset the password of {0},U kunt het wachtwoord van {0} niet gereset
+You have unsaved changes in this form. Please save before you continue.,Je hebt opgeslagen wijzigingen in deze vorm .
 "Your download is being built, this may take a few moments...","Uw download wordt gebouwd, kan dit enige tijd duren ..."
 and,en
 comment,commentaar

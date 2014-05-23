@@ -131,6 +131,7 @@ No Report Loaded. Please use query-report/[Report Name] to run a report.,"Não R
 No Results,nenhum resultado
 No document selected,Nenhum documento selecionado
 No one,Ninguém
+No permission to '{0}' {1},Sem permissão para '{0} ' {1}
 No permission to edit,Sem permissão para editar
 No records tagged.,Não há registros marcados.
 None,Nenhum
@@ -177,6 +178,7 @@ Reload Page,Atualizar Página
 Remove Bookmark,Remover Bookmark
 Rename...,Renomear ...
 Report,Relatório
+Report an Issue,Relatar um incidente
 Report was not saved (there were errors),O Relatório não foi salvo (houve erros)
 Save,salvar
 Search,Pesquisar
@@ -235,11 +237,11 @@ Workflow will start after saving.,Fluxo de trabalho será iníciado após salvar
 Yes,Sim
 Yesterday,Ontem
 You are not allowed to create / edit reports,Você não tem permissão para criar / editar relatórios
-You are not allowed to create {0},Você não tem permissão para criar {0}
 You are not allowed to export this report,Você não tem permissão para exportar este relatório
 You are not allowed to print this document,Você não tem permissão para imprimir este documento
 You are not allowed to send emails related to this document,Você não tem permissão para enviar e-mails relacionados a este documento
 You cannot reset the password of {0},Você não pode redefinir a senha de {0}
+You have unsaved changes in this form. Please save before you continue.,Você tem alterações não salvas neste formulário.
 "Your download is being built, this may take a few moments...","O seu download está sendo construído, isso pode demorar alguns instantes ..."
 and,e
 comment,comentário
