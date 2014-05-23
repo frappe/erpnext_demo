@@ -131,6 +131,7 @@ No Report Loaded. Please use query-report/[Report Name] to run a report.,أي ت
 No Results,لا نتائج
 No document selected,أي وثيقة مختارة
 No one,لا احد
+No permission to '{0}' {1},لا توجد صلاحية ل '{0} ' {1}
 No permission to edit,لا توجد صلاحية ل تعديل
 No records tagged.,لا توجد سجلات المعلمة.
 None,لا شيء
@@ -177,6 +178,7 @@ Reload Page,تحديث الصفحة
 Remove Bookmark,أضف إزالة
 Rename...,إعادة تسمية ...
 Report,تقرير
+Report an Issue,أبلغ عن مشكلة
 Report was not saved (there were errors),لم يتم حفظ التقرير (كانت هناك أخطاء)
 Save,حفظ
 Search,البحث
@@ -235,11 +237,11 @@ Workflow will start after saving.,سوف تبدأ العمل بعد الحفظ.
 Yes,نعم
 Yesterday,أمس
 You are not allowed to create / edit reports,لا يسمح لك لإنشاء تقارير / تحرير
-You are not allowed to create {0},لا يسمح لك لخلق {0}
 You are not allowed to export this report,لا يسمح لك لتصدير هذا التقرير
 You are not allowed to print this document,لا يسمح لك طباعة هذه الوثيقة
 You are not allowed to send emails related to this document,لا يسمح لك بإرسال رسائل البريد الإلكتروني ذات الصلة لهذه الوثيقة
 You cannot reset the password of {0},لا يمكنك إعادة تعيين كلمة المرور من {0}
+You have unsaved changes in this form. Please save before you continue.,لديك تغييرات لم يتم حفظها في هذا النموذج.
 "Your download is being built, this may take a few moments...",ويجري بناء التنزيل، وهذا قد يستغرق بضع لحظات ...
 and,و
 comment,تعليق

@@ -131,6 +131,7 @@ No Report Loaded. Please use query-report/[Report Name] to run a report.,Ne Izvj
 No Results,nema Rezultati
 No document selected,Nema odabranih dokumenata
 No one,Niko
+No permission to '{0}' {1},Nema dozvole za ' {0} ' {1}
 No permission to edit,Nema dozvole za uređivanje
 No records tagged.,Nema zapisa tagged.
 None,Nijedan
@@ -177,6 +178,7 @@ Reload Page,Osvježi stranicu
 Remove Bookmark,Uklonite Bookmark
 Rename...,Promjena naziva ...
 Report,Prijavi
+Report an Issue,Prijavi problem
 Report was not saved (there were errors),Izvješće nije spašen (bilo pogrešaka)
 Save,spasiti
 Search,Traži
@@ -235,11 +237,11 @@ Workflow will start after saving.,Workflow će početi nakon štednje.
 Yes,Da
 Yesterday,Jučer
 You are not allowed to create / edit reports,Ne smiju stvoriti / uređivati ​​izvješća
-You are not allowed to create {0},Ne smiju se stvarati {0}
 You are not allowed to export this report,Ne smiju se izvoziti ovom izvješću
 You are not allowed to print this document,Ne smiju se ispisati taj dokument
 You are not allowed to send emails related to this document,Ne smiju slati e-mailove u vezi s ovim dokumentom
 You cannot reset the password of {0},Vi ne možete resetirati lozinke za {0}
+You have unsaved changes in this form. Please save before you continue.,Vi niste spremili promjene u ovom obliku .
 "Your download is being built, this may take a few moments...","Vaš preuzimanje se gradi, to može potrajati nekoliko trenutaka ..."
 and,i
 comment,komentirati

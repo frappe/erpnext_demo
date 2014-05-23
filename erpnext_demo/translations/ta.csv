@@ -131,6 +131,7 @@ No Report Loaded. Please use query-report/[Report Name] to run a report.,"எந
 No Results,இல்லை முடிவுகள்
 No document selected,தேர்வு இல்லை ஆவணம்
 No one,எந்த ஒரு
+No permission to '{0}' {1},அனுமதி இல்லை ' {0}' {1}
 No permission to edit,திருத்த அனுமதி இல்லை
 No records tagged.,இல்லை பதிவுகளை குறித்துள்ளார்.
 None,None
@@ -177,6 +178,7 @@ Reload Page,பக்கத்தை மீண்டும் ஏற்றுக
 Remove Bookmark,Bookmark நீக்க
 Rename...,மறுபெயர் ...
 Report,புகார்
+Report an Issue,சிக்கலை புகார்
 Report was not saved (there were errors),அறிக்கை சேமிக்க (பிழைகள் இருந்தன)
 Save,சேமிக்கவும்
 Search,தேடல்
@@ -235,11 +237,11 @@ Workflow will start after saving.,பணியோட்டம் சேமி
 Yes,ஆம்
 Yesterday,நேற்று
 You are not allowed to create / edit reports,நீங்கள் / தொகு அறிக்கைகள் உருவாக்க அனுமதி இல்லை
-You are not allowed to create {0},நீங்கள் உருவாக்க அனுமதி இல்லை {0}
 You are not allowed to export this report,நீங்கள் இந்த அறிக்கையை ஏற்றுமதி செய்ய அனுமதி இல்லை
 You are not allowed to print this document,நீங்கள் இந்த ஆவணத்தை அச்சிட அனுமதி இல்லை
 You are not allowed to send emails related to this document,இந்த ஆவணம் தொடர்பான மின்னஞ்சல்களை அனுப்ப அனுமதி இல்லை
 You cannot reset the password of {0},நீங்கள் {0} கடவுச்சொல்லை மீட்டமைக்க முடியாது
+You have unsaved changes in this form. Please save before you continue.,நீங்கள் இந்த படிவத்தை சேமிக்கப்படாத மாற்றங்கள் உள்ளன .
 "Your download is being built, this may take a few moments...","உங்கள் பதிவிறக்க கட்டப்பட உள்ளது, இந்த ஒரு சில நிமிடங்கள் ஆகலாம் ..."
 and,மற்றும்
 comment,கருத்து

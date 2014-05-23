@@ -131,6 +131,7 @@ No Report Loaded. Please use query-report/[Report Name] to run a report.,無報�
 No Results,沒有結果
 No document selected,沒有選擇文件
 No one,沒有人
+No permission to '{0}' {1},沒有權限“{0}” {1}
 No permission to edit,無權限進行編輯
 No records tagged.,沒有記錄標記。
 None,無
@@ -177,6 +178,7 @@ Reload Page,刷新頁面
 Remove Bookmark,刪除書籤
 Rename...,重命名...
 Report,報告
+Report an Issue,報告問題
 Report was not saved (there were errors),報告沒有被保存（有錯誤）
 Save,節省
 Search,搜索
@@ -235,11 +237,11 @@ Workflow will start after saving.,保存後的工作流程將啟動。
 Yes,是的
 Yesterday,昨天
 You are not allowed to create / edit reports,你不允許創建/編輯報導
-You are not allowed to create {0},你不允許創建{0}
 You are not allowed to export this report,你不准出口本報告
 You are not allowed to print this document,你不允許打印此文檔
 You are not allowed to send emails related to this document,你是不是允許發送與此相關的文檔的電子郵件
 You cannot reset the password of {0},你不能復位的{0}密碼
+You have unsaved changes in this form. Please save before you continue.,你在本表格未保存的更改。
 "Your download is being built, this may take a few moments...",您的下載正在修建，這可能需要一些時間......
 and,和
 comment,評論

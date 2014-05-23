@@ -121,7 +121,7 @@ Move Up: {0},Вверх : {0}
 My Settings,Моја подешавања
 Name is required,Име је обавезно
 Name not permitted,Имя не допускается
-New,новый
+New,нови
 New Record,Нови Рекорд
 Next Record,Следующая запись
 Next actions,Следеће акције
@@ -131,6 +131,7 @@ No Report Loaded. Please use query-report/[Report Name] to run a report.,Не И
 No Results,Нет результатов
 No document selected,Не выбрано ни одного документа
 No one,Нико
+No permission to '{0}' {1},Немате дозволу за ' {0} ' {1}
 No permission to edit,Немате дозволу да измените
 No records tagged.,Нема података означени.
 None,Ниједан
@@ -177,6 +178,7 @@ Reload Page,Перезагрузка страницу
 Remove Bookmark,Уклоните Боокмарк
 Rename...,Преименуј ...
 Report,Извештај
+Report an Issue,Пријави грешку
 Report was not saved (there were errors),Извештај није сачуван (било грешака)
 Save,сачувати
 Search,Претрага
@@ -235,11 +237,11 @@ Workflow will start after saving.,Воркфлов ће почети након 
 Yes,Да
 Yesterday,Јуче
 You are not allowed to create / edit reports,Вы не можете создавать / редактировать отчеты
-You are not allowed to create {0},Вы не можете создать {0}
 You are not allowed to export this report,Вам не разрешено экспортировать этот отчет
 You are not allowed to print this document,Вы не можете распечатать этот документ
 You are not allowed to send emails related to this document,"Вы не можете отправлять письма , связанные с этим документом"
 You cannot reset the password of {0},Вы не можете сбросить пароль {0}
+You have unsaved changes in this form. Please save before you continue.,Имате сачували све промене у овом облику .
 "Your download is being built, this may take a few moments...","Преузимање се гради, ово може да потраје неколико тренутака ..."
 and,и
 comment,коментар
