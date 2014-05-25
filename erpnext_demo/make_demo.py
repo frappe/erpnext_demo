@@ -401,6 +401,11 @@ def complete_setup():
 		"language": "english"
 	})
 
+	# home page should always be "start"
+	website_settings = frappe.get_doc("Website Settings", "Website Settings")
+	website_settings.home_page = "start"
+	website_settings.save()
+
 	import_data("Fiscal_Year")
 
 def show_item_groups_in_website():
