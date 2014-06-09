@@ -15,4 +15,5 @@ recursive-include erpnext_demo *.md
 recursive-include erpnext_demo *.png
 recursive-include erpnext_demo *.py
 recursive-include erpnext_demo *.svg
+recursive-include erpnext_demo/public *
 recursive-exclude erpnext_demo *.pyc
