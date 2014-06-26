@@ -13,7 +13,7 @@ def on_login(login_manager):
 			import requests
 			url = frappe.conf.demo_notify_url
 			cmd = frappe.conf.demo_notify_cmd or "erpnext.templates.utils.send_message"
-			requests.post(url, data={
+			r = requests.post(url, data={
 				"cmd": cmd,
 				"subject":"Logged into Demo",
 				"sender": frappe.form_dict.lead_email,
@@ -56,6 +56,17 @@ def make_demo_user():
 	# make demo user
 	if frappe.db.exists("User", "demo@frappecloud.com"):
 		frappe.delete_doc("User", "demo@frappecloud.com")
+
+	# add User Type property setter
+	user_types = frappe.get_meta("User").get_field("user_type").options
+	frappe.make_property_setter({
+		"doctype_or_field": "DocField",
+		"doctype": "User",
+		"fieldname": "user_type",
+		"property": "options",
+		"value": (user_types or "") + "\nERPNext Demo",
+		"property_type": "Text"
+	})
 
 	p = frappe.new_doc("User")
 	p.email = "demo@frappecloud.com"
