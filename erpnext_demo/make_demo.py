@@ -1,7 +1,7 @@
 # Copyright (c) 2013, Web Notes Technologies Pvt. Ltd. and Contributors
 # License: GNU General Public License v3. See license.txt
 
-import frappe, os
+import frappe, os, sys
 import frappe.utils
 from frappe.utils import random_string, cstr
 from frappe.widgets import query_report
@@ -70,7 +70,8 @@ def _simulate():
 		# runs_for = 100
 
 	for i in xrange(runs_for):
-		print current_date.strftime("%Y-%m-%d")
+		sys.stdout.write("\rSimulating {0}".format(current_date.strftime("%Y-%m-%d")))
+		sys.stdout.flush()
 		frappe.local.current_date = current_date
 
 		if current_date.weekday() in (5, 6):
@@ -84,6 +85,8 @@ def _simulate():
 		run_accounts(current_date)
 
 		current_date = frappe.utils.add_days(current_date, 1)
+
+	print ""
 
 def run_sales(current_date):
 	if can_make("Quotation"):
@@ -467,7 +470,7 @@ def import_data(dt, submit=False, overwrite=False):
 		dt = [dt]
 
 	for doctype in dt:
-		print "Importing", doctype.replace("_", " "), "..."
+		# print "Importing", doctype.replace("_", " "), "..."
 		import_doc(os.path.join(os.path.dirname(__file__), "demo_docs", doctype+".csv"), submit=submit, overwrite=overwrite)
 
 		# doctype = doctype.replace("_", " ").title()
