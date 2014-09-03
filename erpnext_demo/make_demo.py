@@ -31,6 +31,7 @@ def make():
 	frappe.flags.mute_emails = True
 	frappe.flags.rollback_on_exception = True
 	setup()
+	frappe.set_user("Administrator")
 	_simulate()
 
 def setup():
@@ -49,6 +50,8 @@ def setup():
 	make_shipping_rules()
 	if "shopping_cart" in frappe.get_installed_apps():
 		enable_shopping_cart()
+
+	frappe.clear_cache()
 
 def _simulate():
 	global runs_for, start_date
