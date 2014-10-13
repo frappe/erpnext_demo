@@ -276,7 +276,7 @@ def run_manufacturing(current_date):
 	# wip -> fg
 	if can_make("Stock Entry for FG"):
 		for pro in query_report.run("Production Orders in Progress")["result"][:how_many("Stock Entry for FG")]:
-			make_stock_entry_from_pro(pro[0], "Manufacture/Repack", current_date)
+			make_stock_entry_from_pro(pro[0], "Manufacture", current_date)
 
 	# try posting older drafts (if exists)
 	for st in frappe.db.get_values("Stock Entry", {"docstatus":0}, "name"):
