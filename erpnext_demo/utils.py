@@ -9,6 +9,10 @@ import erpnext_demo.make_demo
 def on_login(login_manager):
 	from frappe.utils import validate_email_add
 	if "demo_notify_url" in frappe.conf:
+		ignore = ("test", "abc@gmail.com", "asdf@gmail.com", "admin@gmail.com", "@admin.com")
+		if ignore in frappe.form_dict.lead_email:
+			# bad email id!
+			return
 		if frappe.form_dict.lead_email and validate_email_add(frappe.form_dict.lead_email):
 			import requests
 			url = frappe.conf.demo_notify_url
