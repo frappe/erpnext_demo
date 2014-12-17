@@ -4,7 +4,7 @@
 import frappe, os, sys
 import frappe.utils
 from frappe.utils import random_string, cstr
-from frappe.widgets import query_report
+from frappe.desk import query_report
 import random
 
 from frappe.core.page.data_import_tool.data_import_tool import import_doc
@@ -400,6 +400,7 @@ def complete_setup():
 		"fy_end_date": "2014-12-31",
 		"industry": "Manufacturing",
 		"company_name": company,
+		"chart_of_accounts": "Standard",
 		"company_abbr": company_abbr,
 		"currency": currency,
 		"timezone": time_zone,
