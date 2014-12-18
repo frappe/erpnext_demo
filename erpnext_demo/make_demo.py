@@ -413,7 +413,7 @@ def complete_setup():
 	website_settings.home_page = "start"
 	website_settings.save()
 
-	import_data("Fiscal_Year")
+	import_data("Fiscal Year")
 
 def show_item_groups_in_website():
 	"""set show_in_website=1 for Item Groups"""
@@ -426,7 +426,7 @@ def make_items():
 	import_data("BOM", submit=True)
 
 def make_price_lists():
-	import_data("Item_Price", overwrite=True)
+	import_data("Item Price", overwrite=True)
 
 def make_customers_suppliers_contacts():
 	import_data(["Customer", "Supplier", "Contact", "Address", "Lead"])
@@ -435,7 +435,7 @@ def make_users_and_employees():
 	frappe.db.set_value("HR Settings", None, "emp_created_by", "Naming Series")
 	frappe.db.commit()
 
-	import_data(["User", "Employee", "Salary_Structure"])
+	import_data(["User", "Employee", "Salary Structure"])
 
 def make_bank_account():
 	ba = frappe.get_doc({
