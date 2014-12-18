@@ -7,7 +7,7 @@ from frappe.utils import random_string, cstr
 from frappe.desk import query_report
 import random
 
-from frappe.core.page.data_import_tool.data_import_tool import import_doc, export_csv
+from frappe.core.page.data_import_tool.data_import_tool import import_doc, export_json
 # fix price list
 # fix fiscal year
 
@@ -474,17 +474,17 @@ def import_data(dt, submit=False, overwrite=False):
 		dt = [dt]
 
 	for doctype in dt:
-		import_doc(get_csv_path(doctype), submit=submit, overwrite=overwrite)
+		import_doc(get_json_path(doctype), submit=submit, overwrite=overwrite)
 
 def export_data(dt):
 	if not isinstance(dt, (tuple, list)):
 		dt = [dt]
 
 	for doctype in dt:
-		export_csv(doctype, get_csv_path(doctype))
+		export_json(doctype, None, get_json_path(doctype))
 
-def get_csv_path(doctype):
-	return os.path.join(os.path.dirname(__file__), "demo_docs", doctype+".csv")
+def get_json_path(doctype):
+	return os.path.join(os.path.dirname(__file__), "demo_docs", doctype+".json")
 
 def export_demo_masters():
 	doctypes = (
