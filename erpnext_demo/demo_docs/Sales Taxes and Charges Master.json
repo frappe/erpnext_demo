@@ -1,0 +1,22 @@
+[
+ {
+  "company": "Wind Power LLC", 
+  "creation": "2014-12-18 15:07:15.203194", 
+  "disabled": null, 
+  "docstatus": 0, 
+  "doctype": "Sales Taxes and Charges Master", 
+  "idx": null, 
+  "is_default": 0, 
+  "modified": "2014-12-18 15:07:15.203194", 
+  "modified_by": "Administrator", 
+  "name": "Demo Tax Master", 
+  "owner": "Administrator", 
+  "parent": null, 
+  "parentfield": null, 
+  "parenttype": null, 
+  "title": "Demo Tax Master",
+  "valid_for_territories":[{
+   "territory": "All Territories"
+  }]
+ }
+]

@@ -1,0 +1,28 @@
+[
+ {
+  "account": "Shipping Charges - WP", 
+  "calculate_based_on": "Net Total", 
+  "company": "Wind Power LLC", 
+  "cost_center": "Main - WP", 
+  "creation": "2014-12-18 15:07:15.234472", 
+  "docstatus": 0, 
+  "doctype": "Shipping Rule", 
+  "idx": null, 
+  "label": "Worldwide Shipping", 
+  "modified": "2014-12-18 15:07:15.234472", 
+  "modified_by": "Administrator", 
+  "name": "Worldwide Shipping", 
+  "owner": "Administrator", 
+  "valid_for_territories": [{
+   "territory": "All Territories"
+  }],
+  "shipping_rule_conditions": [{
+   "to_value": 0.0,
+   "shipping_amount": 0.0,
+   "from_value": 0.0
+  }],
+  "parent": null, 
+  "parentfield": null, 
+  "parenttype": null
+ }
+]
