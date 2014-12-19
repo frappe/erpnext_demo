@@ -1,4 +1,3 @@
 frappe
 erpnext
-shopping_cart
 erpnext_demo
