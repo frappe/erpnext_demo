@@ -13,10 +13,10 @@
   "modified_by": "Administrator", 
   "name": "Worldwide Shipping", 
   "owner": "Administrator", 
-  "valid_for_territories": [{
+  "territories": [{
    "territory": "All Territories"
   }],
-  "shipping_rule_conditions": [{
+  "conditions": [{
    "to_value": 0.0,
    "shipping_amount": 0.0,
    "from_value": 0.0

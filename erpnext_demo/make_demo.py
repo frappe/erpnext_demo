@@ -108,7 +108,7 @@ def run_accounts(current_date):
 			si = frappe.get_doc(make_sales_invoice(so))
 			si.posting_date = current_date
 			si.fiscal_year = cstr(current_date.year)
-			for d in si.get("entries"):
+			for d in si.get("items"):
 				if not d.income_account:
 					d.income_account = "Sales - {}".format(company_abbr)
 			si.insert()
@@ -128,7 +128,7 @@ def run_accounts(current_date):
 			frappe.db.commit()
 
 	if can_make("Payment Received"):
-		from erpnext.accounts.doctype.journal_voucher.journal_voucher import get_payment_entry_from_sales_invoice
+		from erpnext.accounts.doctype.journal_entry.journal_entry import get_payment_entry_from_sales_invoice
 		report = "Accounts Receivable"
 		for si in list(set([r[4] for r in query_report.run(report, {"report_date": current_date })["result"] if r[3]=="Sales Invoice"]))[:how_many("Payment Received")]:
 			jv = frappe.get_doc(get_payment_entry_from_sales_invoice(si))
@@ -141,7 +141,7 @@ def run_accounts(current_date):
 			frappe.db.commit()
 
 	if can_make("Payment Made"):
-		from erpnext.accounts.doctype.journal_voucher.journal_voucher import get_payment_entry_from_purchase_invoice
+		from erpnext.accounts.doctype.journal_entry.journal_entry import get_payment_entry_from_purchase_invoice
 		report = "Accounts Payable"
 		for pi in list(set([r[4] for r in query_report.run(report, {"report_date": current_date })["result"] if r[3]=="Purchase Invoice"]))[:how_many("Payment Made")]:
 			jv = frappe.get_doc(get_payment_entry_from_purchase_invoice(pi))
@@ -179,7 +179,7 @@ def run_stock(current_date):
 			dn = frappe.get_doc(make_delivery_note(so))
 			dn.posting_date = current_date
 			dn.fiscal_year = cstr(current_date.year)
-			for d in dn.get("delivery_note_details"):
+			for d in dn.get("items"):
 				if not d.expense_account:
 					d.expense_account = "Cost of Goods Sold - {}".format(company_abbr)
 
@@ -206,7 +206,7 @@ def run_purchase(current_date):
 			mr.material_request_type = "Purchase"
 			mr.transaction_date = current_date
 			mr.fiscal_year = cstr(current_date.year)
-			mr.append("indent_details", {
+			mr.append("items", {
 				"doctype": "Material Request Item",
 				"schedule_date": frappe.utils.add_days(current_date, 7),
 				"item_code": row[0],
@@ -296,7 +296,7 @@ def make_stock_entry_from_pro(pro_id, purpose, current_date):
 		st = frappe.get_doc(make_stock_entry(pro_id, purpose))
 		st.posting_date = current_date
 		st.fiscal_year = cstr(current_date.year)
-		for d in st.get("mtn_details"):
+		for d in st.get("items"):
 			d.expense_account = "Stock Adjustment - " + company_abbr
 			d.cost_center = "Main - " + company_abbr
 		st.insert()
@@ -320,7 +320,7 @@ def make_quotation(current_date):
 
 	add_random_children(b, {
 		"doctype": "Quotation Item",
-		"parentfield": "quotation_details",
+		"parentfield": "items",
 	}, rows=3, randomize = {
 		"qty": (1, 5),
 		"item_code": ("Item", {"is_sales_item": "Yes"})

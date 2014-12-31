@@ -15,7 +15,7 @@
   "parentfield": null, 
   "parenttype": null, 
   "title": "Demo Tax Master",
-  "valid_for_territories":[{
+  "territories":[{
    "territory": "All Territories"
   }]
  }
