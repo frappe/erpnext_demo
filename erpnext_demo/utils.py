@@ -21,7 +21,9 @@ def on_login(login_manager):
 			})
 
 def get_startup_js():
-	return ''
+	return """frappe.ui.toolbar.show_banner('You are using ERPNext Demo. '
+		+'To start your own ERPNext Trial, <a href="https://frappecloud.com/plans" '
+		+'target="_blank">click here</a>');"""
 
 def check_if_not_setup():
 	if frappe.db.sql("""select name from tabCompany"""):
