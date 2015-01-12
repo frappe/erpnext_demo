@@ -86,6 +86,8 @@ def _simulate():
 		run_manufacturing(current_date)
 		run_stock(current_date)
 		run_accounts(current_date)
+		run_projects(current_date)
+		run_messages(current_date)
 
 		current_date = frappe.utils.add_days(current_date, 1)
 
@@ -286,6 +288,32 @@ def run_manufacturing(current_date):
 		except NegativeStockError: pass
 		except IncorrectValuationRateError: pass
 		except DuplicateEntryForProductionOrderError: pass
+
+def run_messages(current_date):
+	if can_make("Message"):
+		make_message(current_date)
+
+def make_message(current_date):
+	from_user = ["demo@frappecloud.com", "Administrator"][random.randint(0, 1)]
+	to_user = get_random("User")
+	comments = [
+		"Barnaby The Bear's my name, never call me Jack or James, I will sing my way to fame, Barnaby the Bear's my name.",
+		"Birds taught me to sing, when they took me to their king, first I had to fly, in the sky so high so high, so high so high so high, so - if you want to sing this way, think of what you'd like to say, add a tune and you will see, just how easy it can be.",
+		"Children of the sun, see your time has just begun, searching for your ways, through adventures every day. ",
+		"Every day and night, with the condor in flight, with all your friends in tow, you search for the Cities of Gold.",
+		"80 days around the world, we'll find a pot of gold just sitting where the rainbow's ending. ",
+		"Time - we'll fight against the time, and we'll fly on the white wings of the wind. ",
+		"Knight Rider, a shadowy flight into the dangerous world of a man who does not exist. Michael Knight, a young loner on a crusade to champion the cause of the innocent, the helpless in a world of criminals who operate above the law.",
+		"Ulysses, Ulysses - Soaring through all the galaxies. In search of Earth, flying in to the night. Ulysses, Ulysses - Fighting evil and tyranny, with all his power, and with all of his might. Ulysses - no-one else can do the things you do. Ulysses - like a bolt of thunder from the blue. Ulysses - always fighting all the evil forces bringing peace and justice to all.",
+		"One for all and all for one, Muskehounds are always ready. One for all and all for one, helping everybody. One for all and all for one, it's a pretty story. "
+	]
+
+	d = frappe.new_doc('Comment')
+	d.owner = from_user
+	d.comment_docname = to_user
+	d.comment_doctype = 'Message'
+	d.comment = comments[random.randint(0, len(comments) - 1)]
+	d.insert(ignore_permissions=True)
 
 def make_stock_entry_from_pro(pro_id, purpose, current_date):
 	from erpnext.manufacturing.doctype.production_order.production_order import make_stock_entry
