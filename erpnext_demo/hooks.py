@@ -13,7 +13,6 @@ before_install = "erpnext_demo.utils.check_if_not_setup"
 after_install = "erpnext_demo.utils.make_demo"
 
 on_session_creation = "erpnext_demo.utils.on_login"
-startup_js = "erpnext_demo.utils.get_startup_js"
 
 app_include_js = "assets/erpnext_demo/js/desktop.js"
 

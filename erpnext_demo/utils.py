@@ -24,9 +24,6 @@ def on_login(login_manager):
 				"message": "via demo.frappecloud.com"
 			})
 
-def get_startup_js():
-	return ''
-
 def check_if_not_setup():
 	if frappe.db.sql("""select name from tabCompany"""):
 		raise Exception("Demo App must only be installed on a blank database!")
