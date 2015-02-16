@@ -86,7 +86,7 @@ def _simulate():
 		run_manufacturing(current_date)
 		run_stock(current_date)
 		run_accounts(current_date)
-		run_projects(current_date)
+		#run_projects(current_date)
 		run_messages(current_date)
 
 		current_date = frappe.utils.add_days(current_date, 1)
