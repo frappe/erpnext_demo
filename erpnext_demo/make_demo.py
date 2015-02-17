@@ -157,24 +157,23 @@ def run_accounts(current_date):
 
 def run_stock(current_date):
 	# make purchase requests
+	from erpnext.stock.stock_ledger import NegativeStockError
+
 	if can_make("Purchase Receipt"):
 		from erpnext.buying.doctype.purchase_order.purchase_order import make_purchase_receipt
-		from erpnext.stock.stock_ledger import NegativeStockError
 		report = "Purchase Order Items To Be Received"
-		for po in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Purchase Receipt")]:
+		po_list =list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Purchase Receipt")]
+		for po in po_list:
 			pr = frappe.get_doc(make_purchase_receipt(po))
 			pr.posting_date = current_date
 			pr.fiscal_year = cstr(current_date.year)
 			pr.insert()
-			try:
-				pr.submit()
-				frappe.db.commit()
-			except NegativeStockError: pass
+			pr.submit()
+			frappe.db.commit()
 
 	# make delivery notes (if possible)
 	if can_make("Delivery Note"):
 		from erpnext.selling.doctype.sales_order.sales_order import make_delivery_note
-		from erpnext.stock.stock_ledger import NegativeStockError
 		from erpnext.stock.doctype.serial_no.serial_no import SerialNoRequiredError, SerialNoQtyError
 		report = "Ordered Items To Be Delivered"
 		for so in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Delivery Note")]:
@@ -189,15 +188,8 @@ def run_stock(current_date):
 			try:
 				dn.submit()
 				frappe.db.commit()
-			except NegativeStockError: pass
-			except SerialNoRequiredError: pass
-			except SerialNoQtyError: pass
-
-	# try submitting existing
-	for dn in frappe.db.get_values("Delivery Note", {"docstatus": 0}, "name"):
-		b = frappe.get_doc("Delivery Note", dn[0])
-		b.submit()
-		frappe.db.commit()
+			except (NegativeStockError, SerialNoRequiredError, SerialNoQtyError):
+				frappe.db.rollback()
 
 def run_purchase(current_date):
 	# make material requests for purchase items that have negative projected qtys
@@ -244,8 +236,8 @@ def run_purchase(current_date):
 				frappe.db.commit()
 
 def run_manufacturing(current_date):
-	from erpnext.stock.stock_ledger import NegativeStockError
 	from erpnext.stock.doctype.stock_entry.stock_entry import IncorrectValuationRateError, DuplicateEntryForProductionOrderError
+	from erpnext.stock.stock_ledger import NegativeStockError
 
 	ppt = frappe.get_doc("Production Planning Tool", "Production Planning Tool")
 	ppt.company = company
@@ -273,7 +265,7 @@ def run_manufacturing(current_date):
 	# stores -> wip
 	if can_make("Stock Entry for WIP"):
 		for pro in query_report.run("Open Production Orders")["result"][:how_many("Stock Entry for WIP")]:
-			make_stock_entry_from_pro(pro[0], "Material Transfer", current_date)
+			make_stock_entry_from_pro(pro[0], "Material Transfer for Manufacture", current_date)
 
 	# wip -> fg
 	if can_make("Stock Entry for FG"):
@@ -285,9 +277,8 @@ def run_manufacturing(current_date):
 		try:
 			frappe.get_doc("Stock Entry", st[0]).submit()
 			frappe.db.commit()
-		except NegativeStockError: pass
-		except IncorrectValuationRateError: pass
-		except DuplicateEntryForProductionOrderError: pass
+		except (NegativeStockError, IncorrectValuationRateError, DuplicateEntryForProductionOrderError):
+			frappe.db.rollback()
 
 def run_messages(current_date):
 	if can_make("Message"):
@@ -331,9 +322,8 @@ def make_stock_entry_from_pro(pro_id, purpose, current_date):
 		frappe.db.commit()
 		st.submit()
 		frappe.db.commit()
-	except NegativeStockError: pass
-	except IncorrectValuationRateError: pass
-	except DuplicateEntryForProductionOrderError: pass
+	except (NegativeStockError, IncorrectValuationRateError, DuplicateEntryForProductionOrderError):
+		frappe.db.rollback()
 
 def make_quotation(current_date):
 	b = frappe.get_doc({
