@@ -14,9 +14,23 @@
   "parent": null, 
   "parentfield": null, 
   "parenttype": null, 
-  "title": "Demo Tax Master",
-  "territories":[{
-   "territory": "All Territories"
-  }]
+  "taxes": [], 
+  "territories": [
+   {
+    "creation": "2014-12-18 15:07:15.203194", 
+    "docstatus": 0, 
+    "doctype": "Applicable Territory", 
+    "idx": 1, 
+    "modified": "2015-02-23 16:13:30.341676", 
+    "modified_by": "Administrator", 
+    "name": "d8b492f", 
+    "owner": "Administrator", 
+    "parent": "Demo Tax Master", 
+    "parentfield": "territories", 
+    "parenttype": "Sales Taxes and Charges Master", 
+    "territory": "All Territories"
+   }
+  ], 
+  "title": "Demo Tax Master"
  }
 ]
