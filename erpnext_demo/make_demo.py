@@ -1,5 +1,6 @@
 # Copyright (c) 2013, Web Notes Technologies Pvt. Ltd. and Contributors
 # License: GNU General Public License v3. See license.txt
+from __future__ import unicode_literals
 
 from __future__ import unicode_literals
 
@@ -57,8 +58,8 @@ def complete_setup():
 		"email": "test_demo@frappecloud.com",
 		"company_tagline": "Wind Mills for a Better Tomorrow",
 		"password": "test",
-		"fy_start_date": "2014-01-01",
-		"fy_end_date": "2014-12-31",
+		"fy_start_date": "2015-01-01",
+		"fy_end_date": "2015-12-31",
 		"industry": "Manufacturing",
 		"company_name": settings.company,
 		"chart_of_accounts": "Standard",

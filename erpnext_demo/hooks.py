@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 app_name = "erpnext_demo"
 app_title = "ERPNext Demo"
 app_publisher = "Web Notes Technlogies"
