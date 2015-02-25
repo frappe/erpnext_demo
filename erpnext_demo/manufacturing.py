@@ -13,6 +13,7 @@ def run_manufacturing(current_date):
 	from erpnext.stock.doctype.stock_entry.stock_entry import IncorrectValuationRateError, \
 		DuplicateEntryForProductionOrderError, OperationsNotCompleteError
 	from erpnext.stock.stock_ledger import NegativeStockError
+	from erpnext.projects.doctype.time_log.time_log import NotSubmittedError
 
 	ppt = frappe.get_doc("Production Planning Tool", "Production Planning Tool")
 	ppt.company = settings.company
@@ -28,7 +29,11 @@ def run_manufacturing(current_date):
 	for pro in frappe.db.get_values("Production Order", {"docstatus": 0}, "name"):
 		b = frappe.get_doc("Production Order", pro[0])
 		b.wip_warehouse = "Work in Progress - WP"
-		b.submit()
+		try:
+			b.submit()
+		except NotSubmittedError:
+			# over-enthusistic? try again?
+			b.submit()
 		frappe.db.commit()
 
 	# submit material requests

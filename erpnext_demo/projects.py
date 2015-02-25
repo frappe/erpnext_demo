@@ -9,9 +9,11 @@ from erpnext_demo.make_random import can_make
 def run_projects(current_date):
 	if can_make("Project"):
 		make_project(current_date)
+		frappe.db.commit()
 
 	if can_make("Task"):
 		close_tasks(current_date)
+		frappe.db.commit()
 
 def close_tasks(current_date):
 	for task in frappe.get_all("Task", ["name"], {"status": "Open", "exp_end_date": ("<", current_date)}):

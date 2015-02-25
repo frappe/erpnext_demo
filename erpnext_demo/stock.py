@@ -3,16 +3,18 @@
 
 from __future__ import unicode_literals
 
-import frappe
+import frappe, random
 from erpnext_demo.make_random import how_many, can_make
 from frappe.utils import cstr
 from frappe.desk import query_report
 from erpnext_demo import settings
 
 def run_stock(current_date):
-	# make purchase requests
-	from erpnext.stock.stock_ledger import NegativeStockError
+	make_purchase_receipt(current_date)
+	make_delivery_note(current_date)
+	make_stock_reconciliation(current_date)
 
+def make_purchase_receipt(current_date):
 	if can_make("Purchase Receipt"):
 		from erpnext.buying.doctype.purchase_order.purchase_order import make_purchase_receipt
 		report = "Purchase Order Items To Be Received"
@@ -24,6 +26,10 @@ def run_stock(current_date):
 			pr.insert()
 			pr.submit()
 			frappe.db.commit()
+
+def make_delivery_note(current_date):
+	# make purchase requests
+	from erpnext.stock.stock_ledger import NegativeStockError
 
 	# make delivery notes (if possible)
 	if can_make("Delivery Note"):
@@ -44,3 +50,21 @@ def run_stock(current_date):
 				frappe.db.commit()
 			except (NegativeStockError, SerialNoRequiredError, SerialNoQtyError):
 				frappe.db.rollback()
+
+def make_stock_reconciliation(current_date):
+	# random set some items as damaged
+	from erpnext.stock.doctype.stock_reconciliation.stock_reconciliation import OpeningEntryAccountError
+
+	if can_make("Stock Reconciliation"):
+		stock_reco = frappe.new_doc("Stock Reconciliation")
+		stock_reco.posting_date = current_date
+		stock_reco.get_items_for("Stores - WP")
+		for item in stock_reco.items:
+			if item.qty:
+				item.qty = item.qty - round(random.random())
+		try:
+			stock_reco.insert()
+			stock_reco.submit()
+			frappe.db.commit()
+		except OpeningEntryAccountError:
+			frappe.db.rollback()

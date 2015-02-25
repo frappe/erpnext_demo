@@ -21,8 +21,10 @@ def export_demo_masters():
 		"User",
 		"Employee",
 		"Salary Structure",
+		"Currency Exchange",
 		("Account", {"account_type": "Tax", "group_or_ledger": "Ledger"}),
 		"Sales Taxes and Charges Master",
+		"Purchase Taxes and Charges Master",
 		"Shipping Rule")
 	export_data(doctypes)
 

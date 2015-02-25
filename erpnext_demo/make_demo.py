@@ -90,6 +90,7 @@ def make_items():
 	import_data("BOM", submit=True)
 
 def make_price_lists():
+	import_data("Currency Exchange")
 	import_data("Item Price", overwrite=True)
 
 def make_customers_suppliers_contacts():
@@ -119,6 +120,7 @@ def make_tax_accounts():
 
 def make_tax_masters():
 	import_data("Sales Taxes and Charges Master")
+	import_data("Purchase Taxes and Charges Master")
 
 def make_shipping_rules():
 	import_data("Shipping Rule")
