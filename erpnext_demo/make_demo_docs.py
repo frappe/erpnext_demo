@@ -8,6 +8,7 @@ def export_demo_masters():
 
 	doctypes = (
 		"Fiscal Year",
+		"Holiday List",
 		"Item",
 		"Operation",
 		"Workstation",

@@ -76,6 +76,7 @@ def complete_setup():
 	website_settings.save()
 
 	import_data("Fiscal Year")
+	import_data("Holiday List")
 
 def show_item_groups_in_website():
 	"""set show_in_website=1 for Item Groups"""

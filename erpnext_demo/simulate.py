@@ -13,6 +13,7 @@ from erpnext_demo.stock import run_stock
 from erpnext_demo.buying import run_purchase
 from erpnext_demo.manufacturing import run_manufacturing
 from erpnext_demo.projects import run_projects
+from erpnext_demo.hr import run_hr
 
 start_date = None
 runs_for = None
@@ -45,6 +46,7 @@ def simulate():
 			current_date = frappe.utils.add_days(current_date, 1)
 			continue
 
+		run_hr(current_date)
 		run_sales(current_date)
 		run_purchase(current_date)
 		run_manufacturing(current_date)
