@@ -10,6 +10,7 @@ def export_demo_masters():
 		"Fiscal Year",
 		"Holiday List",
 		"Item",
+		"Sales BOM",
 		"Operation",
 		"Workstation",
 		"BOM",
@@ -24,6 +25,7 @@ def export_demo_masters():
 		"Salary Structure",
 		"Currency Exchange",
 		("Account", {"account_type": "Tax", "group_or_ledger": "Ledger"}),
+		("Warehouse", {"name": "Supplier - WP"}),
 		"Sales Taxes and Charges Master",
 		"Purchase Taxes and Charges Master",
 		"Shipping Rule")

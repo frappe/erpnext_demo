@@ -10,9 +10,6 @@ from frappe.utils import cstr
 from erpnext_demo import settings
 
 def run_manufacturing(current_date):
-	from erpnext.stock.doctype.stock_entry.stock_entry import IncorrectValuationRateError, \
-		DuplicateEntryForProductionOrderError, OperationsNotCompleteError
-	from erpnext.stock.stock_ledger import NegativeStockError
 	from erpnext.projects.doctype.time_log.time_log import NotSubmittedError
 
 	ppt = frappe.get_doc("Production Planning Tool", "Production Planning Tool")
@@ -52,18 +49,6 @@ def run_manufacturing(current_date):
 		for pro in query_report.run("Production Orders in Progress")["result"][:how_many("Stock Entry for FG")]:
 			make_stock_entry_from_pro(pro[0], "Manufacture", current_date)
 
-	# try posting older drafts (if exists)
-	for st in frappe.db.get_values("Stock Entry", {"docstatus":0}, "name"):
-		try:
-			ste = frappe.get_doc("Stock Entry", st[0])
-			ste.posting_date = current_date
-			ste.save()
-			ste.submit()
-			frappe.db.commit()
-		except (NegativeStockError, IncorrectValuationRateError, DuplicateEntryForProductionOrderError,
-			OperationsNotCompleteError):
-			frappe.db.rollback()
-
 	# submit time logs
 	for time_log in frappe.get_all("Time Log", ["name"], {"docstatus": 0,
 		"time_log_for": "Manufacturing", "to_time": ("<", current_date)}):
@@ -81,7 +66,6 @@ def make_stock_entry_from_pro(pro_id, purpose, current_date):
 		st.posting_date = current_date
 		st.fiscal_year = cstr(current_date.year)
 		for d in st.get("items"):
-			d.expense_account = "Stock Adjustment - " + settings.company_abbr
 			d.cost_center = "Main - " + settings.company_abbr
 		st.insert()
 		frappe.db.commit()

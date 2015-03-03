@@ -13,6 +13,7 @@ def run_stock(current_date):
 	make_purchase_receipt(current_date)
 	make_delivery_note(current_date)
 	make_stock_reconciliation(current_date)
+	submit_draft_stock_entries(current_date)
 
 def make_purchase_receipt(current_date):
 	if can_make("Purchase Receipt"):
@@ -21,6 +22,10 @@ def make_purchase_receipt(current_date):
 		po_list =list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Purchase Receipt")]
 		for po in po_list:
 			pr = frappe.get_doc(make_purchase_receipt(po))
+
+			if pr.is_subcontracted=="Yes":
+				pr.supplier_warehouse = "Supplier - WP"
+
 			pr.posting_date = current_date
 			pr.fiscal_year = cstr(current_date.year)
 			pr.insert()
@@ -68,3 +73,21 @@ def make_stock_reconciliation(current_date):
 			frappe.db.commit()
 		except OpeningEntryAccountError:
 			frappe.db.rollback()
+
+def submit_draft_stock_entries(current_date):
+	from erpnext.stock.doctype.stock_entry.stock_entry import IncorrectValuationRateError, \
+		DuplicateEntryForProductionOrderError, OperationsNotCompleteError
+	from erpnext.stock.stock_ledger import NegativeStockError
+
+	# try posting older drafts (if exists)
+	for st in frappe.db.get_values("Stock Entry", {"docstatus":0}, "name"):
+		try:
+			ste = frappe.get_doc("Stock Entry", st[0])
+			ste.posting_date = current_date
+			ste.save()
+			ste.submit()
+			frappe.db.commit()
+		except (NegativeStockError, IncorrectValuationRateError, DuplicateEntryForProductionOrderError,
+			OperationsNotCompleteError):
+			frappe.db.rollback()
+

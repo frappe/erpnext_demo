@@ -86,6 +86,8 @@ def show_item_groups_in_website():
 
 def make_items():
 	import_data("Item")
+	import_data("Warehouse")
+	import_data("Sales BOM")
 	import_data("Workstation")
 	import_data("Operation")
 	import_data("BOM", submit=True)

@@ -14,6 +14,7 @@ settings = frappe._dict(
 		"Purchase Receipt": { "make": 0.7, "qty": (1,15) },
 		"Project": { "make": 0.05 },
 		"Task": { "make": 0.5 },
-		"Stock Reconciliation": { "make": 0.05 }
+		"Stock Reconciliation": { "make": 0.05 },
+		"Subcontract": { "make": 0.05 }
 	}
 )
