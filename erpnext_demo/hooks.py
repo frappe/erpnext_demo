@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 app_name = "erpnext_demo"
 app_title = "ERPNext Demo"
-app_publisher = "Web Notes Technlogies"
+app_publisher = "Frappe Technlogies"
 app_description = "Demo Builder"
 app_icon = "icon-coffee"
 app_color = "#d6cec3"

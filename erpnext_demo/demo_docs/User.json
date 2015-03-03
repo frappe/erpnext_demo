@@ -8,7 +8,7 @@
   "defaults": [], 
   "docstatus": 0, 
   "doctype": "User", 
-  "email": "test_demo@frappecloud.com", 
+  "email": "test_demo@erpnext.com", 
   "email_signature": null, 
   "enabled": 1, 
   "fb_userid": null, 
@@ -29,9 +29,9 @@
   "middle_name": null, 
   "modified": "2014-12-18 15:07:02.502819", 
   "modified_by": "Administrator", 
-  "name": "test_demo@frappecloud.com", 
+  "name": "test_demo@erpnext.com", 
   "new_password": "", 
-  "owner": "test_demo@frappecloud.com", 
+  "owner": "test_demo@erpnext.com", 
   "parent": null, 
   "parentfield": null, 
   "parenttype": null, 
@@ -49,8 +49,8 @@
     "modified": "2015-02-26 12:04:31.482147", 
     "modified_by": "Administrator", 
     "name": "8bdab9b", 
-    "owner": "test_demo@frappecloud.com", 
-    "parent": "test_demo@frappecloud.com", 
+    "owner": "test_demo@erpnext.com", 
+    "parent": "test_demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "System Manager"
@@ -1663,7 +1663,7 @@
   "defaults": [], 
   "docstatus": 0, 
   "doctype": "User", 
-  "email": "demo@frappecloud.com", 
+  "email": "demo@erpnext.com", 
   "email_signature": null, 
   "enabled": 1, 
   "fb_userid": null, 
@@ -1684,7 +1684,7 @@
   "middle_name": null, 
   "modified": "2015-02-23 15:18:55.107863", 
   "modified_by": "Administrator", 
-  "name": "demo@frappecloud.com", 
+  "name": "demo@erpnext.com", 
   "new_password": "", 
   "owner": "Administrator", 
   "parent": null, 
@@ -1705,7 +1705,7 @@
     "modified_by": "Administrator", 
     "name": "7fce486", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Accounts Manager"
@@ -1719,7 +1719,7 @@
     "modified_by": "Administrator", 
     "name": "0ed25e4", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Analytics"
@@ -1733,7 +1733,7 @@
     "modified_by": "Administrator", 
     "name": "f8d3d54", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Expense Approver"
@@ -1747,7 +1747,7 @@
     "modified_by": "Administrator", 
     "name": "a7c9dbb", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Accounts User"
@@ -1761,7 +1761,7 @@
     "modified_by": "Administrator", 
     "name": "af72f0a", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Leave Approver"
@@ -1775,7 +1775,7 @@
     "modified_by": "Administrator", 
     "name": "d73ca28", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Blogger"
@@ -1789,7 +1789,7 @@
     "modified_by": "Administrator", 
     "name": "f03aa42", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Customer"
@@ -1803,7 +1803,7 @@
     "modified_by": "Administrator", 
     "name": "2e2233b", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Sales Manager"
@@ -1817,7 +1817,7 @@
     "modified_by": "Administrator", 
     "name": "3902e65", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Support Manager"
@@ -1831,7 +1831,7 @@
     "modified_by": "Administrator", 
     "name": "f1b8007", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "HR Manager"
@@ -1845,7 +1845,7 @@
     "modified_by": "Administrator", 
     "name": "1c3fd0e", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "HR User"
@@ -1859,7 +1859,7 @@
     "modified_by": "Administrator", 
     "name": "7eb9163", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Maintenance Manager"
@@ -1873,7 +1873,7 @@
     "modified_by": "Administrator", 
     "name": "35639da", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Maintenance User"
@@ -1887,7 +1887,7 @@
     "modified_by": "Administrator", 
     "name": "b020d88", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Material Manager"
@@ -1901,7 +1901,7 @@
     "modified_by": "Administrator", 
     "name": "381738a", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Material Master Manager"
@@ -1915,7 +1915,7 @@
     "modified_by": "Administrator", 
     "name": "2112674", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Material User"
@@ -1929,7 +1929,7 @@
     "modified_by": "Administrator", 
     "name": "55f6a1c", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Manufacturing Manager"
@@ -1943,7 +1943,7 @@
     "modified_by": "Administrator", 
     "name": "b4ccc74", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Manufacturing User"
@@ -1957,7 +1957,7 @@
     "modified_by": "Administrator", 
     "name": "1f6bdbf", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Projects User"
@@ -1971,7 +1971,7 @@
     "modified_by": "Administrator", 
     "name": "727411c", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Purchase Manager"
@@ -1985,7 +1985,7 @@
     "modified_by": "Administrator", 
     "name": "c4bdd30", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Purchase Master Manager"
@@ -1999,7 +1999,7 @@
     "modified_by": "Administrator", 
     "name": "5f8b63b", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Purchase User"
@@ -2013,7 +2013,7 @@
     "modified_by": "Administrator", 
     "name": "93138b1", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Quality Manager"
@@ -2027,7 +2027,7 @@
     "modified_by": "Administrator", 
     "name": "fee7531", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Report Manager"
@@ -2041,7 +2041,7 @@
     "modified_by": "Administrator", 
     "name": "2998165", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Sales Master Manager"
@@ -2055,7 +2055,7 @@
     "modified_by": "Administrator", 
     "name": "82cc901", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Sales User"
@@ -2069,7 +2069,7 @@
     "modified_by": "Administrator", 
     "name": "3ce3646", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Supplier"
@@ -2083,7 +2083,7 @@
     "modified_by": "Administrator", 
     "name": "6c80ff8", 
     "owner": "Administrator", 
-    "parent": "demo@frappecloud.com", 
+    "parent": "demo@erpnext.com", 
     "parentfield": "user_roles", 
     "parenttype": "User", 
     "role": "Support Team"

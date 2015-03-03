@@ -7,7 +7,7 @@ def get_data():
 			"label": "Start Trial",
 			"color": "#fb2b69",
 			"force_show": True,
-			"link": "https://frappecloud.com/plans",
+			"link": "https://erpnext.com/plans",
 			"_id": "start-trial"
 		}
 	}

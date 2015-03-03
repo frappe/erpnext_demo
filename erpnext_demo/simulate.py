@@ -1,4 +1,4 @@
-# Copyright (c) 2013, Web Notes Technologies Pvt. Ltd. and Contributors
+# Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
 # License: GNU General Public License v3. See license.txt
 
 from __future__ import unicode_literals
@@ -64,7 +64,7 @@ def run_messages(current_date):
 		make_message(current_date)
 
 def make_message(current_date):
-	from_user = ["demo@frappecloud.com", "Administrator"][random.randint(0, 1)]
+	from_user = ["demo@erpnext.com", "Administrator"][random.randint(0, 1)]
 	to_user = get_random("User")
 	comments = [
 		"Barnaby The Bear's my name, never call me Jack or James, I will sing my way to fame, Barnaby the Bear's my name.",

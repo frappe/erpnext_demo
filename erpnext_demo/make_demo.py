@@ -1,4 +1,4 @@
-# Copyright (c) 2013, Web Notes Technologies Pvt. Ltd. and Contributors
+# Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
 # License: GNU General Public License v3. See license.txt
 from __future__ import unicode_literals
 
@@ -55,7 +55,7 @@ def complete_setup():
 	setup_account({
 		"first_name": "Test",
 		"last_name": "User",
-		"email": "test_demo@frappecloud.com",
+		"email": "test_demo@erpnext.com",
 		"company_tagline": "Wind Mills for a Better Tomorrow",
 		"password": "test",
 		"fy_start_date": "2015-01-01",

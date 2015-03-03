@@ -7,7 +7,7 @@ setup(
     name='erpnext_demo',
     version=version,
     description='Demo Builder',
-    author='Web Notes Technlogies',
+    author='Frappe Technlogies',
     author_email='info@erpnext.com',
     packages=find_packages(),
     zip_safe=False,
