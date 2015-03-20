@@ -26,11 +26,7 @@ def run_manufacturing(current_date):
 	for pro in frappe.db.get_values("Production Order", {"docstatus": 0}, "name"):
 		b = frappe.get_doc("Production Order", pro[0])
 		b.wip_warehouse = "Work in Progress - WP"
-		try:
-			b.submit()
-		except NotSubmittedError:
-			# over-enthusistic? try again?
-			b.submit()
+		b.submit()
 		frappe.db.commit()
 
 	# submit material requests

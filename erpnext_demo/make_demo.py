@@ -78,6 +78,8 @@ def complete_setup():
 	import_data("Fiscal Year")
 	import_data("Holiday List")
 
+	frappe.clear_cache()
+
 def show_item_groups_in_website():
 	"""set show_in_website=1 for Item Groups"""
 	products = frappe.get_doc("Item Group", "Products")

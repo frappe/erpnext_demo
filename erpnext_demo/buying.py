@@ -18,6 +18,7 @@ def run_purchase(current_date):
 	# make supplier quotations
 	if can_make("Supplier Quotation"):
 		from erpnext.stock.doctype.material_request.material_request import make_supplier_quotation
+
 		report = "Material Requests for which Supplier Quotations are not created"
 		for row in query_report.run(report)["result"][:how_many("Supplier Quotation")]:
 			if row[0] != "Total":
@@ -67,6 +68,7 @@ def make_subcontract(current_date):
 
 	# make sub-contract PO
 	po = frappe.new_doc("Purchase Order")
+	po.is_subcontracted = "Yes"
 	po.supplier = get_random("Supplier")
 
 	po.append("items", {
