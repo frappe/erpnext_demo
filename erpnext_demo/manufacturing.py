@@ -47,7 +47,7 @@ def run_manufacturing(current_date):
 
 	# submit time logs
 	for time_log in frappe.get_all("Time Log", ["name"], {"docstatus": 0,
-		"time_log_for": "Manufacturing", "to_time": ("<", current_date)}):
+		"for_manufacturing": 1, "to_time": ("<", current_date)}):
 		time_log = frappe.get_doc("Time Log", time_log.name)
 		time_log.submit()
 
