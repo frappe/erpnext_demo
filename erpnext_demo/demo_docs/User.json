@@ -1568,20 +1568,6 @@
     "creation": "2015-02-23 15:18:21.157055",
     "docstatus": 0,
     "doctype": "UserRole",
-    "idx": 34,
-    "modified": "2015-03-03 16:33:24.853034",
-    "modified_by": "Administrator",
-    "name": "bd4bb54",
-    "owner": "Administrator",
-    "parent": "Administrator",
-    "parentfield": "user_roles",
-    "parenttype": "User",
-    "role": "Support Manager"
-   },
-   {
-    "creation": "2015-02-23 15:18:21.157055",
-    "docstatus": 0,
-    "doctype": "UserRole",
     "idx": 35,
     "modified": "2015-03-03 16:33:24.853034",
     "modified_by": "Administrator",
@@ -1807,20 +1793,6 @@
     "parentfield": "user_roles",
     "parenttype": "User",
     "role": "Sales Manager"
-   },
-   {
-    "creation": "2015-02-23 15:18:55.024329",
-    "docstatus": 0,
-    "doctype": "UserRole",
-    "idx": 10,
-    "modified": "2015-03-03 16:33:25.606682",
-    "modified_by": "Administrator",
-    "name": "3902e65",
-    "owner": "Administrator",
-    "parent": "demo@erpnext.com",
-    "parentfield": "user_roles",
-    "parenttype": "User",
-    "role": "Support Manager"
    },
    {
     "creation": "2015-02-23 15:18:55.024329",
