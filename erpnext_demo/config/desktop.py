@@ -7,7 +7,7 @@ def get_data():
 			"label": "Start Trial",
 			"color": "#fb2b69",
 			"force_show": True,
-			"link": "https://erpnext.com/plans",
+			"link": "https://erpnext.com/pricing",
 			"_id": "start-trial"
 		}
 	}
