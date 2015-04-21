@@ -38,12 +38,10 @@ def make_opportunity(current_date):
 
 	b.insert()
 	frappe.db.commit()
-	b.submit()
-	frappe.db.commit()
 
 def make_quotation(current_date):
 	# get open opportunites
-	opportunity = get_random("Opportunity", {"status": "Submitted"})
+	opportunity = get_random("Opportunity", {"status": "Open"})
 
 	if opportunity:
 		from erpnext.crm.doctype.opportunity.opportunity import make_quotation
