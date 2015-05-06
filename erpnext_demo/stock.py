@@ -8,6 +8,8 @@ from erpnext_demo.make_random import how_many, can_make
 from frappe.utils import cstr
 from frappe.desk import query_report
 from erpnext_demo import settings
+from erpnext.stock.stock_ledger import NegativeStockError
+from erpnext.stock.doctype.serial_no.serial_no import SerialNoRequiredError, SerialNoQtyError
 
 def run_stock(current_date):
 	make_purchase_receipt(current_date)
@@ -29,17 +31,18 @@ def make_purchase_receipt(current_date):
 			pr.posting_date = current_date
 			pr.fiscal_year = cstr(current_date.year)
 			pr.insert()
-			pr.submit()
-			frappe.db.commit()
+			try:
+				pr.submit()
+				frappe.db.commit()
+			except (NegativeStockError, SerialNoRequiredError, SerialNoQtyError):
+				frappe.db.rollback()
 
 def make_delivery_note(current_date):
 	# make purchase requests
-	from erpnext.stock.stock_ledger import NegativeStockError
 
 	# make delivery notes (if possible)
 	if can_make("Delivery Note"):
 		from erpnext.selling.doctype.sales_order.sales_order import make_delivery_note
-		from erpnext.stock.doctype.serial_no.serial_no import SerialNoRequiredError, SerialNoQtyError
 		report = "Ordered Items To Be Delivered"
 		for so in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Delivery Note")]:
 			dn = frappe.get_doc(make_delivery_note(so))
@@ -77,7 +80,6 @@ def make_stock_reconciliation(current_date):
 def submit_draft_stock_entries(current_date):
 	from erpnext.stock.doctype.stock_entry.stock_entry import IncorrectValuationRateError, \
 		DuplicateEntryForProductionOrderError, OperationsNotCompleteError
-	from erpnext.stock.stock_ledger import NegativeStockError
 
 	# try posting older drafts (if exists)
 	for st in frappe.db.get_values("Stock Entry", {"docstatus":0}, "name"):

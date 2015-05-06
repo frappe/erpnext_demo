@@ -112,7 +112,7 @@ def make_bank_account():
 		"doctype": "Account",
 		"account_name": settings.bank_name,
 		"account_type": "Bank",
-		"group_or_ledger": "Ledger",
+		"is_group": 0,
 		"parent_account": "Bank Accounts - " + settings.company_abbr,
 		"company": settings.company
 	}).insert()
@@ -124,7 +124,7 @@ def make_tax_accounts():
 	import_data("Account")
 
 def make_tax_masters():
-	import_data("Sales Taxes and Charges Master")
+	import_data("Sales Taxes and Charges Template")
 	import_data("Purchase Taxes and Charges Master")
 
 def make_shipping_rules():

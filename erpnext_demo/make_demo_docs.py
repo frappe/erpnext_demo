@@ -24,9 +24,9 @@ def export_demo_masters():
 		"Employee",
 		"Salary Structure",
 		"Currency Exchange",
-		("Account", {"account_type": "Tax", "group_or_ledger": "Ledger"}),
+		("Account", {"account_type": "Tax", "is_group": 0}),
 		("Warehouse", {"name": "Supplier - WP"}),
-		"Sales Taxes and Charges Master",
+		"Sales Taxes and Charges Template",
 		"Purchase Taxes and Charges Master",
 		"Shipping Rule")
 	export_data(doctypes)
