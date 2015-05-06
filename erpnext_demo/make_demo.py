@@ -125,7 +125,7 @@ def make_tax_accounts():
 
 def make_tax_masters():
 	import_data("Sales Taxes and Charges Template")
-	import_data("Purchase Taxes and Charges Master")
+	import_data("Purchase Taxes and Charges Template")
 
 def make_shipping_rules():
 	import_data("Shipping Rule")

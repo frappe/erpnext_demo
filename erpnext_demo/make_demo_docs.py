@@ -27,7 +27,7 @@ def export_demo_masters():
 		("Account", {"account_type": "Tax", "is_group": 0}),
 		("Warehouse", {"name": "Supplier - WP"}),
 		"Sales Taxes and Charges Template",
-		"Purchase Taxes and Charges Master",
+		"Purchase Taxes and Charges Template",
 		"Shipping Rule")
 	export_data(doctypes)
 
