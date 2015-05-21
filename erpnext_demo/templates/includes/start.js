@@ -5,7 +5,7 @@ $(document).ready(function() {
         frappe.call({
             "method": "login",
             args: {
-                usr: "demo@frappecloud.com",
+                usr: "demo@erpnext.com",
                 pwd: "demo",
                 lead_email: $("#lead-email").val(),
             },

@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 app_name = "erpnext_demo"
 app_title = "ERPNext Demo"
-app_publisher = "Web Notes Technlogies"
+app_publisher = "Frappe Technlogies"
 app_description = "Demo Builder"
 app_icon = "icon-coffee"
 app_color = "#d6cec3"
@@ -14,7 +14,6 @@ before_install = "erpnext_demo.utils.check_if_not_setup"
 after_install = "erpnext_demo.utils.make_demo"
 
 on_session_creation = "erpnext_demo.utils.on_login"
-startup_js = "erpnext_demo.utils.get_startup_js"
 
 app_include_js = "assets/erpnext_demo/js/desktop.js"
 
@@ -35,7 +34,7 @@ doc_events = {
 # fixture = "Item Price"
 # fixture = "Lead"
 # fixture = "Salary Structure"
-# fixture = "Sales Taxes and Charges Master"
+# fixture = "Sales Taxes and Charges Template"
 # fixture = "Shipping Rule"
 # fixture = "Shopping Cart Settings"
 # fixture = "Supplier"

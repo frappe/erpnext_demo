@@ -1,4 +1,4 @@
-# Copyright (c) 2013, Web Notes Technologies Pvt. Ltd. and Contributors
+# Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
 # License: GNU General Public License v3. See license.txt
 
 from __future__ import unicode_literals
@@ -17,13 +17,8 @@ def on_login(login_manager):
 				"cmd": cmd,
 				"subject":"Logged into Demo",
 				"sender": frappe.form_dict.lead_email,
-				"message": "via demo.frappecloud.com"
+				"message": "via demo.erpnext.com"
 			})
-
-def get_startup_js():
-	return """frappe.ui.toolbar.show_banner('You are using ERPNext Demo. '
-		+'To start your own ERPNext Trial, <a href="https://frappecloud.com/plans" '
-		+'target="_blank">click here</a>');"""
 
 def check_if_not_setup():
 	if frappe.db.sql("""select name from tabCompany"""):
@@ -39,7 +34,7 @@ def make_demo_user():
 	from frappe.auth import _update_password
 
 	roles = ["Accounts Manager", "Analytics", "Expense Approver", "Accounts User",
-		"Leave Approver", "Blogger", "Customer", "Sales Manager", "Employee", "Support Manager",
+		"Leave Approver", "Blogger", "Customer", "Sales Manager", "Employee",
 		"HR Manager", "HR User", "Maintenance Manager", "Maintenance User", "Material Manager",
 		"Material Master Manager", "Material User", "Manufacturing Manager",
 		"Manufacturing User", "Projects User", "Purchase Manager", "Purchase Master Manager",
@@ -54,8 +49,8 @@ def make_demo_user():
 			})
 
 	# make demo user
-	if frappe.db.exists("User", "demo@frappecloud.com"):
-		frappe.delete_doc("User", "demo@frappecloud.com")
+	if frappe.db.exists("User", "demo@erpnext.com"):
+		frappe.delete_doc("User", "demo@erpnext.com")
 
 	# add User Type property setter
 	user_types = frappe.get_meta("User").get_field("user_type").options
@@ -69,7 +64,7 @@ def make_demo_user():
 	})
 
 	p = frappe.new_doc("User")
-	p.email = "demo@frappecloud.com"
+	p.email = "demo@erpnext.com"
 	p.first_name = "Demo"
 	p.last_name = "User"
 	p.enabled = 1
@@ -77,7 +72,7 @@ def make_demo_user():
 	p.insert()
 	add_roles(p)
 	p.save()
-	_update_password("demo@frappecloud.com", "demo")
+	_update_password("demo@erpnext.com", "demo")
 
 	# only read for newsletter
 	frappe.db.sql("""update `tabDocPerm` set `write`=0, `create`=0, `cancel`=0
@@ -99,5 +94,5 @@ def make_demo_login_page():
 	frappe.db.commit()
 
 def validate_reset_password(doc, method):
-	if doc.name == "demo@frappecloud.com":
+	if doc.name == "demo@erpnext.com":
 		throw(_("You cannot reset the password of {0}").format(doc.first_name + " " + doc.last_name))

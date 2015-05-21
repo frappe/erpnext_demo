@@ -1,0 +1,34 @@
+[
+ {
+  "creation": "2015-02-25 06:55:18.609219", 
+  "docstatus": 0, 
+  "doctype": "Currency Exchange", 
+  "exchange_rate": 1.13, 
+  "from_currency": "EUR", 
+  "idx": null, 
+  "modified": "2015-02-25 06:55:41.395216", 
+  "modified_by": "Administrator", 
+  "name": "EUR-USD", 
+  "owner": "Administrator", 
+  "parent": null, 
+  "parentfield": null, 
+  "parenttype": null, 
+  "to_currency": "USD"
+ }, 
+ {
+  "creation": "2015-02-25 06:58:52.631148", 
+  "docstatus": 0, 
+  "doctype": "Currency Exchange", 
+  "exchange_rate": 0.16, 
+  "from_currency": "CNY", 
+  "idx": null, 
+  "modified": "2015-02-25 06:58:52.631148", 
+  "modified_by": "Administrator", 
+  "name": "CNY-USD", 
+  "owner": "Administrator", 
+  "parent": null, 
+  "parentfield": null, 
+  "parenttype": null, 
+  "to_currency": "USD"
+ }
+]
