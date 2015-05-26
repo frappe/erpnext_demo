@@ -21,7 +21,7 @@ def make_purchase_receipt(current_date):
 	if can_make("Purchase Receipt"):
 		from erpnext.buying.doctype.purchase_order.purchase_order import make_purchase_receipt
 		report = "Purchase Order Items To Be Received"
-		po_list =list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Purchase Receipt")]
+		po_list =list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="'Total'"]))[:how_many("Purchase Receipt")]
 		for po in po_list:
 			pr = frappe.get_doc(make_purchase_receipt(po))
 
@@ -44,7 +44,7 @@ def make_delivery_note(current_date):
 	if can_make("Delivery Note"):
 		from erpnext.selling.doctype.sales_order.sales_order import make_delivery_note
 		report = "Ordered Items To Be Delivered"
-		for so in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Delivery Note")]:
+		for so in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="'Total'"]))[:how_many("Delivery Note")]:
 			dn = frappe.get_doc(make_delivery_note(so))
 			dn.posting_date = current_date
 			dn.fiscal_year = cstr(current_date.year)
