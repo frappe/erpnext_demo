@@ -16,11 +16,9 @@ from erpnext_demo import settings
 # fix fiscal year
 
 def make():
-	#frappe.flags.print_messages = True
 	frappe.flags.mute_emails = True
 	setup()
 	frappe.set_user("Administrator")
-	frappe.flags.rollback_on_exception = True
 	simulate()
 
 def setup():
@@ -89,7 +87,7 @@ def show_item_groups_in_website():
 def make_items():
 	import_data("Item")
 	import_data("Warehouse")
-	import_data("Sales BOM")
+	import_data("Product Bundle")
 	import_data("Workstation")
 	import_data("Operation")
 	import_data("BOM", submit=True)

@@ -454,53 +454,6 @@
   ],
   "valuation_method": "",
   "variant_of": null,
-  "variants": [
-   {
-    "creation": "2014-12-18 15:07:12.515335",
-    "docstatus": 0,
-    "doctype": "Item Variant",
-    "idx": 1,
-    "item_attribute": "Size",
-    "item_attribute_value": "Small",
-    "modified": "2015-03-03 16:33:22.990672",
-    "modified_by": "Administrator",
-    "name": "d9b0c8c",
-    "owner": "Administrator",
-    "parent": "Wind Turbine",
-    "parentfield": "variants",
-    "parenttype": "Item"
-   },
-   {
-    "creation": "2014-12-18 15:07:12.515335",
-    "docstatus": 0,
-    "doctype": "Item Variant",
-    "idx": 2,
-    "item_attribute": "Size",
-    "item_attribute_value": "Medium",
-    "modified": "2015-03-03 16:33:22.990672",
-    "modified_by": "Administrator",
-    "name": "2831dca",
-    "owner": "Administrator",
-    "parent": "Wind Turbine",
-    "parentfield": "variants",
-    "parenttype": "Item"
-   },
-   {
-    "creation": "2014-12-18 15:07:12.515335",
-    "docstatus": 0,
-    "doctype": "Item Variant",
-    "idx": 3,
-    "item_attribute": "Size",
-    "item_attribute_value": "Large",
-    "modified": "2015-03-03 16:33:22.990672",
-    "modified_by": "Administrator",
-    "name": "c64af7c",
-    "owner": "Administrator",
-    "parent": "Wind Turbine",
-    "parentfield": "variants",
-    "parenttype": "Item"
-   }
-  ],
   "warranty_period": null,
   "web_long_description": null,
   "website_image": "/assets/erpnext_demo/images/wind-turbine-1.jpg",
@@ -1709,6 +1662,14 @@
   ],
   "valuation_method": "",
   "variant_of": "Wind Turbine",
+  "attributes":[
+      {
+       "doctype": "Variant Attribute",
+       "idx": 1,
+       "attribute": "Size",
+       "attribute_value": "Small"
+      }
+  ],
   "variants": [],
   "warranty_period": null,
   "web_long_description": null,
@@ -1802,6 +1763,14 @@
   ],
   "valuation_method": "",
   "variant_of": "Wind Turbine",
+  "attributes":[
+      {
+       "doctype": "Variant Attribute",
+       "idx": 1,
+       "attribute": "Size",
+       "attribute_value": "Medium"
+      }
+  ],
   "variants": [],
   "warranty_period": null,
   "web_long_description": null,
@@ -1895,6 +1864,14 @@
   ],
   "valuation_method": "",
   "variant_of": "Wind Turbine",
+  "attributes":[
+      {
+       "doctype": "Variant Attribute",
+       "idx": 1,
+       "attribute": "Size",
+       "attribute_value": "Large"
+      }
+  ],
   "variants": [],
   "warranty_period": null,
   "web_long_description": null,

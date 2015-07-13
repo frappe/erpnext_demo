@@ -2,14 +2,14 @@
  {
   "creation": "2015-03-03 00:31:37.398961", 
   "docstatus": 0, 
-  "doctype": "Sales BOM", 
+  "doctype": "Product Bundle", 
   "idx": null, 
   "items": [
    {
     "creation": "2015-03-03 00:31:37.398961", 
     "description": "Wind Mill A Series for Home Use 9ft", 
     "docstatus": 0, 
-    "doctype": "Sales BOM Item", 
+    "doctype": "Product Bundle Item", 
     "idx": 1, 
     "item_code": "Wind Mill A Series", 
     "modified": "2015-03-03 16:33:22.300195", 
@@ -18,7 +18,7 @@
     "owner": "Administrator", 
     "parent": "Wind Mill A Series with Spare Bearing", 
     "parentfield": "items", 
-    "parenttype": "Sales BOM", 
+    "parenttype": "Product Bundle", 
     "qty": 1.0, 
     "rate": null, 
     "uom": "Nos"
@@ -27,7 +27,7 @@
     "creation": "2015-03-03 00:31:37.398961", 
     "description": "Bearing Assembly", 
     "docstatus": 0, 
-    "doctype": "Sales BOM Item", 
+    "doctype": "Product Bundle Item", 
     "idx": 2, 
     "item_code": "Bearing Assembly", 
     "modified": "2015-03-03 16:33:22.300195", 
@@ -36,7 +36,7 @@
     "owner": "Administrator", 
     "parent": "Wind Mill A Series with Spare Bearing", 
     "parentfield": "items", 
-    "parenttype": "Sales BOM", 
+    "parenttype": "Product Bundle", 
     "qty": 1.0, 
     "rate": null, 
     "uom": "Nos"
@@ -45,7 +45,7 @@
     "creation": "2015-03-03 00:31:37.398961", 
     "description": "1 in. x 3 in. x 1 ft. Multipurpose Al Alloy Bar", 
     "docstatus": 0, 
-    "doctype": "Sales BOM Item", 
+    "doctype": "Product Bundle Item", 
     "idx": 3, 
     "item_code": "Bearing Collar", 
     "modified": "2015-03-03 16:33:22.300195", 
@@ -54,7 +54,7 @@
     "owner": "Administrator", 
     "parent": "Wind Mill A Series with Spare Bearing", 
     "parentfield": "items", 
-    "parenttype": "Sales BOM", 
+    "parenttype": "Product Bundle", 
     "qty": 1.0, 
     "rate": null, 
     "uom": "Nos"

@@ -57,8 +57,6 @@ def simulate():
 
 		current_date = frappe.utils.add_days(current_date, 1)
 
-	print ""
-
 def run_messages(current_date):
 	if can_make("Message"):
 		make_message(current_date)

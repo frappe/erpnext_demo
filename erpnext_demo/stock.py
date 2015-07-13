@@ -51,7 +51,6 @@ def make_delivery_note(current_date):
 			for d in dn.get("items"):
 				if not d.expense_account:
 					d.expense_account = "Cost of Goods Sold - {}".format(settings.company_abbr)
-
 			dn.insert()
 			try:
 				dn.submit()
@@ -67,15 +66,16 @@ def make_stock_reconciliation(current_date):
 		stock_reco = frappe.new_doc("Stock Reconciliation")
 		stock_reco.posting_date = current_date
 		stock_reco.get_items_for("Stores - WP")
-		for item in stock_reco.items:
-			if item.qty:
-				item.qty = item.qty - round(random.random())
-		try:
-			stock_reco.insert()
-			stock_reco.submit()
-			frappe.db.commit()
-		except OpeningEntryAccountError:
-			frappe.db.rollback()
+		if stock_reco.items:
+			for item in stock_reco.items:
+				if item.qty:
+					item.qty = item.qty - round(random.random())
+			try:
+				stock_reco.insert()
+				stock_reco.submit()
+				frappe.db.commit()
+			except OpeningEntryAccountError:
+				frappe.db.rollback()
 
 def submit_draft_stock_entries(current_date):
 	from erpnext.stock.doctype.stock_entry.stock_entry import IncorrectValuationRateError, \
