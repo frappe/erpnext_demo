@@ -10,7 +10,7 @@ def export_demo_masters():
 		"Fiscal Year",
 		"Holiday List",
 		"Item",
-		"Sales BOM",
+		"Product Bundle",
 		"Operation",
 		"Workstation",
 		"BOM",
