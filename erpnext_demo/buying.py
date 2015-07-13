@@ -21,7 +21,7 @@ def run_purchase(current_date):
 
 		report = "Material Requests for which Supplier Quotations are not created"
 		for row in query_report.run(report)["result"][:how_many("Supplier Quotation")]:
-			if row[0] != "Total":
+			if row[0] != "'Total'":
 				sq = frappe.get_doc(make_supplier_quotation(row[0]))
 				sq.transaction_date = current_date
 				sq.fiscal_year = cstr(current_date.year)
@@ -35,7 +35,7 @@ def run_purchase(current_date):
 		from erpnext.stock.doctype.material_request.material_request import make_purchase_order
 		report = "Requested Items To Be Ordered"
 		for row in query_report.run(report)["result"][:how_many("Purchase Order")]:
-			if row[0] != "Total":
+			if row[0] != "'Total'":
 				po = frappe.get_doc(make_purchase_order(row[0]))
 				po.supplier = get_random("Supplier")
 				po.transaction_date = current_date
