@@ -4,7 +4,7 @@
 from __future__ import unicode_literals
 
 import frappe
-from erpnext_demo.make_random import can_make
+from frappe.utils.make_random import can_make
 
 def run_projects(current_date):
 	if can_make("Project"):

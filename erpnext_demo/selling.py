@@ -4,7 +4,7 @@
 from __future__ import unicode_literals
 
 import frappe
-from erpnext_demo.make_random import add_random_children, get_random, how_many, can_make
+from frappe.utils.make_random import add_random_children, get_random, how_many, can_make
 from frappe.utils import cstr
 
 def run_sales(current_date):

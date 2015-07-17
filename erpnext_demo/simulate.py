@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 import sys
 import frappe
 import random
-from erpnext_demo.make_random import get_random, can_make
+from frappe.utils.make_random import get_random, can_make
 from erpnext_demo.selling import run_sales
 from erpnext_demo.accounts import run_accounts
 from erpnext_demo.stock import run_stock
