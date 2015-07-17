@@ -1,7 +1,7 @@
 import frappe
-import frappe.make_random
+import frappe.utils.make_random
 
-frappe.make_random.settings = frappe._dict(
+frappe.utils.make_random.settings = frappe._dict(
 	company = "Wind Power LLC",
 	company_abbr = "WP",
 	country = "United States",
