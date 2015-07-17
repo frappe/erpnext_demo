@@ -1408,7 +1408,7 @@
     "parent": "Administrator",
     "parentfield": "user_roles",
     "parenttype": "User",
-    "role": "Material Manager"
+    "role": "Stock Manager"
    },
    {
     "creation": "2015-02-23 15:18:21.157055",
@@ -1422,7 +1422,7 @@
     "parent": "Administrator",
     "parentfield": "user_roles",
     "parenttype": "User",
-    "role": "Material Master Manager"
+    "role": "Item Manager"
    },
    {
     "creation": "2015-02-23 15:18:21.157055",
@@ -1436,7 +1436,7 @@
     "parent": "Administrator",
     "parentfield": "user_roles",
     "parenttype": "User",
-    "role": "Material User"
+    "role": "Stock User"
    },
    {
     "creation": "2015-02-23 15:18:21.157055",
@@ -1862,7 +1862,7 @@
     "parent": "demo@erpnext.com",
     "parentfield": "user_roles",
     "parenttype": "User",
-    "role": "Material Manager"
+    "role": "Stock Manager"
    },
    {
     "creation": "2015-02-23 15:18:55.024329",
@@ -1876,7 +1876,7 @@
     "parent": "demo@erpnext.com",
     "parentfield": "user_roles",
     "parenttype": "User",
-    "role": "Material Master Manager"
+    "role": "Item Manager"
    },
    {
     "creation": "2015-02-23 15:18:55.024329",
@@ -1890,7 +1890,7 @@
     "parent": "demo@erpnext.com",
     "parentfield": "user_roles",
     "parenttype": "User",
-    "role": "Material User"
+    "role": "Stock User"
    },
    {
     "creation": "2015-02-23 15:18:55.024329",
