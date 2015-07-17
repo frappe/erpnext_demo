@@ -39,7 +39,7 @@ def make_demo_user():
 		"Material Master Manager", "Material User", "Manufacturing Manager",
 		"Manufacturing User", "Projects User", "Purchase Manager", "Purchase Master Manager",
 		"Purchase User", "Quality Manager", "Report Manager", "Sales Master Manager",
-		"Sales User", "Supplier", "Support Team"]
+		"Sales User", "Supplier", "Support Team", "Newsletter Manager"]
 
 	def add_roles(doc):
 		for role in roles:

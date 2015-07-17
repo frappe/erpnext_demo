@@ -2,8 +2,6 @@
 # License: GNU General Public License v3. See license.txt
 from __future__ import unicode_literals
 
-from __future__ import unicode_literals
-
 import frappe, os
 import frappe.utils
 
