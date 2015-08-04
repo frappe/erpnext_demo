@@ -72,7 +72,7 @@ def make_subcontract(current_date):
 	po.supplier = get_random("Supplier")
 
 	po.append("items", {
-		"item_code": get_random("Item", {"is_sub_contracted_item": "Yes"}),
+		"item_code": get_random("Item", {"is_sub_contracted_item": 1}),
 		"schedule_date": frappe.utils.add_days(current_date, 7),
 		"qty": 20
 	})
