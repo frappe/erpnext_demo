@@ -1664,7 +1664,7 @@
   "variant_of": "Wind Turbine",
   "attributes":[
       {
-       "doctype": "Variant Attribute",
+       "doctype": "Item Variant Attribute",
        "idx": 1,
        "attribute": "Size",
        "attribute_value": "Small"
@@ -1765,7 +1765,7 @@
   "variant_of": "Wind Turbine",
   "attributes":[
       {
-       "doctype": "Variant Attribute",
+       "doctype": "Item Variant Attribute",
        "idx": 1,
        "attribute": "Size",
        "attribute_value": "Medium"
@@ -1866,7 +1866,7 @@
   "variant_of": "Wind Turbine",
   "attributes":[
       {
-       "doctype": "Variant Attribute",
+       "doctype": "Item Variant Attribute",
        "idx": 1,
        "attribute": "Size",
        "attribute_value": "Large"
