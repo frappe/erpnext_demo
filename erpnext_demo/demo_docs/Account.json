@@ -1,1 +1,33 @@
-[]
+[{
+  "doctype": "Account", 
+  "account_name": "Debtors EUR", 
+  "parent_account": "Accounts Receivable - WP", 
+  "is_group": 0, 
+  "company": "Wind Power LLC",
+  "root_type": "Asset",
+  "report_type": "Balance Sheet",
+  "account_type": "Receivable",
+  "account_currency": "EUR"
+},
+{
+  "doctype": "Account", 
+  "account_name": "Creditors EUR", 
+  "parent_account": "Accounts Payable - WP", 
+  "is_group": 0, 
+  "company": "Wind Power LLC",
+  "root_type": "Liability",
+  "report_type": "Balance Sheet",
+  "account_type": "Payable",
+  "account_currency": "EUR"
+},
+{
+  "doctype": "Account", 
+  "account_name": "Paypal", 
+  "parent_account": "Bank Accounts - WP", 
+  "is_group": 0, 
+  "company": "Wind Power LLC",
+  "root_type": "Asset",
+  "report_type": "Balance Sheet",
+  "account_type": "Bank",
+  "account_currency": "EUR"
+}]

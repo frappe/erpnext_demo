@@ -134,7 +134,7 @@
   "customer_name": "Intelacard", 
   "customer_type": "Company", 
   "default_commission_rate": null, 
-  "default_currency": "EUR", 
+  "default_currency": null, 
   "default_price_list": null, 
   "default_sales_partner": null, 
   "default_taxes_and_charges": null, 
@@ -216,8 +216,7 @@
   "territory": "Rest Of The World", 
   "website": null
  }, 
- {
-  "accounts": [], 
+ { 
   "communications": [], 
   "creation": "2014-12-18 15:07:11.191573", 
   "credit_days": null, 
@@ -228,6 +227,7 @@
   "customer_type": "Company", 
   "default_commission_rate": null, 
   "default_currency": "EUR", 
+  "party_account_currency": "EUR",
   "default_price_list": null, 
   "default_sales_partner": null, 
   "default_taxes_and_charges": null, 
@@ -245,7 +245,11 @@
   "parenttype": null, 
   "sales_team": [], 
   "territory": "Rest Of The World", 
-  "website": null
+  "website": null,
+  "accounts": [{
+	  "company": "Wind Power LLC",
+	  "account": "Debtors EUR - WP"
+  }]
  }, 
  {
   "accounts": [], 
@@ -558,34 +562,31 @@
   "website": null
  }, 
  {
-  "accounts": [], 
-  "communications": [], 
-  "creation": "2014-12-18 15:07:11.351208", 
-  "credit_days": null, 
-  "credit_limit": null, 
-  "customer_details": null, 
   "customer_group": "Commercial", 
   "customer_name": "Endicott Shoes", 
   "customer_type": "Company", 
-  "default_commission_rate": null, 
-  "default_currency": null, 
-  "default_price_list": null, 
-  "default_sales_partner": null, 
-  "default_taxes_and_charges": null, 
-  "docstatus": 0, 
   "doctype": "Customer", 
-  "idx": null, 
-  "lead_name": null, 
-  "modified": "2014-12-18 15:07:11.351208", 
-  "modified_by": "Administrator", 
   "name": "Endicott Shoes", 
   "naming_series": "CUST-", 
-  "owner": "Administrator", 
-  "parent": null, 
-  "parentfield": null, 
-  "parenttype": null, 
-  "sales_team": [], 
   "territory": "Rest Of The World", 
-  "website": null
+  "party_account_currency": "EUR",
+  "accounts": [{
+	  "company": "Wind Power LLC",
+	  "account": "Debtors EUR - WP"
+  }]
+ },
+ {
+  "customer_group": "Commercial", 
+  "customer_name": "Hind Enterprises", 
+  "customer_type": "Company", 
+  "doctype": "Customer", 
+  "name": "Hind Enterprises", 
+  "naming_series": "CUST-", 
+  "territory": "Rest Of The World", 
+  "party_account_currency": "EUR",
+  "accounts": [{
+	  "company": "Wind Power LLC",
+	  "account": "Debtors EUR - WP"
+  }]
  }
 ]

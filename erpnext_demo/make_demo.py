@@ -30,7 +30,7 @@ def setup():
 	# make_opening_stock()
 	# make_opening_accounts()
 
-	make_tax_accounts()
+	# make_tax_accounts()
 	make_tax_masters()
 	make_shipping_rules()
 	if "shopping_cart" in frappe.get_installed_apps():
@@ -95,7 +95,7 @@ def make_price_lists():
 	import_data("Item Price", overwrite=True)
 
 def make_customers_suppliers_contacts():
-	import_data(["Customer", "Supplier", "Contact", "Address", "Lead"])
+	import_data(["Account", "Customer", "Supplier", "Contact", "Address", "Lead"])
 
 def make_users_and_employees():
 	frappe.db.set_value("HR Settings", None, "emp_created_by", "Naming Series")
@@ -115,9 +115,6 @@ def make_bank_account():
 
 	frappe.set_value("Company", settings.company, "default_bank_account", ba.name)
 	frappe.db.commit()
-
-def make_tax_accounts():
-	import_data("Account")
 
 def make_tax_masters():
 	import_data("Sales Taxes and Charges Template")

@@ -216,27 +216,27 @@
   "website": null
  }, 
  {
-  "accounts": [], 
-  "communications": [], 
-  "creation": "2014-12-18 15:07:11.562019", 
-  "credit_days": null, 
-  "default_currency": null, 
-  "default_price_list": null, 
-  "default_taxes_and_charges": null, 
-  "docstatus": 0, 
   "doctype": "Supplier", 
-  "idx": null, 
-  "modified": "2014-12-18 15:07:11.562019", 
-  "modified_by": "Administrator", 
   "name": "Eagle Hardware", 
   "naming_series": "SUPP-", 
-  "owner": "Administrator", 
-  "parent": null, 
-  "parentfield": null, 
-  "parenttype": null, 
-  "supplier_details": null, 
   "supplier_name": "Eagle Hardware", 
   "supplier_type": "Raw Material", 
-  "website": null
+  "party_account_currency": "EUR",
+  "accounts": [{
+	  "company": "Wind Power LLC",
+	  "account": "Creditors EUR - WP"
+  }]
+ },
+ {
+  "doctype": "Supplier", 
+  "name": "Modern Electricals", 
+  "naming_series": "SUPP-", 
+  "supplier_name": "Modern Electricals", 
+  "supplier_type": "Raw Material", 
+  "party_account_currency": "EUR",
+  "accounts": [{
+	  "company": "Wind Power LLC",
+	  "account": "Creditors EUR - WP"
+  }]
  }
 ]
