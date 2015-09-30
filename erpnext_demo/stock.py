@@ -60,7 +60,8 @@ def make_delivery_note(current_date):
 
 def make_stock_reconciliation(current_date):
 	# random set some items as damaged
-	from erpnext.stock.doctype.stock_reconciliation.stock_reconciliation import OpeningEntryAccountError
+	from erpnext.stock.doctype.stock_reconciliation.stock_reconciliation \
+		import OpeningEntryAccountError, EmptyStockReconciliationItemsError
 
 	if can_make("Stock Reconciliation"):
 		stock_reco = frappe.new_doc("Stock Reconciliation")
@@ -75,6 +76,8 @@ def make_stock_reconciliation(current_date):
 				stock_reco.submit()
 				frappe.db.commit()
 			except OpeningEntryAccountError:
+				frappe.db.rollback()
+			except EmptyStockReconciliationItemsError:
 				frappe.db.rollback()
 
 def submit_draft_stock_entries(current_date):

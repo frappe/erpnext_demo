@@ -7,6 +7,7 @@ import frappe
 from frappe.utils.make_random import how_many, can_make, get_random
 from frappe.utils import cstr
 from frappe.desk import query_report
+from erpnext.setup.utils import get_exchange_rate
 
 def run_purchase(current_date):
 	# make material requests for purchase items that have negative projected qtys
@@ -15,17 +16,29 @@ def run_purchase(current_date):
 		for row in query_report.run(report)["result"][:how_many("Material Request")]:
 			make_material_request(current_date, row[0], -row[-1])
 
+	# get supplier details
+	supplier = get_random("Supplier")
+	
+	company_currency = frappe.db.get_value("Company", "Wind Power LLC", "default_currency")
+	party_account_currency = frappe.db.get_value("Supplier", supplier, "party_account_currency")
+	if company_currency == party_account_currency:
+		exchange_rate = 1
+	else:
+		exchange_rate = get_exchange_rate(party_account_currency, company_currency)
+
 	# make supplier quotations
 	if can_make("Supplier Quotation"):
 		from erpnext.stock.doctype.material_request.material_request import make_supplier_quotation
-
+		
 		report = "Material Requests for which Supplier Quotations are not created"
 		for row in query_report.run(report)["result"][:how_many("Supplier Quotation")]:
 			if row[0] != "'Total'":
 				sq = frappe.get_doc(make_supplier_quotation(row[0]))
 				sq.transaction_date = current_date
 				sq.fiscal_year = cstr(current_date.year)
-				sq.supplier = get_random("Supplier")
+				sq.supplier = supplier
+				sq.currency = party_account_currency or company_currency
+				sq.conversion_rate = exchange_rate
 				sq.insert()
 				sq.submit()
 				frappe.db.commit()
@@ -37,7 +50,9 @@ def run_purchase(current_date):
 		for row in query_report.run(report)["result"][:how_many("Purchase Order")]:
 			if row[0] != "'Total'":
 				po = frappe.get_doc(make_purchase_order(row[0]))
-				po.supplier = get_random("Supplier")
+				po.supplier = supplier
+				po.currency = party_account_currency or company_currency
+				po.conversion_rate = exchange_rate
 				po.transaction_date = current_date
 				po.fiscal_year = cstr(current_date.year)
 				po.insert()
