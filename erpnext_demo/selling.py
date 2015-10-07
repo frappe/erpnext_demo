@@ -7,6 +7,7 @@ import frappe
 from frappe.utils.make_random import add_random_children, get_random, how_many, can_make
 from frappe.utils import cstr
 from erpnext.setup.utils import get_exchange_rate
+from erpnext.accounts.party import get_party_account_currency
 
 def run_sales(current_date):
 	if can_make("Opportunity"):
@@ -58,7 +59,7 @@ def make_quotation(current_date):
 		customer = get_random("Customer")
 	
 		company_currency = frappe.db.get_value("Company", "Wind Power LLC", "default_currency")
-		party_account_currency = frappe.db.get_value("Customer", customer, "party_account_currency")
+		party_account_currency = get_party_account_currency("Customer", customer, "Wind Power LLC")
 		if company_currency == party_account_currency:
 			exchange_rate = 1
 		else:

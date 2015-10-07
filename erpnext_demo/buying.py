@@ -8,6 +8,7 @@ from frappe.utils.make_random import how_many, can_make, get_random
 from frappe.utils import cstr
 from frappe.desk import query_report
 from erpnext.setup.utils import get_exchange_rate
+from erpnext.accounts.party import get_party_account_currency
 
 def run_purchase(current_date):
 	# make material requests for purchase items that have negative projected qtys
@@ -20,7 +21,7 @@ def run_purchase(current_date):
 	supplier = get_random("Supplier")
 	
 	company_currency = frappe.db.get_value("Company", "Wind Power LLC", "default_currency")
-	party_account_currency = frappe.db.get_value("Supplier", supplier, "party_account_currency")
+	party_account_currency = get_party_account_currency("Supplier", supplier, "Wind Power LLC")
 	if company_currency == party_account_currency:
 		exchange_rate = 1
 	else:
