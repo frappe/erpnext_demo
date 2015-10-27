@@ -89,7 +89,6 @@ def make_items():
 	import_data("Workstation")
 	import_data("Operation")
 	import_data("BOM", submit=True)
-	fix_attachments()
 
 def make_price_lists():
 	import_data("Currency Exchange")
@@ -193,12 +192,3 @@ def add_item_price():
 				"price_list_rate": rate,
 				"currency": "USD"
 			}).insert()
-
-def fix_attachments():
-	"""Create attachment objects for image fields"""
-	for item in frappe.get_all("Item", fields=("name", "website_image")):
-		if item.website_image:
-			item_doc = frappe.get_doc("Item", item.name)
-			item_doc.make_thumbnail()
-			item_doc.db_set("thumbnail", item_doc.thumbnail)
-
