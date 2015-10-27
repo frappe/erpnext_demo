@@ -22,12 +22,16 @@ script:
   - bench get-app erpnext https://github.com/frappe/erpnext.git
   - bench get-app erpnext_demo $TRAVIS_BUILD_DIR
   - bench use test_site
+  - bench setup redis-cache
+  - bench setup redis-async-broker
+  - bench setup procfile --with-celery-broker
   - bench reinstall
+  - bench build
+  - bench build-website
+  - bench start &
+  - sleep 10
   - bench install-app erpnext
   - bench install-app erpnext_demo
-  - bench build-website
-  - bench serve & 
-  - sleep 5
   - curl http://localhost:8000/ | grep "Launch Demo"
 
 before_script:
@@ -39,6 +43,6 @@ notifications:
   webhooks:
     urls:
       - https://webhooks.gitter.im/e/92b3bea86d8c5397beef
-    on_success: always  
-    on_failure: always  
+    on_success: always
+    on_failure: always
     on_start: never
