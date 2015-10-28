@@ -6,6 +6,10 @@ python:
 services:
   - mysql
 
+before_install:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+
 install:
   - sudo apt-get purge -y mysql-common
   - wget https://raw.githubusercontent.com/frappe/bench/master/install_scripts/setup_frappe.sh
@@ -26,11 +30,11 @@ script:
   - bench setup redis-async-broker
   - bench setup procfile --with-celery-broker
   - bench reinstall
+  - bench install-app erpnext
   - bench build
   - bench build-website
   - bench start &
   - sleep 10
-  - bench install-app erpnext
   - bench install-app erpnext_demo
   - curl http://localhost:8000/ | grep "Launch Demo"
 
