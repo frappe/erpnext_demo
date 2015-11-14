@@ -38,11 +38,12 @@ def run_accounts(current_date):
 			pi.submit()
 			frappe.db.commit()
 
+	from erpnext.accounts.doctype.journal_entry.journal_entry import get_payment_entry_against_invoice
+
 	if can_make("Payment Received"):
-		from erpnext.accounts.doctype.journal_entry.journal_entry import get_payment_entry_from_sales_invoice
 		report = "Accounts Receivable"
 		for si in list(set([r[3] for r in query_report.run(report, {"report_date": current_date })["result"] if r[2]=="Sales Invoice"]))[:how_many("Payment Received")]:
-			jv = frappe.get_doc(get_payment_entry_from_sales_invoice(si))
+			jv = frappe.get_doc(get_payment_entry_against_invoice("Sales Invoice", si))
 			jv.posting_date = current_date
 			jv.cheque_no = random_string(6)
 			jv.cheque_date = current_date
@@ -51,10 +52,9 @@ def run_accounts(current_date):
 			frappe.db.commit()
 
 	if can_make("Payment Made"):
-		from erpnext.accounts.doctype.journal_entry.journal_entry import get_payment_entry_from_purchase_invoice
 		report = "Accounts Payable"
 		for pi in list(set([r[3] for r in query_report.run(report, {"report_date": current_date })["result"] if r[2]=="Purchase Invoice"]))[:how_many("Payment Made")]:
-			jv = frappe.get_doc(get_payment_entry_from_purchase_invoice(pi))
+			jv = frappe.get_doc(get_payment_entry_against_invoice("Purchase Invoice", pi))
 			jv.posting_date = current_date
 			jv.cheque_no = random_string(6)
 			jv.cheque_date = current_date

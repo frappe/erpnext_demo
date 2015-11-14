@@ -47,8 +47,8 @@ def install():
 
 def complete_setup():
 	print "Complete Setup..."
-	from erpnext.setup.page.setup_wizard.setup_wizard import setup_account
-	setup_account({
+	from frappe.desk.page.setup_wizard.setup_wizard import setup_complete
+	setup_complete({
 		"first_name": "Test",
 		"last_name": "User",
 		"email": "test_demo@erpnext.com",
