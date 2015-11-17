@@ -35,7 +35,7 @@ def make_opportunity(current_date):
 
 	add_random_children(b, "items", rows=4, randomize = {
 		"qty": (1, 5),
-		"item_code": ("Item", {"is_sales_item": 1, "ifnull(has_variants,0)": "0"})
+		"item_code": ("Item", {"is_sales_item": 1, "has_variants": "0"})
 	}, unique="item_code")
 
 	b.insert()
@@ -54,17 +54,17 @@ def make_quotation(current_date):
 		frappe.db.commit()
 	else:
 		# make new directly
-		
+
 		# get customer, currency and exchange_rate
 		customer = get_random("Customer")
-	
+
 		company_currency = frappe.db.get_value("Company", "Wind Power LLC", "default_currency")
 		party_account_currency = get_party_account_currency("Customer", customer, "Wind Power LLC")
 		if company_currency == party_account_currency:
 			exchange_rate = 1
 		else:
 			exchange_rate = get_exchange_rate(party_account_currency, company_currency)
-		
+
 		qtn = frappe.get_doc({
 			"creation": current_date,
 			"doctype": "Quotation",
@@ -79,7 +79,7 @@ def make_quotation(current_date):
 
 		add_random_children(qtn, "items", rows=3, randomize = {
 			"qty": (1, 5),
-			"item_code": ("Item", {"is_sales_item": 1, "ifnull(has_variants,0)": "0"})
+			"item_code": ("Item", {"is_sales_item": 1, "has_variants": "0"})
 		}, unique="item_code")
 
 		qtn.insert()
