@@ -71,7 +71,17 @@ def complete_setup():
 	website_settings.home_page = "start"
 	website_settings.save()
 
-	import_data("Fiscal Year")
+	for year in xrange(2014, frappe.utils.now_datetime().year + 1, 1):
+		try:
+			frappe.get_doc({
+				"doctype": "Fiscal Year",
+				"year": frappe.utils.cstr(year),
+				"year_start_date": "{0}-01-01".format(year),
+				"year_end_date": "{0}-12-31".format(year)
+			}).insert()
+		except frappe.DuplicateEntryError:
+			pass
+
 	import_data("Holiday List")
 
 	frappe.clear_cache()
