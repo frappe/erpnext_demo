@@ -76,11 +76,13 @@ def make_message(current_date):
 		"One for all and all for one, Muskehounds are always ready. One for all and all for one, helping everybody. One for all and all for one, it's a pretty story. "
 	]
 
-	d = frappe.new_doc('Comment')
+	d = frappe.new_doc('Communication')
+	d.communication_type = 'Chat'
+	d.user = from_user
 	d.owner = from_user
-	d.comment_docname = to_user
-	d.comment_doctype = 'Message'
-	d.comment = comments[random.randint(0, len(comments) - 1)]
+	d.reference_name = to_user
+	d.reference_doctype = 'User'
+	d.content = comments[random.randint(0, len(comments) - 1)]
 	d.insert(ignore_permissions=True)
 
 
