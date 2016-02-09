@@ -9,6 +9,7 @@ from frappe.utils import cstr
 from frappe.desk import query_report
 from erpnext.setup.utils import get_exchange_rate
 from erpnext.accounts.party import get_party_account_currency
+from erpnext.exceptions import InvalidCurrency
 
 def run_purchase(current_date):
 	# make material requests for purchase items that have negative projected qtys
@@ -19,7 +20,7 @@ def run_purchase(current_date):
 
 	# get supplier details
 	supplier = get_random("Supplier")
-	
+
 	company_currency = frappe.db.get_value("Company", "Wind Power LLC", "default_currency")
 	party_account_currency = get_party_account_currency("Supplier", supplier, "Wind Power LLC")
 	if company_currency == party_account_currency:
@@ -30,7 +31,7 @@ def run_purchase(current_date):
 	# make supplier quotations
 	if can_make("Supplier Quotation"):
 		from erpnext.stock.doctype.material_request.material_request import make_supplier_quotation
-		
+
 		report = "Material Requests for which Supplier Quotations are not created"
 		for row in query_report.run(report)["result"][:how_many("Supplier Quotation")]:
 			if row[0] != "'Total'":
@@ -93,7 +94,11 @@ def make_subcontract(current_date):
 		"qty": 20
 	})
 	po.set_missing_values()
-	po.insert()
+	try:
+		po.insert()
+	except InvalidCurrency:
+		return
+
 	po.submit()
 
 	# make material request for
