@@ -29,7 +29,6 @@ def make_purchase_receipt(current_date):
 				pr.supplier_warehouse = "Supplier - WP"
 
 			pr.posting_date = current_date
-			pr.fiscal_year = cstr(current_date.year)
 			pr.insert()
 			try:
 				pr.submit()
@@ -47,7 +46,6 @@ def make_delivery_note(current_date):
 		for so in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="'Total'"]))[:how_many("Delivery Note")]:
 			dn = frappe.get_doc(make_delivery_note(so))
 			dn.posting_date = current_date
-			dn.fiscal_year = cstr(current_date.year)
 			for d in dn.get("items"):
 				if not d.expense_account:
 					d.expense_account = "Cost of Goods Sold - {}".format(settings.company_abbr)

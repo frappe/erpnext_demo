@@ -30,7 +30,6 @@ def make_opportunity(current_date):
 		"customer": get_random("Customer"),
 		"enquiry_type": "Sales",
 		"transaction_date": current_date,
-		"fiscal_year": cstr(current_date.year)
 	})
 
 	add_random_children(b, "items", rows=4, randomize = {
@@ -74,7 +73,6 @@ def make_quotation(current_date):
 			"conversion_rate": exchange_rate,
 			"order_type": "Sales",
 			"transaction_date": current_date,
-			"fiscal_year": cstr(current_date.year)
 		})
 
 		add_random_children(qtn, "items", rows=3, randomize = {
@@ -94,7 +92,6 @@ def make_sales_order(current_date):
 		so = frappe.get_doc(make_sales_order(q))
 		so.transaction_date = current_date
 		so.delivery_date = frappe.utils.add_days(current_date, 10)
-		so.fiscal_year = cstr(current_date.year)
 		so.insert()
 		frappe.db.commit()
 		so.submit()

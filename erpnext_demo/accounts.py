@@ -18,7 +18,6 @@ def run_accounts(current_date):
 		for so in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Sales Invoice")]:
 			si = frappe.get_doc(make_sales_invoice(so))
 			si.posting_date = current_date
-			si.fiscal_year = cstr(current_date.year)
 			for d in si.get("items"):
 				if not d.income_account:
 					d.income_account = "Sales - {}".format(settings.company_abbr)
@@ -32,7 +31,6 @@ def run_accounts(current_date):
 		for pr in list(set([r[0] for r in query_report.run(report)["result"] if r[0]!="Total"]))[:how_many("Purchase Invoice")]:
 			pi = frappe.get_doc(make_purchase_invoice(pr))
 			pi.posting_date = current_date
-			pi.fiscal_year = cstr(current_date.year)
 			pi.bill_no = random_string(6)
 			pi.insert()
 			pi.submit()

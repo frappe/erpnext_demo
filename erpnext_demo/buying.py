@@ -37,7 +37,6 @@ def run_purchase(current_date):
 			if row[0] != "'Total'":
 				sq = frappe.get_doc(make_supplier_quotation(row[0]))
 				sq.transaction_date = current_date
-				sq.fiscal_year = cstr(current_date.year)
 				sq.supplier = supplier
 				sq.currency = party_account_currency or company_currency
 				sq.conversion_rate = exchange_rate
@@ -56,7 +55,6 @@ def run_purchase(current_date):
 				po.currency = party_account_currency or company_currency
 				po.conversion_rate = exchange_rate
 				po.transaction_date = current_date
-				po.fiscal_year = cstr(current_date.year)
 				po.insert()
 				po.submit()
 				frappe.db.commit()
@@ -69,7 +67,6 @@ def make_material_request(current_date, item_code, qty):
 	mr = frappe.new_doc("Material Request")
 	mr.material_request_type = "Purchase"
 	mr.transaction_date = current_date
-	mr.fiscal_year = cstr(current_date.year)
 	mr.append("items", {
 		"doctype": "Material Request Item",
 		"schedule_date": frappe.utils.add_days(current_date, 7),

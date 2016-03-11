@@ -3,7 +3,8 @@
   "creation": "2015-02-25 07:14:36.164004", 
   "docstatus": 0, 
   "doctype": "Holiday List", 
-  "fiscal_year": "2014", 
+  "from_date": "2014-01-01",
+  "to_date": "2014-12-31",
   "holiday_list_name": "2014", 
   "holidays": [
    {
@@ -1582,7 +1583,8 @@
   "creation": "2015-02-25 07:14:57.108920", 
   "docstatus": 0, 
   "doctype": "Holiday List", 
-  "fiscal_year": "2015", 
+  "from_date": "2015-01-01",
+  "to_date": "2015-12-31",
   "holiday_list_name": "2015", 
   "holidays": [
    {
