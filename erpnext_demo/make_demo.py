@@ -120,10 +120,12 @@ def make_bank_account():
 		"account_type": "Bank",
 		"is_group": 0,
 		"parent_account": "Bank Accounts - " + settings.company_abbr,
+		"holiday_list":"2014",
 		"company": settings.company
 	}).insert()
 
 	frappe.set_value("Company", settings.company, "default_bank_account", ba.name)
+	frappe.set_value("Company", settings.company, "default_holiday_list", ba.holiday_list)
 	frappe.db.commit()
 
 def make_tax_masters():
