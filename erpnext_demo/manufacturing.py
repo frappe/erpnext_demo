@@ -17,9 +17,9 @@ def run_manufacturing(current_date):
 	ppt.use_multi_level_bom = 1
 	ppt.purchase_request_for_warehouse = "Stores - {}".format(settings.company_abbr)
 	ppt.run_method("get_open_sales_orders")
-	ppt.run_method("get_items_from_so")
-	ppt.run_method("raise_production_order")
-	ppt.run_method("raise_purchase_request")
+	ppt.run_method("get_items")
+	ppt.run_method("raise_production_orders")
+	ppt.run_method("raise_material_requests")
 	frappe.db.commit()
 
 	# submit production orders
@@ -52,7 +52,6 @@ def run_manufacturing(current_date):
 		try:
 			time_log.submit()
 			frappe.db.commit()
-			print time_log.name
 		except OverlapError:
 			pass
 
