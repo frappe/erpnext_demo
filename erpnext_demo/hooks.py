@@ -15,8 +15,6 @@ after_install = "erpnext_demo.utils.make_demo"
 
 on_session_creation = "erpnext_demo.utils.on_login"
 
-app_include_js = "assets/erpnext_demo/js/desktop.js"
-
 doc_events = {
 	"User": {
 		"validate_reset_password": "erpnext_demo.utils.validate_reset_password"
