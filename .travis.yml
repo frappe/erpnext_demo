@@ -26,9 +26,6 @@ script:
   - bench get-app erpnext https://github.com/frappe/erpnext.git
   - bench get-app erpnext_demo $TRAVIS_BUILD_DIR
   - bench use test_site
-  - bench setup redis-cache
-  - bench setup redis-async-broker
-  - bench setup procfile
   - bench reinstall
   - bench install-app erpnext
   - bench build
