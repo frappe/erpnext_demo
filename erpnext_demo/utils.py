@@ -43,6 +43,13 @@ def make_demo_user():
 
 	def add_roles(doc):
 		for role in roles:
+			if not frappe.db.exists("Role", role):
+				role_doc = frappe.get_doc({
+					"doctype": "Role",
+					"role_name": role
+				})
+				role_doc.save()
+
 			doc.append("user_roles", {
 				"doctype": "UserRole",
 				"role": role
