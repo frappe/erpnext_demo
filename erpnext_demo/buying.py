@@ -10,13 +10,33 @@ from frappe.desk import query_report
 from erpnext.setup.utils import get_exchange_rate
 from erpnext.accounts.party import get_party_account_currency
 from erpnext.exceptions import InvalidCurrency
+from erpnext.stock.doctype.material_request.material_request import make_request_for_quotation
+from erpnext.buying.doctype.request_for_quotation.request_for_quotation import \
+			 make_supplier_quotation as make_quotation_from_rfq 
 
 def run_purchase(current_date):
-	# make material requests for purchase items that have negative projected qtys
+
 	if can_make("Material Request"):
 		report = "Items To Be Requested"
 		for row in query_report.run(report)["result"][:how_many("Material Request")]:
-			make_material_request(current_date, row[0], -row[-1])
+			mr = make_material_request(current_date, row[0], -row[-1])
+
+			if mr and can_make("Request for Quotation"):
+				rfq = make_request_for_quotation(mr.name)
+				rfq.transaction_date = current_date
+				rfq.status = "Draft"
+				rfq.company = 'Wind Power LLC'
+				add_suppliers(rfq)
+				rfq.message_for_supplier = 'Please supply the specified items at the best possible rates.'
+				rfq.save()
+				rfq.submit()
+
+				# Make suppier quotation from RFQ against each supplier.
+
+				for supplier in rfq.suppliers:
+					supplier_quotation = make_quotation_from_rfq(rfq.name, supplier.supplier)
+					supplier_quotation.save()
+					supplier_quotation.submit()
 
 	# get supplier details
 	supplier = get_random("Supplier")
@@ -62,7 +82,6 @@ def run_purchase(current_date):
 	if can_make("Subcontract"):
 		make_subcontract(current_date)
 
-
 def make_material_request(current_date, item_code, qty):
 	mr = frappe.new_doc("Material Request")
 	mr.material_request_type = "Purchase"
@@ -75,7 +94,13 @@ def make_material_request(current_date, item_code, qty):
 	})
 	mr.insert()
 	mr.submit()
+	return mr
 
+def add_suppliers(rfq):
+	for i in xrange(2):
+		supplier = get_random("Supplier")
+		if supplier not in [d.supplier for d in rfq.get('suppliers')]:
+			rfq.append("suppliers", { "supplier": supplier })
 
 def make_subcontract(current_date):
 	from erpnext.buying.doctype.purchase_order.purchase_order import make_stock_entry
@@ -106,4 +131,3 @@ def make_subcontract(current_date):
 	stock_entry.from_warehouse = "Stores - WP"
 	stock_entry.to_warehouse = "Supplier - WP"
 	stock_entry.insert()
-
