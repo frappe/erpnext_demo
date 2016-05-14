@@ -15,6 +15,7 @@ def run_manufacturing(current_date):
 	ppt = frappe.get_doc("Production Planning Tool", "Production Planning Tool")
 	ppt.company = settings.company
 	ppt.use_multi_level_bom = 1
+	ppt.get_items_from = "Sales Order"
 	ppt.purchase_request_for_warehouse = "Stores - {}".format(settings.company_abbr)
 	ppt.run_method("get_open_sales_orders")
 	ppt.run_method("get_items")
