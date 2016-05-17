@@ -34,7 +34,7 @@ def make_opportunity(current_date):
 
 	add_random_children(b, "items", rows=4, randomize = {
 		"qty": (1, 5),
-		"item_code": ("Item", {"is_sales_item": 1, "has_variants": "0"})
+		"item_code": ("Item", {"has_variants": "0"})
 	}, unique="item_code")
 
 	b.insert()
@@ -77,7 +77,7 @@ def make_quotation(current_date):
 
 		add_random_children(qtn, "items", rows=3, randomize = {
 			"qty": (1, 5),
-			"item_code": ("Item", {"is_sales_item": 1, "has_variants": "0"})
+			"item_code": ("Item", {"has_variants": "0"})
 		}, unique="item_code")
 
 		qtn.insert()

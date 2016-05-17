@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 
 import frappe
 from frappe.utils.make_random import how_many, can_make
-from frappe.utils import cstr, random_string
+from frappe.utils import random_string
 from frappe.desk import query_report
 from erpnext_demo import settings
 
