@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _, throw
 import erpnext_demo.make_demo
+from frappe.utils.password import update_password
 
 def on_login(login_manager):
 	from frappe.utils import validate_email_add
@@ -31,8 +32,6 @@ def make_demo():
 	erpnext_demo.make_demo.make()
 
 def make_demo_user():
-	from frappe.auth import _update_password
-
 	roles = ["Accounts Manager", "Analytics", "Expense Approver", "Accounts User",
 		"Leave Approver", "Blogger", "Customer", "Sales Manager", "Employee",
 		"HR Manager", "HR User", "Maintenance Manager", "Maintenance User", "Stock Manager",
@@ -79,7 +78,7 @@ def make_demo_user():
 	p.insert()
 	add_roles(p)
 	p.save()
-	_update_password("demo@erpnext.com", "demo")
+	update_password("demo@erpnext.com", "demo")
 
 	# only read for newsletter
 	frappe.db.sql("""update `tabDocPerm` set `write`=0, `create`=0, `cancel`=0
