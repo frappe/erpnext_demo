@@ -1,6 +1,16 @@
 ## erpnext demo 
 
-![Build Status](https://travis-ci.org/frappe/erpnext_demo.png)
+#### For v7
+
+In v7, demo is merged into ERPNext. 
+
+Don't install this app, just run
+
+```
+bench --site [site] execute erpnext.demo.demo.make
+```
+
+#### For v6
 
 ```
 $ bench get-app erpnext_demo https://github.com/frappe/erpnext_demo
